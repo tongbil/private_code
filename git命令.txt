@@ -27,5 +27,13 @@ git fetch origin master:temp
 git diff temp
 //合并temp分支到本地的master分支
 git merge temp
-//删除temp分支
+//删除temp分支功能
 git branch -d temp
+//查看所有提交历史记录
+git log --pretty=oneline
+//简介版(推荐)
+git log --oneline
+//简介版(回退索引)
+git reflog
+//回退上一个版本
+git reset --hard {索引的值}
