@@ -38,4 +38,6 @@ git log --oneline
 git reflog
 //回退上一个版本
 git reset --hard {索引的值}
+//前进版本
+git reset --hard {索引的值}
 
