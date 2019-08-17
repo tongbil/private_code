@@ -16,4 +16,13 @@ touch 文件名 // 更新时间搓  或创建文件
 $ git push  //上传到远程仓库
  
  https://tongbil:tangbiao0.0@github.com/tongbil/test.git   //url设置   暂时结束
+ 
+ 
+ //强制覆盖github官网上的项目 更新到本地
+ git fetch --all
+
+git reset --hard origin/master
+
+git pull
+ 
 
