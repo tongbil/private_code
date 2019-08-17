@@ -22,4 +22,10 @@ $ git push  //上传到远程仓库
  git fetch --all && git reset --hard origin/master && git pull   //同 小号测试对的
  
 //更新代码
-git fetch origin master
+git fetch origin master:temp
+//比较本地仓库与下载的temp分支
+git diff temp
+//合并temp分支到本地的master分支
+git merge temp
+//删除temp分支
+git branch -d temp
