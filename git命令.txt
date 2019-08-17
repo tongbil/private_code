@@ -40,4 +40,7 @@ git reflog
 git reset --hard {索引的值}
 //前进版本
 git reset --hard {索引的值}
+//暂存的文件删除找回
+//git add {文件}
+git reset --hard HEAD
 
