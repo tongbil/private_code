@@ -2,16 +2,18 @@ $ git config --global user.name 'tongbil'
 $ git config --global user.email ''
 
 
-git status
+git status   //查看是否在暂存区
 
-git add 文件名
-git commit -m '备注'
+git add 文件名  //进入到暂存区
+git commit -m '备注'  //添加到本地仓库
 
-cat 文件名 //查看文件
+git rm 文件名  //删除本地库的文件
 
-touch 文件名 // 更新时间搓
+cat 文件名 //查看文件内容
 
-$ git push
+touch 文件名 // 更新时间搓  或创建文件
+
+$ git push  //上传到远程仓库
  
  https://tongbil:tangbiao0.0@github.com/tongbil/test.git   //url设置
  ;;
