@@ -51,4 +51,4 @@ git branch -v
 $ git branch  {定义名字}
 //切换分支
  git checkout {定义名字}
-//分支的测试 不是命令
+//我是小号
