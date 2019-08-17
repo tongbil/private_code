@@ -4,14 +4,14 @@ $ git config --global user.email ''
 
 git status
 
-git add ÎÄ¼şÃû
-git commit -m '±¸×¢'
+git add æ–‡ä»¶å
+git commit -m 'å¤‡æ³¨'
 
-cat ÎÄ¼şÃû //²é¿´ÎÄ¼ş
+cat æ–‡ä»¶å //æŸ¥çœ‹æ–‡ä»¶
 
-touch ÎÄ¼şÃû // ¸üĞÂÊ±¼ä´ê
+touch æ–‡ä»¶å // æ›´æ–°æ—¶é—´æ“
 
 $ git push
-
- https://tongbil:tangbiao0.0@github.com/tongbil/test.git   //urlÉèÖÃ
+ 
+ https://tongbil:tangbiao0.0@github.com/tongbil/test.git   //urlè®¾ç½®
  ;;
