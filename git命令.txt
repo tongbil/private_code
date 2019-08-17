@@ -45,3 +45,10 @@ git add {文件}
 git reset --hard HEAD
 //新改动的文件和原版本的文件比较
 git diff {文件名}
+//查看分支
+git branch -v
+//创建分支
+$ git branch  {定义名字}
+//切换分支
+ git checkout {定义名字}
+//分支的测试 不是命令
