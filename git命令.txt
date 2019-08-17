@@ -1,0 +1,14 @@
+$ git config --global user.name 'tongbil'
+$ git config --global user.email ''
+
+
+git status
+
+git add 文件名
+git commit -m '备注'
+
+cat 文件名 //查看文件
+
+touch 文件名 // 更新时间搓
+
+$ git push
