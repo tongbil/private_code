@@ -12,3 +12,6 @@ cat 文件名 //查看文件
 touch 文件名 // 更新时间搓
 
 $ git push
+
+ https://tongbil:tangbiao0.0@github.com/tongbil/test.git   //url设置
+ ;;
