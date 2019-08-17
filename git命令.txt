@@ -21,4 +21,5 @@ $ git push  //上传到远程仓库
  //强制覆盖github官网上的项目 更新到本地
  git fetch --all && git reset --hard origin/master && git pull   //同 小号测试对的
  
-
+//更新代码
+git fetch origin master
