@@ -29,6 +29,7 @@ git diff temp
 git merge temp
 //删除temp分支功能
 git branch -d temp
+<<<<<<< HEAD
 //查看所有提交历史记录
 git log --pretty=oneline
 //简介版(推荐)
@@ -37,3 +38,4 @@ git log --oneline
 git reflog
 //回退上一个版本
 git reset --hard {索引的值}
+
