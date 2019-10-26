@@ -1,0 +1,29 @@
+create or replace procedure p_querynameandsalxxx(in_cityid in T_SYS_CITY.CITYID%type,
+                                                 on_cityno out T_SYS_CITY.CITYNO%type) as
+  v_cityid T_SYS_CITY.CITYID%type;
+  v_name   T_SYS_CITY.CNAME%type;
+  --сн╠Й
+  cursor c_city is
+    select cname, cityid from T_SYS_CITY;
+begin
+
+  select cityno into on_cityno from T_SYS_CITY where cityid = in_cityid;
+
+end p_querynameandsalxxx;
+
+
+
+
+
+
+
+-- Created on 2019/10/26 by TOBILL 
+declare
+  -- Local variables here
+ v_cityno T_SYS_CITY.Cityno%type;
+begin
+  -- Test statements here
+  p_querynameandsalxxx(2,v_cityno);
+  
+  dbms_output.put_line(v_cityno);
+end;
