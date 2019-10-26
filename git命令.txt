@@ -13,6 +13,7 @@ cat 文件名 //查看文件内容
 
 touch 文件名 // 更新时间搓  或创建文件
 
+先clone  git clone url????
 $ git push  //上传到远程仓库
  
  https://tongbil:tangbiao0.0@github.com/tongbil/test.git   //url设置   暂时结束
