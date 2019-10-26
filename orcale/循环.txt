@@ -1,0 +1,15 @@
+-- Created on 2019/10/26 by TOBILL 
+declare 
+  -- Local variables here
+   v_num number :=1;
+begin
+  -- Test statements here
+  loop
+    
+  exit when v_num> 10;
+   dbms_output.put_line(v_num);
+  v_num:=v_num+1;
+  
+ 
+   end loop; 
+end;

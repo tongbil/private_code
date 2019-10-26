@@ -1,0 +1,12 @@
+-- Created on 2019/10/25 by TOBILL 
+declare 
+   v_test T_SYS_CITY%rowtype;
+   
+begin
+  -- Test statements here
+   select   c.* into v_test  from  T_SYS_CITY c left join testci t on c.cname =t.ids where c.cityid=2;
+   
+    update testci set v_name= v_test.cityid where ids='1';
+    commit;
+    
+end;
