@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.google.demoForIdea.dao.UserDao" >
-    <!--配置存储过程 可以根据存储过程返回值写他们一样的 不一定写死！！！！！-->
+    <!--配置存储过程 可以根据存储过程返回值写他们一样的 不一定写死！！！？！！-->
     <resultMap type ="java.util.HashMap" id= "cursorMap">
 
         <result column ="cname" property="cname" />
