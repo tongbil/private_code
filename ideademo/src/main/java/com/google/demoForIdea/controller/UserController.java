@@ -1,14 +1,22 @@
 package com.google.demoForIdea.controller;
-
+import com.google.demoForIdea.common.ZxingUtils;
 import com.google.demoForIdea.model.UserDomain;
 import com.google.demoForIdea.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.io.ByteArrayOutputStream;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+
 
 
 @Controller
@@ -71,15 +79,43 @@ public class UserController {
 		return null;
 	}
 
-
+/*二维码验证登陆*/
 	@ResponseBody
-	@GetMapping("/all")
-	public Object findAllUser(
-			@RequestParam(name = "pageNum", required = false, defaultValue = "1")
-					int pageNum,
-			@RequestParam(name = "pageSize", required = false, defaultValue = "10")
-					int pageSize) {
-		return userService.findAllUser(pageNum, pageSize);
+	@RequestMapping("/qrcode")
+	public void findAllUser(HttpServletRequest request, HttpServletResponse response) {
+		//自定义内容
+		String contents = "我爱你";
+		int width = 300; int height = 300; int margin = 2;
+
+		try {
+			BufferedImage QRcode = ZxingUtils.createQRImage(contents, width, height, margin);
+
+			//获取域名
+			//StringBuffer url = request.getRequestURL();
+			//String tempContextUrl = url.delete(url.length() - request.getRequestURI().length(), url.length()).append("/").toString();
+
+			String logoPath = "C:\\Users\\tangcomes\\Desktop\\liufang\\java\\ideademo\\src\\main\\resources\\static\\images\\logo.png";
+			int logoSize = 4;
+			BufferedImage qRImageWithLogo = ZxingUtils.addQRImagelogo(QRcode, width, height, logoPath, logoSize);
+
+			// 写入返回
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			ImageIO.write(qRImageWithLogo, "png", baos);
+
+			byte[] QRJPG = baos.toByteArray();
+			response.setHeader("Cache-Control", "no-store");
+			response.setHeader("Pragma", "no-cache");
+			response.setDateHeader("Expires", 0);
+			response.setContentType("image/jpeg");
+
+			ServletOutputStream os = response.getOutputStream();
+			os.write(QRJPG); // 自此完成一套，图片读入，写入流，转为字节数组，写入输出流
+			os.flush();
+			os.close();
+			baos.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
 
