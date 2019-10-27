@@ -3,9 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<style>
+
+</style>
 </head>
 <body>
-<h1>好久不见</h1>
-<img src="/images/logo.png" />
+<div id="app">
+
+    <div>
+        <!--flex弹性盒子模型，justify-content：主抽 -->
+        <div style="display: flex;justify-content: center;margin-top: 150px">
+            <el-card style="width: 400px">
+                <div slot="header" class="clearfix">
+                    <span ><el-link type="info">老板，您来了。</el-link></span>
+                </div>
+                <table>
+                    <tr>
+                        <td><el-link type="danger" disabled>账户 </el-link></td>
+                        <td>
+                            <el-input v-model="ulogin.username" placeholder="输入QQ邮箱登入" clearable maxlength="20"  show-word-limit ></el-input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><el-link type="warning" disabled>密码</el-link></td>
+                        <td>
+                            <el-input type="password" v-model="ulogin.password" placeholder="please  "  @keydown.enter.native="doLogin"  clearable  maxlength="20" ></el-input>
+                            <!-- @keydown.enter.native="doLogin"当按下enter键的时候也会执行doLogin方法-->
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- 占两行-->
+                        <td colspan="2">
+                            <!-- 点击事件的两种不同的写法v-on:click和 @click-->
+                            <!--<el-button style="width: 300px" type="primary" v-on:click="doLogin">登录</el-button>-->
+                            <el-button style="width: 300px" type="primary" icon="el-icon-loading" >jump</el-button>
+                        </td>
+                    </tr>
+                </table>
+            </el-card>
+        </div>
+    </div>
+</div>
 </body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!--类似ajax-->
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+
+        data: function() {
+            return {
+                url:"user/",
+                ulogin:{
+                    name:'',
+                    password:''
+                },
+
+            }
+        },
+        methods:{
+            doLogin:function () {
+
+               // window.print();
+                //   return;
+                axios.post(this.url+'sel', {
+                    params: {
+
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+            }
+        },
+    })
+</script>
 </html>

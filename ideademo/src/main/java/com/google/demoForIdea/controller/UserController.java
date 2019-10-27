@@ -83,8 +83,8 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping("/qrcode")
 	public void findAllUser(HttpServletRequest request, HttpServletResponse response) {
-		//自定义内容
-		String contents = "我爱你";
+		//自定义内容 如果想要扫一扫获取图片就把网络图片地址放下面2
+		String contents = "https://avatars1.githubusercontent.com/u/54196360?s=460&v=4";
 		int width = 300; int height = 300; int margin = 2;
 
 		try {
