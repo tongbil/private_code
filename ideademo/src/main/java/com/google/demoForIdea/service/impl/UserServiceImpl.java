@@ -15,7 +15,7 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;//这里会报错，但是并不会影响
+    private UserDao userDao;//这里会报错，但是并不会影响 想要不报错 Settings - Editor - Inspections - Spring - Spring Core - Code - Autowiring for Bean Class 勾去掉
 
     @Override
     public int addUser(UserDomain user) {
