@@ -1,0 +1,168 @@
+.ibox{
+	position: relative;
+	background: #FFFFFF !important;
+	color: #333333 !important;
+	border-bottom: 1px solid #CCCCCC !important;
+}
+.panel {
+	border: 0 !important;
+}
+.btnrel{
+	position: absolute;
+	right: 5px;
+	top:3px;
+}
+.h-31{
+	height: 35px;
+	padding-top: 5px;
+}
+.h-20{
+	height: 20px;
+	padding-top: 5px;
+}
+.pd-0{
+	padding: 0;
+}
+.mt-0{
+	margin-top: 0 !important;
+}
+.check-box,.btn-upload{
+	float: left !important;
+}
+.ptline{
+	border-bottom: 1px solid #CCCCCC;
+	text-align: left;
+	font-weight: bold;
+	padding-bottom: 5px;
+	text-indent: 3px;
+}
+.leftdiv ul{
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+.leftdiv ul li{
+	display: block;
+	width: 90%;
+	padding-left: 10%;
+	overflow: hidden !important;
+}
+.info{
+	float: left;
+}
+.pl-0{
+	padding-left: 0;
+}
+.width-0{
+	width: auto !important;
+}
+.Wdates{
+	background:#fff url(../../images/date.jpg) no-repeat scroll 97% center;
+}
+.prevImg{
+	float: left;
+	margin-left: 15px;
+}
+.widthheight{
+	width: 200px !important;
+	height: 200px !important;
+}
+.pagerelative{
+	position: relative;
+	height: 88%;
+	width: 95%;
+}
+.divabsolute{
+	position:absolute;
+	top: 15px;
+	bottom: 20px;
+	overflow: auto;
+}
+.provincecss{
+	height: 100%;
+}
+.provincecss li{
+	padding: 3px 0;
+}
+.widthdiv{
+	width:80%;
+}
+.widthdiv h5{
+	border-bottom: 1px dashed #CCCCCC;
+	padding-bottom: 8px;
+}
+.s{
+	width:94%;
+	height: 88%;
+}
+.s .s1,
+.s .s3{
+	float: left;
+	height: 380px;
+}
+.s .s2{
+	float: left;
+	height: 100px;
+}
+.s1,.s3{
+	width: 44%;
+	border: 1px solid #CCCCCC;
+	box-sizing: border-box;
+}
+.s2{
+	width: 10%;
+	text-align: center;
+	margin-top: 150px;
+}
+
+.s1 ul{
+	height: 320px;
+	overflow: auto;
+}
+.s3 ul{
+	height: 380px;
+	overflow: auto;
+}
+.s3 ul li,
+.s1 ul li{
+	width: 97%;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 3%;
+}
+
+.s1 p{
+	width: 94%;
+	padding-left: 3%;
+	margin-top: 15px;
+}
+.moveClass{
+	width: 97%;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	padding-left: 3%;
+}
+.qt ul li{
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+.textl{
+	text-align: left !important;
+	padding-left: 15px;
+	font-size: 12px;
+}
+.inputNewCss{
+	font-size: 12px !important;
+	height: 25px !important;
+	line-height: 25px !important;
+}
+.mtop5{
+	margin-top: 5px !important;
+}
+.pt40{
+	padding-top: 20px;
+}
+.clearfixcl{
+	clear: both;
+}

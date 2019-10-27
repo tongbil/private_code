@@ -1,0 +1,25 @@
+var departJson = {
+	"departName":"南京企信科技有限公司",
+	"departID":"1",
+	"totalLevel":"3",
+	"departLevel":"1",
+	"departChilde":[
+		{
+			"departName":"技术部",
+			"departLevel":"2",
+			"departID":"2"
+		},{
+			"departName":"技术一部",
+			"departLevel":"3",
+			"departID":"21"
+		},{
+			"departName":"技术二部",
+			"departLevel":"3",
+			"departID":"22"
+		},{
+			"departName":"技术三部",
+			"departLevel":"3",
+			"departID":"22"
+		}
+	]
+};

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+	
+	<bean class="com.qixin.ssh.controller.BatchController " init-method="init">
+		<property name="batchService" ref="batchService" />
+	</bean>
+	<bean class="com.qixin.ssh.controller.NumproController " init-method="init">
+		<property name="numproService" ref="numproService" />
+	</bean>
+	<bean class="com.qixin.ssh.controller.SalesController " >
+		<property name="salesService" ref="salesService" />
+	</bean>
+	
+	<bean class="com.qixin.ssh.controller.FileController " >
+		<property name="fileService" ref="fileService" />
+	</bean>
+	<bean class="com.qixin.ssh.controller.ReferenceController ">
+		<property name="referenceService" ref="referenceService" />
+	</bean>
+	<bean class="com.qixin.ssh.controller.MailtController ">
+		<property name="mailtService" ref="mailtService" />
+	</bean>
+	<bean class="com.qixin.ssh.controller.RepetionController ">
+		<property name="repetionService" ref="repetionService" />
+	</bean>
+	<mvc:annotation-driven> <!-- 消息转换器 -->
+		<mvc:message-converters register-defaults="true">
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes" value="text/html;charset=UTF-8" />
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
+	<context:annotation-config />
+
+	<mvc:resources mapping="/static/**" location="/static/" />
+	<mvc:resources location="/WEB-INF/html/" mapping="/**/**.html" />
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix">
+			<value>/</value>
+		</property>
+		<property name="suffix">
+			<value>.jsp</value>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,28 @@
+.text-navy {
+    color: #1ab394;
+}
+.dateTime{
+	padding-top: 30px;
+    position: relative;
+    text-align: right;
+}
+.dateTime i{
+	background: #f8f8f8 none repeat scroll 0 0;
+    border-bottom: 1px solid #e7eaec;
+    border-left: 1px solid #e7eaec;
+    border-top: 1px solid #e7eaec;
+    padding: 2px 7px;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+}
+.rightContent{
+    border-left: 1px solid #e7eaec;
+    border-top: 1px solid #e7eaec;
+    min-height: 100px;
+    padding-top: 10px;
+}
+.rightContent:hover {
+    background: #f6f6f6 none repeat scroll 0 0;
+}

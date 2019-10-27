@@ -1,0 +1,38 @@
+body{
+	background: #F3F3F4;
+}
+.pl-0{padding-left: 0;}
+.pd-6{padding: 6px 0 0 0;}
+.pd-2{padding: 2px 0 0 0;}
+.bdb{border-bottom: 1px solid #CCCCCC;}
+.ibox{
+	background: #FFFFFF !important;
+	color: 	#676A6C !important;
+	font-size: 16px;
+	border-bottom: 1px solid #CCCCCC !important;
+}
+.iparentBox{border:0 !important;}
+.iboxstep{
+	display: block;
+    position: relative;
+    width: 100%;
+}
+.tablist li{
+	float: left;
+	display: block;
+    padding: 0;
+    width: 16.6666666666666%;
+}
+.tablist li a{
+	border-radius: 5px;
+    display: block;
+    margin: 0 0.5em 0.5em;
+    padding: 8px;
+    text-decoration: none;
+    width: auto;
+    background: #6fd1bd none repeat scroll 0 0;
+    color: #fff;
+}
+.activeCur{
+	background: #1ab394 none repeat scroll 0 0 !important;
+}

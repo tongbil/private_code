@@ -1,0 +1,31 @@
+.f-60{
+	font-size: 70px;
+	color: #006699;
+}
+.regtitle h2{
+	padding-top: 28px;
+	color: #3697DF;
+}
+.regsuccess h3 u{
+	color: #205081;
+}
+.regsuccess h3{
+	padding-top: 10px;
+}
+.regtitle{
+	border-bottom: 2px solid #CCDBE1;
+}
+
+input[readonly='readonly']{
+	border: 0;
+}
+input[readonly='readonly']:focus{
+	box-shadow: none;
+}
+input[readonly='readonly']:hover{
+	border: 0;
+}
+legend{
+	border-bottom:1px dashed #e5e5e5;
+	color: #3B80C5;
+}
