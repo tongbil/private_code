@@ -58,7 +58,7 @@ public class UserController {
 */
 		//获取游标
 		Map<String, Object> map1 = new HashMap<String, Object>();
-		//不用获取返回值
+		//不用获取返回的值
 		userService.getAllTeacherInfo(map1);
 		ArrayList<Map<String, Object>> cursorList = (ArrayList<Map<String, Object>>) map1.get("result");
 		if (cursorList != null && cursorList.size() != 0) {
