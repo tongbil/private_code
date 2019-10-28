@@ -22,13 +22,13 @@
                     <tr>
                         <td><el-link type="danger" disabled>账户 </el-link></td>
                         <td>
-                            <el-input v-model="ulogin.username" placeholder="输入QQ邮箱登入" clearable maxlength="20"  show-word-limit ></el-input>
+                            <el-input v-model="ulogin.username" placeholder="输入QQ邮箱后回车" clearable maxlength="20"  @keydown.enter.native="sendMail" show-word-limit ></el-input>
                         </td>
                     </tr>
                     <tr>
                         <td><el-link type="warning" disabled>密码</el-link></td>
                         <td>
-                            <el-input type="password" v-model="ulogin.password" placeholder="please  "  @keydown.enter.native="doLogin"  clearable  maxlength="20" ></el-input>
+                            <el-input  :disabled="ulogin.is" type="password" v-model="ulogin.password" placeholder="please  "   @keydown.enter.native="doLogin"  clearable  maxlength="20" ></el-input>
                             <!-- @keydown.enter.native="doLogin"当按下enter键的时候也会执行doLogin方法-->
                         </td>
                     </tr>
@@ -37,7 +37,7 @@
                         <td colspan="2">
                             <!-- 点击事件的两种不同的写法v-on:click和 @click-->
                             <!--<el-button style="width: 300px" type="primary" v-on:click="doLogin">登录</el-button>-->
-                            <el-button style="width: 300px" type="primary" icon="el-icon-loading" >jump</el-button>
+                       <!--     <el-button style="width: 300px" type="primary" icon="el-icon-loading" >jump</el-button>-->
                         </td>
                     </tr>
                 </table>
@@ -60,27 +60,44 @@
             return {
                 url:"user/",
                 ulogin:{
-                    name:'',
-                    password:''
+                    username:'',
+                    password:'',
+                     is:true,
                 },
 
             }
         },
         methods:{
+            //登陆
             doLogin:function () {
-
+                var _this =this;
                // window.print();
                 //   return;
-                axios.post(this.url+'sel', {
+                axios.post(this.url+'resultUserVo', {
                     params: {
-
+                        username:_this.ulogin.username,
+                        password:_this.ulogin.password,
                     }
                 }).then(function (response) {
                     console.log(response);
                 }).catch(function (error) {
                     console.log(error);
                 });
-            }
+            },
+            //发送验证码
+            sendMail:function() {
+                var _this =this;
+                _this.ulogin.is=false,
+                axios.post(this.url+'sendMail', {
+                    params: {
+                        username:_this.ulogin.username
+                    }
+                }).then(function (response) {
+                    console.log(response);
+                }).catch(function (error) {
+                    console.log(error);
+                });
+           }
         },
     })
 </script>

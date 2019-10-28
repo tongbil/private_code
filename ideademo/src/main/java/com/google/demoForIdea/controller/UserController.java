@@ -1,14 +1,20 @@
 package com.google.demoForIdea.controller;
+
 import com.google.demoForIdea.common.ZxingUtils;
+import com.google.demoForIdea.model.MailUtils;
 import com.google.demoForIdea.model.UserDomain;
 import com.google.demoForIdea.service.UserService;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.imageio.ImageIO;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
-@Controller
+@RestController
 @RequestMapping(value = "/user")
 public class UserController {
 
@@ -81,8 +87,8 @@ public class UserController {
 
 /*二维码验证登陆*/
 	@ResponseBody
-	@RequestMapping("/qrcode")
-	public void findAllUser(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping("/twoWm")
+	public void twoWm(HttpServletRequest request, HttpServletResponse response) {
 		//自定义内容 如果想要扫一扫获取图片就把网络图片地址放下面2
 		String contents = "https://avatars1.githubusercontent.com/u/54196360?s=460&v=4";
 		int width = 300; int height = 300; int margin = 2;
@@ -117,5 +123,32 @@ public class UserController {
 			e.printStackTrace();
 		}
 	}
+	@ResponseBody
+	@PostMapping("/sendMail")
+	public void  sendMail(@RequestBody Map<String, Object> Map, HttpSession session) throws AddressException , MessagingException {
+
+		JSONObject params = JSONObject.fromObject(Map.get("params"));
+		String username = params.get("username").toString();
+		session.setAttribute(username, MailUtils.email(params.get("username").toString()));
+
+	}
+	@ResponseBody
+	@PostMapping("/resultUserVo")
+	public Map  resultUserVo(@RequestBody Map<String, Object> Map, HttpSession session) {
+		JSONObject params = JSONObject.fromObject(Map.get("params"));
+		String code = (String) session.getAttribute(params.get("username").toString());
+		if(params.get("password").toString().equals(code)) {
+			System.out.println("相等");
+			Map.put("result","success");
+			return Map;
+		}else {
+			System.out.println("不相等");
+			Map.put("result","false");
+			return Map;
+		}
+
+	}
+
+
 }
 
