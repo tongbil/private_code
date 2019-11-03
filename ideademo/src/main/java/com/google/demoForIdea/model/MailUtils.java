@@ -60,6 +60,7 @@ public class MailUtils {
 	}
 
 		public static void main(String[] args)  throws AddressException, MessagingException {
+		//测试发送邮箱
 			MailUtils.email("374212560@qq.com");
 		}
 }
