@@ -11,15 +11,57 @@
 <body>
     <div id="app">
         {{message}}
+        <ul>
+            <li v-for="item in movies">{{item}}</li>
+        </ul>
+        <div>{{ors.prad}}</div>
+
+        <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字">
+        </el-input-number>
     </div>
 
 </body>
 <script src="../js/vue.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script>
+
+    //{vscode 左下角setting 设置 右上角第一个打开配置
+    //"terminal.integrated.rendererType": "dom",
+    //"editor.formatOnType": true,
+    //"editor.formatOnSave": true,
+    //"liveServer.settings.donotShowInfoMsg": true,
+    //"explorer.confirmDelete": false,
+    //
     const app = new Vue({
         el: "#app",//用于要挂载的管理元素
-        data: {//定义数据
-            message: '你好啊，汤彪'
+        data() {
+            return {
+                //定义数据
+                message: '你好啊，汤彪？',
+                ors: {
+                    prad: "我爱你"
+                },
+                movies: ['星际穿越', '穿越火线'],
+                num: 1,
+            }
+        },
+        methods: {
+            handleChange(value) {
+                console.log(value);
+            },
+
+        },
+        beforeCreate: function () {
+            console.log("beforecreated")
+        }
+        ,
+        created: function () {
+            console.log("create")
+        },
+        mounted: function () {
+            console.log("mounted")
         },
     })
 </script>
