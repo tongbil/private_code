@@ -57,4 +57,4 @@ $ git branch  {定义名字}
 $ git rm -r --cached .idea  //.idea是文件名？
 git add -A  提交所有变化
 git add -u  提交被修改(modified)和被删除(deleted)文件，不包括新文件(new)//暂时
-git add .  提交新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件
+git add .  提交新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件 -

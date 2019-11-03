@@ -50,7 +50,7 @@ public class MailUtils {
 		message.setSubject("验证码");
 
 		String  emailcode = (int)((Math.random() * 9 + 1) * 100000)+"";
-		message.setContent("<h1>欢迎注册汤彪的新用户，老板您的验证码是:"+emailcode+"</h1>", "text/html;charset=UTF-8");
+		message.setContent("<h1>欢迎登录小汤的网站，老板您的验证码是:"+emailcode+"</h1>", "text/html;charset=UTF-8");
 		message.setSentDate(new Date());
 		message.saveChanges();
 
