@@ -11,6 +11,14 @@
             display: none;
 
         }
+
+
+
+        .active {
+            color: red;
+        }
+
+        ;
     </style>
 </head>
 
@@ -18,7 +26,7 @@
     <div id="app" v-cloak>
         {{message}}
         <ul>
-            <li v-for="item in movies">{{item}}</li>
+            <li v-for="(item,index) in movies">{{index}}-{{item}}</li>
         </ul>
         <div>{{ors.prad}}</div>
         <!--表达式-->
@@ -35,10 +43,27 @@
         <div v-text="url" v-if="ur">
 
         </div>
-        <!--v-cloak-->
-        <div>
+        <!--v-cloak是编译代码在页面不显示{{}}-->
 
+
+        <div>
+            <!--v-bind的使用 语法糖v-bind-变:-->
+            <img :src="imgURL" alt="">
+            <a :href="aHref">baidu</a>
         </div>
+        <div>
+            <!--v-bind动态绑定class-->
+            <h2 class="active">{{message}}</h2>
+            <h2 :class="{active:isActive,line:isLine}">{{message}}</h2>
+            <h2 :class="getClass()">{{message}}</h2>
+            <h2 class="title" :class="getClass()">{{message}}</h2>
+        </div>
+        <div>
+            <!--动态绑定style-->
+            <h2 :style="{fontSize:finalSize}">{{message}}</h2>
+            <h2 :style="getStyles()">{{message}}</h2>
+        </div>
+
 
     </div>
 </body>
@@ -71,12 +96,24 @@
                 num: 1,
                 url: '<a href="http://www.baidu.com">百度一下</a>',
                 ur: true,
+                imgURL: "https://i0.hdslb.com/bfs/sycp/creative_img/201911/4b98838cec91721f101d481fa3d2975e.jpg",
+                aHref: 'http://www.baidu.com',
+                active: 'active',
+                isActive: true,
+                isLine: true,
+                finalSize: '100px',
             }
         },
         methods: {
             handleChange(value) {
                 console.log(value);
             },
+            getClass: function () {
+                return { active: this.isActive, line: this.isLine }
+            },
+            getStyles: function () {
+                return { fontSize: this.finalSize }
+            }
 
         },
         beforeCreate: function () {
