@@ -1,6 +1,8 @@
 package com.google.demoForIdea.model;
 
+import com.google.demoForIdea.common.JSONObjectTool;
 import com.sun.mail.util.MailSSLSocketFactory;
+import net.sf.json.JSONObject;
 
 import java.util.Date;
 import java.util.Properties;
@@ -59,8 +61,12 @@ public class MailUtils {
 		return emailcode;
 	}
 
-		public static void main(String[] args)  throws AddressException, MessagingException {
+		public static void main(String[] args)  throws AddressException, MessagingException ,Exception{
 		//测试发送邮箱赌的多
+			/*User user = new User();
+			user.username="374212560@qq.com";
+			String json = JSONObjectTool.getJson(user);
+			System.out.println(json);*/
 			MailUtils.email("374212560@qq.com");
 		}
 }

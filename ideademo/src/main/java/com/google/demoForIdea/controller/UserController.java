@@ -6,7 +6,6 @@ import com.google.demoForIdea.model.UserDomain;
 import com.google.demoForIdea.service.UserService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
@@ -127,10 +126,10 @@ public class UserController {
 	@PostMapping("/sendMail")
 	public void  sendMail(@RequestBody Map<String, Object> Map, HttpSession session) throws AddressException , MessagingException {
 
-		JSONObject params = JSONObject.fromObject(Map.get("params"));
-		String username = params.get("username").toString();
-		session.setAttribute(username, MailUtils.email(params.get("username").toString()));
-
+		//JSONObject params = JSONObject.fromObject(Map.get("params"));
+	//	String username = params.get("username").toString();
+		//session.setAttribute(username, MailUtils.email(params.get("username").toString()));
+		session.setAttribute(Map.get("username").toString(), MailUtils.email(Map.get("username").toString()));
 	}
 	@ResponseBody
 	@PostMapping("/resultUserVo")
