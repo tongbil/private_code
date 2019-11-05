@@ -63,7 +63,11 @@
             <h2 :style="{fontSize:finalSize}">{{message}}</h2>
             <h2 :style="getStyles()">{{message}}</h2>
         </div>
-
+        <div>
+            <!--计算属性-->
+            计算属性: {{fullName}}
+            {{totalPrice}}
+        </div>
 
     </div>
 </body>
@@ -96,13 +100,39 @@
                 num: 1,
                 url: '<a href="http://www.baidu.com">百度一下</a>',
                 ur: true,
-                imgURL: "https://i0.hdslb.com/bfs/sycp/creative_img/201911/4b98838cec91721f101d481fa3d2975e.jpg",
+                imgURL: "https://www.baidu.com/img/bd_logo1.png",
                 aHref: 'http://www.baidu.com',
                 active: 'active',
                 isActive: true,
                 isLine: true,
                 finalSize: '100px',
+                books: [
+                    { price: 119 },
+                    { price: 100 },
+                    { price: 133 },
+                ],
             }
+        },
+        //计算属性
+        computed: {
+            fullName: function () {
+                return this.firstName + " " + this.lastName;
+            },
+            totalPrice: function () {
+                let result = 0;
+                // for (let i = 0; i < this.books.length; i++) {
+                //    result += this.books[i].price
+                //}
+
+                // for (let i in this.books) {
+                //    result += this.books[i].price
+                // }
+                for (let book of this.books) {
+                    result += book.price
+                }
+
+                return result;
+            },
         },
         methods: {
             handleChange(value) {
