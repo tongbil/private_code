@@ -66,8 +66,13 @@
         <div>
             <!--计算属性-->
             计算属性: {{fullName}}
-            {{totalPrice}}
+            更高级计算属性: {{totalPrice}}
         </div>
+        <div>
+            <!-- getter 和setter -->
+            <h2>get方法获取名字>{{full}}</h2>
+        </div>
+
 
     </div>
 </body>
@@ -131,6 +136,11 @@
                     result += book.price
                 }
                 return result;
+            },
+            full: {
+                get: function () {
+                    return this.firstName + " " + this.lastName;
+                },
             },
         },
         methods: {
