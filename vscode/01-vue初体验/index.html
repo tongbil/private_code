@@ -31,7 +31,8 @@
         <div>{{ors.prad}}</div>
         <!--表达式-->
         <div>{{ firstName +"        "+ lastName}}</div>
-        <div>{{num * 2}}</div>
+        <!-- 过滤器 -->
+        <div>{{num | showPrice}}</div>
 
         <!--一次表达式-->
         <div v-once>{{lastName}}</div>
@@ -72,6 +73,64 @@
             <!-- getter 和setter -->
             <h2>get方法获取名字>{{full}}</h2>
         </div>
+        <div>
+            <!--v-on 监听 也有语法糖v-on 变:@ -->
+            <button @click="increment">{{num}}</button>
+        </div>
+        <div @click="divClick">
+            <!-- v-on修饰符stop的使用 -->
+            11111<button @click.stop="btnClick">{{num}}</button>
+        </div>
+
+        <form action="baidu">
+            <!-- prevent自己控制提交 -->
+            <input type="submit" value="提交" @click.prevent="submitClick" />
+        </form>
+        <div>
+            <!-- 监听所有键盘的键帽 -->
+            <input type="text" @keyup="keyUp">
+            <!-- 监听回车键帽 -->
+            <input type="text" @keyup.enter="keyUp">
+            <!-- 打印方法once 只出现一次 -->
+            <input type="text" @keyup.once="keyUp">
+        </div>
+        <div>
+            <!-- v-show 消失是 dispaly ="none" -->
+            <input type="text" v-show="isActive">
+        </div>
+        <div>
+            <!-- v-for -->
+            <ul>
+                <li v-for="(item,index) in movies" :key="item" :class="{active:num ===index}" @click="changeRed(index)">
+                    {{index}} {{item}}
+
+
+                </li>
+
+            </ul>
+            {{ors.prad}}
+
+            <ul>
+                <li v-for="(key,value) in ors">
+                    {{key+" "+value}}
+                </li>
+
+            </ul>
+        </div>
+        <!-- 数组插入 -->
+        <div>
+            <!-- app.movies.splice(2,0,'ff') 第一个是下标第几个 加0就是在第二个下标插入一个ff 不加就是根据当前第二个数字删除几个元素 -->
+            <!-- app.movies.set(this.movies,0,'ff') 第一个是对象，第二个是下标 第三个是修改 -->
+        </div>
+        <div>
+            <!--this.movies.pop(); 是删除数组最后一个元素 写在methods里面  -->
+            <!--this.movies.shift(); 是删除数组第一个元素 写在methods里面  -->
+            <!--this.movies.unshift(); 在数组最前面添加元素  写在methods里面-->
+            <!--this.movies.push(); 在数组最后面添加元素 写在methods里面 -->
+            <!--this.movies.sort();  -->
+            <!--this.movies.reverse();数组反转  -->
+            <button @click="nums(1,2,3,4,5)">可变参数</button>
+        </div>
 
 
     </div>
@@ -99,7 +158,8 @@
                 firstName: "kobe",
                 lastName: "jms",
                 ors: {
-                    prad: "我爱你"
+                    prad: "我爱你",
+                    drap: "我恨你",
                 },
                 movies: ['星际穿越', '穿越火线'],
                 num: 1,
@@ -139,9 +199,16 @@
             },
             full: {
                 get: function () {
+
                     return this.firstName + " " + this.lastName;
                 },
             },
+        },
+        //过滤器
+        filters: {
+            showPrice(num) {
+                return num.toFixed(2);
+            }
         },
         methods: {
             handleChange(value) {
@@ -152,13 +219,38 @@
             },
             getStyles: function () {
                 return { fontSize: this.finalSize }
-            }
+            },
+            increment() {
+                return this.num++;
+            },
+            btnClick() {
+                console.log('btnClick')
+            },
+            divClick() {
+                console.log('divClick')
+            },
+            submitClick() {
+                console.log('submitClick');
+
+            },
+            keyUp() {
+                console.log('keyup')
+            },
+            //可变参数
+            nums(...num) {
+                console.log(num);
+
+            },
+            changeRed(index) {
+                this.num = index;
+            },
 
         },
         beforeCreate: function () {
             console.log("beforecreated")
         },
         created: function () {
+
             console.log("create")
         },
         mounted: function () {
