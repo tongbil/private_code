@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <cpn @itemclick="cpnClick" ref="aaa"></cpn>
+        <button @click="btnClick">123</button>
+    </div>
+
+</body>
+<script src="../js/vue.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<template id="cpn">
+    <div>
+        <button v-for="item in categorie" @click="clickItem(item)">{{ item.name }}</button>
+    </div>
+</template>
+<script>
+
+    //定义给组件
+    const cpn = {
+        template: '#cpn',
+        data() {
+            return {
+                categorie: [
+                    { id: 'aaa', name: '热门推荐' },
+                    { id: 'bbb', name: '手机数码' },
+                    { id: 'ccc', name: '家电' },
+                    { id: 'ddd', name: '电脑' },
+                ],
+                name: '我是子组件',
+            }
+        },
+        methods: {
+            clickItem(item) {
+                console.log(item);
+                //子传父
+                this.$emit('itemclick', item);
+            },
+
+
+
+        },
+    }
+
+
+    const app = new Vue({
+        el: "#app",//用于要挂载的管理元素
+        data() {
+            return {
+                //定义数据
+                message: '你好啊，汤彪？',
+            }
+        },
+        methods: {
+            cpnClick(item) {
+                console.log(item);
+            },
+            //父访问子
+            btnClick() {
+                console.log(this.$refs.aaa.name)
+                //直接访问app下的
+                console.log(this.$root.message)
+            },
+        },
+
+        components: {
+            cpn
+        }
+    });
+</script>
+
+</html>
