@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
     <meta charset="UTF-8">
@@ -131,6 +131,83 @@
             <!--this.movies.reverse();数组反转  -->
             <button @click="nums(1,2,3,4,5)">可变参数</button>
         </div>
+        <div>
+            <!--高阶函数  -->
+            <!-- 
+                filter 当返回true进入newNums 返回false 不进入 返回值一定是boolean类型
+                const nums [1,2,444,555,66,7772,12,44]
+                let newNums =nums.filter(function(n){
+                    return n<20
+                })
+
+                map函数 操作数组的每一项
+                let new2Nums =newNums.map(function(n){
+                    return n*2
+                })
+
+                reduce 函数 对数组所有内容进行汇总
+                new2Nums.reduce(function(preValue,n){
+                     preValue 初始0 ，第二次 n 是参数
+                     return   preValue +n;
+                },0)
+
+                //整个编程
+                let total =nums.filter(function(n){
+                     return n<100
+                }).map(function (n){
+                    return n*2
+                }).reduce(function(preValue,n){
+                        return preValue+n
+                },0)
+                //箭头编程
+                let total =nums.filter(n >= n <100).map(n => n*2).reduce((pre,n) => pre +n);
+             -->
+
+            <!-- 直接不用for 
+              this.nums.reduce(function(pre,num){
+                  return pre+num.price*num.count
+              })-->
+        </div>
+        <div>
+            <!--v-model语法  -->
+            v-model: <input type="text" v-model="ors.prad">
+            <!-- 拆解 -->
+            <input type="text" :value="ors.prad" @input="valueChange">
+            <input type="text" :value="ors.prad" @input="ors.prad =$event.target.value">
+
+        </div>
+        <div>
+            <!-- v-model radio   加个相同name 只能单选 加了v-model可以互斥不用name-->
+            <label for="male">
+                <input type="radio" id="male" value="男" name="sex" v-model="sex">男
+            </label>
+            <label for="female">
+                <input type="radio" id="female" value="女" name="sex" v-model="sex">女
+            </label>
+            你选择的是： {{sex}}
+        </div>
+        <div>
+            <!-- v-model绑定 checkbox -->
+            <label for="agree">
+                <input type="checkbox" id="agree" v-model="isAgres">同意协议
+                你选择的是 {{isAgres}}
+            </label>
+            <button v-if="isAgres" :disabled="!isAgres">下一步</button>
+            <!--v-model 多选框 -->
+
+            <input type="checkbox" value="篮球" v-model="hobbles">篮球
+            <input type="checkbox" value="羽毛球" v-model="hobbles">羽毛球
+            <input type="checkbox" value="足球" v-model="hobbles">足球
+            你点击的是:{{hobbles}}
+            <!--v-model select框 -->
+            <br />
+            <label v-for="item in movies" :for="item">
+                <input type="checkbox" :value="item" :id="item" v-model="hobbles">
+            </label>
+            {{hobbles}}
+
+            <!-- v-model -静态 trim,number,lazy    v-model.lazy   扩展 查类型{{typeof age]}}-->
+        </div>
 
 
     </div>
@@ -176,6 +253,9 @@
                     { price: 100 },
                     { price: 133 },
                 ],
+                sex: "",
+                isAgres: false,
+                hobbles: [],
             }
         },
         //计算属性
@@ -243,6 +323,11 @@
             },
             changeRed(index) {
                 this.num = index;
+            },
+            //监听时间
+            valueChange(event) {
+                //event 是监听input输入值时间，调这个方法不需要在额外加括号
+                this.ors.prad = event.target.value;
             },
 
         },
