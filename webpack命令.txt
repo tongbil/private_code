@@ -1,0 +1,3 @@
+ npm install webpack@3.6.0 -g
+
+´ò°ü£ºwebpack ./js/main.js ./dist/bundle.js
