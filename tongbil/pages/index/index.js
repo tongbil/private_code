@@ -30,8 +30,7 @@ Page({
     // 需要查询的城市
     searchCity: '',
     setting: {},
-    bcgImgList: [
-      {
+    bcgImgList: [{
         src: '/img/beach-bird-birds-235787.jpg',
         topColor: '#393836'
       },
@@ -120,7 +119,7 @@ Page({
       }
     }
   },
-  success (data) {
+  success(data) {
     this.setData({
       openSettingButtonShow: false,
     })
@@ -141,7 +140,7 @@ Page({
       cityDatas: data,
     })
   },
-  commitSearch (res) {
+  commitSearch(res) {
     let val = ((res.detail || {}).value || '').replace(/\s+/g, '')
     this.search(val)
   },
@@ -160,7 +159,7 @@ Page({
       })
     })
   },
-  search (val) {
+  search(val) {
     if (val === '520' || val === '521') {
       this.setData({
         searchText: '',
@@ -181,14 +180,14 @@ Page({
     }
   },
   // 地理位置编码
-  geocoder (address, success) {
+  geocoder(address, success) {
+    let url = `http://api.map.baidu.com/geocoding/v3/?address=${address}&output=json&ak=Psp5t7q9VRCPugcvy1YSVYBO4LlZqmTr`
     wx.request({
-      url: getApp().setGeocoderUrl(address),
-      success (res) {
+      url: url,
+      success(res) {
         let data = res.data || {}
         if (!data.status) {
-          let location = (data.result || {}).location || {}
-          // location = {lng, lat}
+          let location = (res.data.result || {}).location || {}
           success && success(location)
         } else {
           wx.showToast({
@@ -197,7 +196,7 @@ Page({
           })
         }
       },
-      fail (res) {
+      fail(res) {
         wx.showToast({
           title: res.errMsg || '网络不给力，请稍后再试',
           icon: 'none',
@@ -210,7 +209,7 @@ Page({
       },
     })
   },
-  fail (res) {
+  fail(res) {
     wx.stopPullDownRefresh()
     let errMsg = res.errMsg || ''
     // 拒绝授权地理位置权限
@@ -241,7 +240,7 @@ Page({
   },
   // wx.openSetting 要废弃，button open-type openSetting 2.0.7 后支持
   // 使用 wx.canIUse('openSetting') 都会返回 true，这里判断版本号区分
-  canUseOpenSettingApi () {
+  canUseOpenSettingApi() {
     let systeminfo = getApp().globalData.systeminfo
     let SDKVersion = systeminfo.SDKVersion
     let version = utils.cmpVersion(SDKVersion, '2.0.7')
@@ -252,6 +251,7 @@ Page({
     }
   },
   init(params) {
+    console.log(params)
     let BMap = new bmap.BMapWX({
       ak: globalData.ak,
     })
@@ -270,10 +270,10 @@ Page({
   //   context.stroke()
   //   context.draw()
   // },
-  onPullDownRefresh (res) {
+  onPullDownRefresh(res) {
     this.init({})
   },
-  setMenuPosition () {
+  setMenuPosition() {
     wx.getStorage({
       key: 'pos',
       success: (res) => {
@@ -298,7 +298,7 @@ Page({
       },
     })
   },
-  setBcgImg (index) {
+  setBcgImg(index) {
     if (index !== undefined) {
       this.setData({
         bcgImgIndex: index,
@@ -329,14 +329,14 @@ Page({
       },
     })
   },
-  setNavigationBarColor (color) {
+  setNavigationBarColor(color) {
     let bcgColor = color || this.data.bcgColor
     wx.setNavigationBarColor({
       frontColor: '#ffffff',
       backgroundColor: this.data.bcgColor,
     })
   },
-  onShow () {
+  onShow() {
     this.setBcgImg()
     this.getCityDatas()
     this.setMenuPosition()
@@ -364,7 +364,7 @@ Page({
       data: this.data.pos,
     })
   },
-  checkUpdate (setting) {
+  checkUpdate(setting) {
     // 兼容低版本
     if (!setting.forceUpdate || !wx.getUpdateManager) {
       return
@@ -373,11 +373,11 @@ Page({
     updateManager.onCheckForUpdate((res) => {
       console.error(res)
     })
-    updateManager.onUpdateReady(function () {
+    updateManager.onUpdateReady(function() {
       wx.showModal({
         title: '更新提示',
         content: '新版本已下载完成，是否重启应用？',
-        success: function (res) {
+        success: function(res) {
           if (res.confirm) {
             updateManager.applyUpdate()
           }
@@ -385,17 +385,17 @@ Page({
       })
     })
   },
-  showBcgImgArea () {
+  showBcgImgArea() {
     this.setData({
       bcgImgAreaShow: true,
     })
   },
-  hideBcgImgArea () {
+  hideBcgImgArea() {
     this.setData({
       bcgImgAreaShow: false,
     })
   },
-  chooseBcg (e) {
+  chooseBcg(e) {
     let dataset = e.currentTarget.dataset
     let src = dataset.src
     let index = dataset.index
@@ -421,7 +421,7 @@ Page({
   //     },
   //   })
   // },
-  initSetting (successFunc) {
+  initSetting(successFunc) {
     wx.getStorage({
       key: 'setting',
       success: (res) => {
@@ -438,7 +438,7 @@ Page({
       },
     })
   },
-  onShareAppMessage (res) {
+  onShareAppMessage(res) {
     return {
       title: 'Quiet Weather--安静天气',
       path: `/pages/index/index`,
@@ -458,7 +458,7 @@ Page({
       }
     }
   },
-  menuMainMove (e) {
+  menuMainMove(e) {
     // 如果已经弹出来了，需要先收回去，否则会受 top、left 会影响
     if (this.data.hasPopped) {
       this.takeback()
@@ -469,7 +469,7 @@ Page({
     let windowWidth = SYSTEMINFO.windowWidth
     let windowHeight = SYSTEMINFO.windowHeight
     let touches = e.touches[0]
-    let clientX  = touches.clientX
+    let clientX = touches.clientX
     let clientY = touches.clientY
     // 边界判断
     if (clientX > windowWidth - 40) {
@@ -492,7 +492,7 @@ Page({
       pos,
     })
   },
-  menuMain () {
+  menuMain() {
     if (!this.data.hasPopped) {
       this.popp()
       this.setData({
@@ -505,19 +505,19 @@ Page({
       })
     }
   },
-  menuOne () {
+  menuOne() {
     this.menuMain()
     wx.navigateTo({
       url: '/pages/citychoose/citychoose',
     })
   },
-  menuTwo () {
+  menuTwo() {
     this.menuMain()
     wx.navigateTo({
       url: '/pages/setting/setting',
     })
   },
-  menuThree () {
+  menuThree() {
     this.menuMain()
     wx.navigateTo({
       url: '/pages/about/about',
