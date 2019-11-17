@@ -3,7 +3,7 @@
     <swiper indicator-color='#666666' indicator-active-color='#40a7e7' indicator-dots="true" autoplay="true" circular="true" interval="5000" duration="300" previous-margin="0px" next-margin="0px" style='height:{{swiperHeight}}'>
       <block  wx:key="1">
         <swiper-item>
-          <view class='info'  catchtap='previewImages'>
+          <view class='info'  >
             <image src="../../img/7e2498d5733fdc006eaa62fd7094634.jpg"></image>
             <view class='name'>tongbil</view>
           </view>
