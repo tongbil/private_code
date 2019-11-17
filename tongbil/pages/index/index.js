@@ -181,13 +181,14 @@ Page({
   },
   // 地理位置编码
   geocoder(address, success) {
-    let url = `http://api.map.baidu.com/geocoding/v3/?address=${address}&output=json&ak=Psp5t7q9VRCPugcvy1YSVYBO4LlZqmTr`
+    let url = `https://api.map.baidu.com/geocoding/v3/?address=${address}&output=json&ak=QwBc9WRMHzd6Axv9Bdw1rm9ql5XIzU3V`
     wx.request({
       url: url,
       success(res) {
         let data = res.data || {}
         if (!data.status) {
           let location = (res.data.result || {}).location || {}
+          console.log(location)
           success && success(location)
         } else {
           wx.showToast({
@@ -251,7 +252,6 @@ Page({
     }
   },
   init(params) {
-    console.log(params)
     let BMap = new bmap.BMapWX({
       ak: globalData.ak,
     })
@@ -371,7 +371,6 @@ Page({
     }
     let updateManager = wx.getUpdateManager()
     updateManager.onCheckForUpdate((res) => {
-      console.error(res)
     })
     updateManager.onUpdateReady(function() {
       wx.showModal({
