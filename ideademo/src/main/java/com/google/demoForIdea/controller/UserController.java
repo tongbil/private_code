@@ -7,6 +7,7 @@ import com.google.demoForIdea.service.UserService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
 import javax.imageio.ImageIO;
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -15,11 +16,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.io.ByteArrayOutputStream;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 
 
@@ -148,6 +148,11 @@ public class UserController {
 
 	}
 
+	@ResponseBody
+	@GetMapping("/lunbo")
+	public Map  lunbo(@RequestBody Map<String, Object> Map) {
 
+			return null;
+		}
 }
 

@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "tongbil -安排",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "heartbeat": "/components/heartbeat/heartbeat"
+  }
+}
