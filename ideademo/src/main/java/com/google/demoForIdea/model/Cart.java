@@ -11,6 +11,15 @@ public class Cart {
 	String goodDetailUrls;
 	Integer selected;
 	Integer num;
+	String openid;
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+
+	public String getOpenid() {
+		return openid;
+	}
 
 	public Integer getCartId() {
 		return cartId;
@@ -78,7 +87,7 @@ public class Cart {
 
 
 	public Cart(Integer cartId, Integer goodId, String goodName, BigDecimal goodPrice, String goodMainUrl,String goodDetailUrls,
-			Integer selected, Integer num) {
+			Integer selected, Integer num,String openid) {
 		super();
 		this.cartId = cartId;
 		this.goodId = goodId;
@@ -88,6 +97,7 @@ public class Cart {
 		this.goodDetailUrls=goodDetailUrls;
 		this.selected = selected;
 		this.num = num;
+		this.openid = openid;
 	}
 
 	public Cart(Integer goodId, String goodName, BigDecimal goodPrice, String goodMainUrl,String goodDetailUrls) {

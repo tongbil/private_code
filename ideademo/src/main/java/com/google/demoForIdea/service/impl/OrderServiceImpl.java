@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service(value = "orderService")
 public class OrderServiceImpl implements OrderService {
@@ -14,8 +15,8 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     @Override
-    public List<Order> getAll() {
-        return orderDao.getAll();
+    public List<Order> getAll(Map<String,Object> map) {
+        return orderDao.getAll(map);
     }
 
     @Override

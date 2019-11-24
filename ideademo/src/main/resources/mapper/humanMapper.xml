@@ -12,20 +12,13 @@
     <!-- 
         根据id查询得到一个user对象
      -->
-    <select id="getHuman" parameterType="int" 
-        resultType="com.google.demoForIdea.model.Human">
-        select * from human where id=#{id}
-    </select>
-    <select id="getAll" resultType="com.google.demoForIdea.model.Human">
-    	select * from human
-    </select>
-    <update id="updateHuman" >
-    	update human set name="johnjohn",age="38" where id=#{id}
-    </update>
-    <delete id="deleteHuman">
-    	delete from human where id=#{id};
-    </delete>
     <insert id="insertHuman">
-    	insert into human(id,gender,name,age) values("1","girl","mememe","2")
+    	insert into human(phone,name,detail,openid) values(#{phone},#{name},#{detail},#{openid})
     </insert>
+    <update id="updateHuman">
+    	update human set phone=#{phone}, name=#{name},detail=#{detail} where openid =#{openid}
+    </update>
+    <select id="selectOneHuman" parameterType="java.lang.String" resultType="com.google.demoForIdea.model.Human">
+       select openid from  human where openid =#{openid}
+    </select>
 </mapper>

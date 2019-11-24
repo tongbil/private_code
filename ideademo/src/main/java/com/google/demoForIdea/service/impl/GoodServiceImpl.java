@@ -21,8 +21,8 @@ public class GoodServiceImpl implements GoodService {
     }
 
     @Override
-    public List<Good> getAll() {
-        return goodDao.getAll();
+    public List<Good> getAll(String openid) {
+        return goodDao.getAll(openid);
     }
 
     @Override

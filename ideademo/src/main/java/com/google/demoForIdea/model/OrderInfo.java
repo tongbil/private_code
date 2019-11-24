@@ -18,6 +18,7 @@ public class OrderInfo {
 	String goodDetailUrls;
 	Boolean selected;
 	Integer num;
+	String openid;
 
 	public Integer getOrderId() {
 		return cartId;
@@ -95,8 +96,16 @@ public class OrderInfo {
 
 	}
 
-	public OrderInfo(Integer cartId,Integer goodId,String goodName, String goodPrice, String goodMainUrl,
-			String goodDetailUrls,Boolean selected,Integer num) {
+	public String getOpenid() {
+		return openid;
+	}
+
+	public void setOpenid(String openid) {
+		this.openid = openid;
+	}
+
+	public OrderInfo(Integer cartId, Integer goodId, String goodName, String goodPrice, String goodMainUrl,
+	                 String goodDetailUrls, Boolean selected, Integer num,String openid){
 		super();
 		this.cartId = cartId;
 		this.goodId=goodId;
@@ -106,7 +115,7 @@ public class OrderInfo {
 		this.goodDetailUrls = goodDetailUrls;
 		this.selected=selected;
 		this.num=num;
-		
+		this.openid=openid;
 	}
 
 }

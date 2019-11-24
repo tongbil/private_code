@@ -37,8 +37,10 @@ public class GoodController {
 
 	@RequestMapping(value = "/get_all", produces = "application/json; charset=utf-8", method = { RequestMethod.GET })
 	@ResponseBody
-	public Object getAll() throws IOException {
-		List<Good> results = goodService.getAll();
+	public Object getAll(HttpServletRequest req) throws IOException {
+		String openid = req.getParameter("openid");
+
+		List<Good> results = goodService.getAll(openid);
 		ObjectMapper mapper = new ObjectMapper();
 		String ret = mapper.writeValueAsString(results);
 		System.out.println("RETURN"+ret);
@@ -115,7 +117,7 @@ public class GoodController {
 			 * System.out.println("NUM:" + arr[i].getNum());
 			 */
 			BigDecimal goodPrice = new BigDecimal(arr[i].getGoodPrice());
-			Order order = new Order(arr[i].getGoodName(), goodPrice, arr[i].getGoodMainUrl(), arr[i].getNum());
+			Order order = new Order(arr[i].getGoodName(), goodPrice, arr[i].getGoodMainUrl(), arr[i].getNum(),arr[i].getOpenid(),"0");
 			orderService.insert(order);
 		}
 		return "I know";

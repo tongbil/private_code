@@ -9,8 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/order")  
@@ -20,8 +23,13 @@ public class OrderController {
 	
 	@RequestMapping(value="/get_all",produces = "application/json; charset=utf-8",method= {RequestMethod.GET})
 	@ResponseBody
-	public Object getAll() throws IOException {
-		List<Order> results=orderService.getAll();
+	public Object getAll(HttpServletRequest req) throws IOException {
+		Map<String, Object> map = new HashMap<>();
+		String openid = req.getParameter("openid");
+		String status = req.getParameter("status");
+		map.put("openid",openid);
+		map.put("status",status);
+		List<Order> results=orderService.getAll(map);
 		ObjectMapper mapper=new ObjectMapper();
 		String ret=mapper.writeValueAsString(results);
 		System.out.println("/order/get_all:ORDER:"+ret);
