@@ -1,0 +1,28 @@
+<view class="main">
+  <navigator url="../address/address">
+    <view wx:if="{{hasAddress}}" class="orders-address">
+      <view class="orders-address-name">收货人: {{address.name}}</view>
+      <view style="font-size:30rpx" class="orders-address-phone">详细地址： {{address.phone}}</view>
+      <view style="font-size:30rpx" class="orders-address-detail">电话：{{address.detail}}</view>
+    </view>
+    <view wx:else class="orders-no-address">添加收货地址</view>
+  </navigator>
+
+  <view class="orders-box">
+    <view wx:for="{{orders}}" wx:key="index" class="orders-list">
+      <image class="orders-thumb" src="{{item.goodMainUrl}}"></image>
+      <view class="orders-pro-name">
+        {{item.goodName}}
+
+      </view>
+      <view style="float:left" class="orders-count-num">×{{item.goodNum}}</view>
+      <view style="float:right;" class="orders-pro-price">￥{{item.goodPrice}}</view>
+
+    </view>
+  </view>
+
+  <view class="orders-footer">
+    <view class="orders-footer-total">付款合计：￥{{total}}</view>
+    <view class="orders-footer-btn" bindtap="toPay">去付款</view>
+  </view>
+</view>

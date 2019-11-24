@@ -1,0 +1,60 @@
+<view class="main">
+<button style="color:gray;font-size:50rpx;"  hover-class="pressed" wx:if="{{shareshow}}"  bindgetuserinfo="userinfo" open-type="getUserInfo" >展示个人信息</button>
+<!--<button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" 
+   >立即绑定</button>-->
+    <view class="header">
+        <image src="{{thumb}}" class="thumb" ></image>
+        <text class="nickname">{{nickname}}</text>
+        <text class="about"></text>    
+         
+    </view>
+    <view style="height:70rpx" >
+     <button style=" float: right;font-size:20rpx;color:gray" size="mini" open-type="contact" >
+          和主人聊
+       </button>  
+    </view>
+     <view style="height:70rpx" >
+
+    </view>
+    <view class="address-box">
+        <view class="address-manage">
+            <navigator url="/page/component/address/address">地址管理</navigator>
+        </view>
+        <view wx:if="{{hasAddress}}" class="address-list">
+            <view>{{address.name}}</view>
+            <view>{{address.phone}}</view>
+            <view>{{address.detail}}</view>
+        </view>
+    </view>
+   <view class="address-box">
+        <view class="address-manage">
+            <navigator url="../map/map">商家地址</navigator>
+        </view>
+        
+    </view>
+
+
+
+
+
+
+    <view class="orders-box">
+        <view class="orders">完成订单</view>
+        <view class="orders-list" wx:for="{{orders}}" wx:key="index">
+            <view class="orders-number">订单编号：{{item.orderId}}</view>
+            <view class="orders-detail">
+                <image src="{{item.goodMainUrl}}"></image>
+                <view class="">{{item.goodName}}</view>
+                <view class="">数量: \t{{item.goodNum}}</view>
+               
+            </view>
+            <view class="orders-footer">
+                <text style="color:gray">实付：￥{{item.goodPrice}}</text>
+             
+            <!-- <button size="mini" class="orders-btn" bindtap="payOrders">待付款</button>-->   
+            </view>
+        </view>
+    </view>
+    
+
+</view>
