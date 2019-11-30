@@ -13,7 +13,7 @@ spring:
       # driver-class-name: oracle.jdbc.OracleDriver
    #   url: jdbc:oracle:thin:@localhost:1521:orcl
       #基本属性
-      url: jdbc:mysql://localhost:3306/general_test?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      url: jdbc:mysql://localhost:3306/osgitest?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
        #    username: c##scott
        #  password: 123
       username: root
