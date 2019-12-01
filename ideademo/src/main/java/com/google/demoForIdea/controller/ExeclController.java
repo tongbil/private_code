@@ -25,7 +25,7 @@ public class ExeclController {
 		InputStream inputStream=null;
 		try {
 			//输入流
-			inputStream = file.getInputStream();
+;			inputStream = file.getInputStream();
 			//原始文件名
 			String originalFilename = file.getOriginalFilename();
 			//文件后缀
