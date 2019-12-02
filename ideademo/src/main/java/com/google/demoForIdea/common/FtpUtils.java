@@ -45,7 +45,7 @@ public class FtpUtils {
 			int replyCode = ftpClient.getReplyCode(); // 是否成功登录服务器
 			if (!FTPReply.isPositiveCompletion(replyCode)) {
 				System.out.println("connect failed...ftp服务器:" + this.hostname + ":" + this.port);
-			}else{
+			} else {
 				System.out.println("connect successfu...ftp服务器:" + this.hostname + ":" + this.port);
 			}
 
@@ -59,12 +59,9 @@ public class FtpUtils {
 	/**
 	 * 上传文件
 	 *
-	 * @param pathname
-	 *            ftp服务保存地址
-	 * @param fileName
-	 *            上传到ftp的文件名
-	 * @param originfilename
-	 *            待上传文件的名称（绝对地址） *
+	 * @param pathname       ftp服务保存地址
+	 * @param fileName       上传到ftp的文件名
+	 * @param originfilename 待上传文件的名称（绝对地址） *
 	 * @return
 	 */
 	public boolean uploadFile(String pathname, String fileName, String originfilename) {
@@ -118,12 +115,9 @@ public class FtpUtils {
 	/**
 	 * 上传文件
 	 *
-	 * @param pathname
-	 *            ftp服务保存地址
-	 * @param fileName
-	 *            上传到ftp的文件名
-	 * @param inputStream
-	 *            输入文件流
+	 * @param pathname    ftp服务保存地址
+	 * @param fileName    上传到ftp的文件名
+	 * @param inputStream 输入文件流
 	 * @return
 	 */
 	public boolean uploadFile(String pathname, String fileName, InputStream inputStream) {
@@ -249,12 +243,9 @@ public class FtpUtils {
 	/**
 	 * * 下载文件 *
 	 *
-	 * @param pathname
-	 *            FTP服务器文件目录 *
-	 * @param filename
-	 *            文件名称 *
-	 * @param localpath
-	 *            下载后的文件路径 *
+	 * @param pathname  FTP服务器文件目录 *
+	 * @param filename  文件名称 *
+	 * @param localpath 下载后的文件路径 *
 	 * @return
 	 */
 	public boolean downloadFile(String pathname, String filename, String localpath) {
@@ -320,10 +311,8 @@ public class FtpUtils {
 	/**
 	 * * 删除文件 *
 	 *
-	 * @param pathname
-	 *            FTP服务器保存目录 *
-	 * @param filename
-	 *            要删除的文件名称 *
+	 * @param pathname FTP服务器保存目录 *
+	 * @param filename 要删除的文件名称 *
 	 * @return
 	 */
 	public boolean deleteFile(String pathname, String filename) {
@@ -356,12 +345,12 @@ public class FtpUtils {
 		FtpUtils ftp = new FtpUtils();
 		// 文件路径写为用户建立时 指定的目录
 //         ftp.uploadFile("/var/ftp/pub", "resp.txt", "E:\\data\\resp.txt");
-     //   ftp.uploadFile("tangcomes", "WhatsNew.txt", "E:\\WhatsNew.txt");
-    //   ftp.downloadFile("tangcomes", "test.txt", "E://");
+		//   ftp.uploadFile("tangcomes", "WhatsNew.txt", "E:\\WhatsNew.txt");
+		//   ftp.downloadFile("tangcomes", "test.txt", "E://");
 		//ftp.downloadFile("", "test.txt", "E://");
 //        ftp.deleteFile("/var/ftp/pub", "resp.txt");
 
-     //  ftp.deleteFile("tangcomes", "test.txt");
+		//  ftp.deleteFile("tangcomes", "test.txt");
 		System.out.println("ok");
 	}
 }

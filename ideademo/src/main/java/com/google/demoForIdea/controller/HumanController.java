@@ -29,7 +29,7 @@ public class HumanController {
 	@Autowired
 	HumanService humanService;
 
-	@RequestMapping(value="/addUser",produces = "application/json; charset=utf-8",method= {RequestMethod.GET})
+	@RequestMapping(value = "/addUser", produces = "application/json; charset=utf-8", method = {RequestMethod.GET})
 	@ResponseBody
 	public Map addUser(HttpServletRequest request, HttpServletResponse response) {
 		Map<String, Object> Map = new HashMap<>();
@@ -37,7 +37,6 @@ public class HumanController {
 		String phone = request.getParameter("phone");
 
 		String openid = request.getParameter("openid");
-
 
 
 		String detail = request.getParameter("detail");
@@ -48,24 +47,24 @@ public class HumanController {
 		human.setName(name);
 		humanService.updateHuman(human);
 
-		Map.put("flag" ,"true");
+		Map.put("flag", "true");
 		return Map;
 	}
 
-	@RequestMapping(value="/key",produces = "application/json; charset=utf-8",method= {RequestMethod.POST})
+	@RequestMapping(value = "/key", produces = "application/json; charset=utf-8", method = {RequestMethod.POST})
 	@ResponseBody
-	public String key(HttpServletRequest request, HttpServletResponse response,@RequestBody WxAuthPhone wxAuthPhone) throws Exception {
+	public String key(HttpServletRequest request, HttpServletResponse response, @RequestBody WxAuthPhone wxAuthPhone) throws Exception {
 
 		Human human = new Human();
 
-		String url ="https://api.weixin.qq.com/sns/jscode2session?appid=wx76844b872561092d&secret=d2424da099ccb55fbf2058a7e14296a7&js_code="+wxAuthPhone.getCode()+"&grant_type=authorization_code";
-		 String result = HttpRequest.get(url).body();
+		String url = "https://api.weixin.qq.com/sns/jscode2session?appid=wx76844b872561092d&secret=d2424da099ccb55fbf2058a7e14296a7&js_code=" + wxAuthPhone.getCode() + "&grant_type=authorization_code";
+		String result = HttpRequest.get(url).body();
 		JSONObject resultJson = JSONObject.fromObject(result);
 		String openid = String.valueOf(resultJson.get("openid"));
 		Human one = humanService.selectOneHuman(openid);
-		if(one!=null){
+		if (one != null) {
 			return one.getOpenid();
-		}else{
+		} else {
 
 			human.setOpenid(openid);
 			humanService.insertHuman(human);
@@ -74,7 +73,7 @@ public class HumanController {
 		}
 	}
 
-	public String decryptPhone(String encryptedData, String sessionKey, String iv, String encodingFormat) throws Exception{
+	public String decryptPhone(String encryptedData, String sessionKey, String iv, String encodingFormat) throws Exception {
 
 
 		try {
@@ -99,7 +98,8 @@ public class HumanController {
 
 			byte[] bytes = WxPKCS7Encoder.decode(original);
 
-			String originalString = new String(bytes, encodingFormat);  return originalString;
+			String originalString = new String(bytes, encodingFormat);
+			return originalString;
 
 		} catch (Exception ex) {
 

@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
+
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -22,10 +23,11 @@ public class ZxingUtils {
 
 	/**
 	 * // 二维码生成
+	 *
 	 * @param contents 说明
-	 * @param width 宽
-	 * @param height 高
-	 * @param margin 边框
+	 * @param width    宽
+	 * @param height   高
+	 * @param margin   边框
 	 * @return BufferedImage
 	 * @throws Exception
 	 */
@@ -65,6 +67,7 @@ public class ZxingUtils {
 	}
 
 // 二维码添加logo,这样用工具类来写，之后使用我们可以采用加或者不加logo
+
 	/**
 	 * @param qrImage
 	 * @param width
@@ -85,8 +88,8 @@ public class ZxingUtils {
 		// 处理logo
 		BufferedImage image = ImageIO.read(logoFile);
 		// 设置logo的高和宽
-		int logoHeight = qrImage.getHeight()/logoSize;
-		int logoWidth = qrImage.getWidth()/logoSize;
+		int logoHeight = qrImage.getHeight() / logoSize;
+		int logoWidth = qrImage.getWidth() / logoSize;
 		// 设置放置位置
 		int x = (qrImage.getHeight() - logoHeight) / 2;
 		int y = (qrImage.getWidth() - logoWidth) / 2;
@@ -103,5 +106,5 @@ public class ZxingUtils {
 		g.drawImage(image, x, y, logoWidth, logoHeight, null);
 
 		return qRImageWithLogo;
-}
+	}
 }

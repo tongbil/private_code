@@ -16,23 +16,23 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/order")  
+@RequestMapping("/order")
 public class OrderController {
 	@Autowired
 	OrderService orderService;
-	
-	@RequestMapping(value="/get_all",produces = "application/json; charset=utf-8",method= {RequestMethod.GET})
+
+	@RequestMapping(value = "/get_all", produces = "application/json; charset=utf-8", method = {RequestMethod.GET})
 	@ResponseBody
 	public Object getAll(HttpServletRequest req) throws IOException {
 		Map<String, Object> map = new HashMap<>();
 		String openid = req.getParameter("openid");
 		String status = req.getParameter("status");
-		map.put("openid",openid);
-		map.put("status",status);
-		List<Order> results=orderService.getAll(map);
-		ObjectMapper mapper=new ObjectMapper();
-		String ret=mapper.writeValueAsString(results);
-		System.out.println("/order/get_all:ORDER:"+ret);
+		map.put("openid", openid);
+		map.put("status", status);
+		List<Order> results = orderService.getAll(map);
+		ObjectMapper mapper = new ObjectMapper();
+		String ret = mapper.writeValueAsString(results);
+		System.out.println("/order/get_all:ORDER:" + ret);
 		return ret;
 	}
 	

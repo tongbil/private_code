@@ -24,14 +24,14 @@ public class CategoryController {
 	@Autowired
 	GoodService goodService;
 
-	@RequestMapping(value = "/get_all", produces = "application/json; charset=utf-8", method = { RequestMethod.GET })
+	@RequestMapping(value = "/get_all", produces = "application/json; charset=utf-8", method = {RequestMethod.GET})
 	@ResponseBody
 	public Object getAll() throws IOException {
 		List<Category> results = categoryService.getAll();
-		List<FullCategory> full_results=new ArrayList<FullCategory>();
+		List<FullCategory> full_results = new ArrayList<FullCategory>();
 		for (Category category : results) {
 			List<Good> goods = goodService.getByType(category.getCatType());
-			FullCategory fullCategory=new FullCategory(category, goods);
+			FullCategory fullCategory = new FullCategory(category, goods);
 			full_results.add(fullCategory);
 		}
 		ObjectMapper mapper = new ObjectMapper();

@@ -22,8 +22,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-
-
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
@@ -84,13 +82,15 @@ public class UserController {
 		return null;
 	}
 
-/*二维码验证登陆*/
+	/*二维码验证登陆*/
 	@ResponseBody
 	@RequestMapping("/twoWm")
 	public void twoWm(HttpServletRequest request, HttpServletResponse response) {
 		//自定义内容 如果想要扫一扫获取图片就把网络图片地址放下面2
 		String contents = "https://avatars1.githubusercontent.com/u/54196360?s=460&v=4";
-		int width = 300; int height = 300; int margin = 2;
+		int width = 300;
+		int height = 300;
+		int margin = 2;
 
 		try {
 			BufferedImage QRcode = ZxingUtils.createQRImage(contents, width, height, margin);
@@ -122,27 +122,29 @@ public class UserController {
 			e.printStackTrace();
 		}
 	}
+
 	@ResponseBody
 	@PostMapping("/sendMail")
-	public void  sendMail(@RequestBody Map<String, Object> Map, HttpSession session) throws AddressException , MessagingException {
+	public void sendMail(@RequestBody Map<String, Object> Map, HttpSession session) throws AddressException, MessagingException {
 
 		//JSONObject params = JSONObject.fromObject(Map.get("params"));
-	//	String username = params.get("username").toString();
+		//	String username = params.get("username").toString();
 		//session.setAttribute(username, MailUtils.email(params.get("username").toString()));
 		session.setAttribute(Map.get("username").toString(), MailUtils.email(Map.get("username").toString()));
 	}
+
 	@ResponseBody
 	@PostMapping("/resultUserVo")
-	public Map  resultUserVo(@RequestBody Map<String, Object> Map, HttpSession session) {
+	public Map resultUserVo(@RequestBody Map<String, Object> Map, HttpSession session) {
 		JSONObject params = JSONObject.fromObject(Map.get("params"));
 		String code = (String) session.getAttribute(params.get("username").toString());
-		if(params.get("password").toString().equals(code)) {
+		if (params.get("password").toString().equals(code)) {
 			System.out.println("相等");
-			Map.put("result","success");
+			Map.put("result", "success");
 			return Map;
-		}else {
+		} else {
 			System.out.println("不相等");
-			Map.put("result","false");
+			Map.put("result", "false");
 			return Map;
 		}
 
@@ -150,9 +152,9 @@ public class UserController {
 
 	@ResponseBody
 	@GetMapping("/lunbo")
-	public Map  lunbo(@RequestBody Map<String, Object> Map) {
+	public Map lunbo(@RequestBody Map<String, Object> Map) {
 
-			return null;
-		}
+		return null;
+	}
 }
 

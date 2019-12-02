@@ -3,7 +3,7 @@
 
 <mapper namespace="com.google.demoForIdea.dao.CategoryDao">
 
-	<select id="getAll" resultType="com.google.demoForIdea.model.Category">
+    <select id="getAll" resultType="com.google.demoForIdea.model.Category">
 		select * from category
 	</select>
 </mapper>

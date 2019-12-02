@@ -3,7 +3,7 @@
 
 <mapper namespace="com.google.demoForIdea.dao.ExeclDao">
 
-	<insert id="inserExecl" parameterType="java.util.Map">
+    <insert id="inserExecl" parameterType="java.util.Map">
 		insert into user(username,phone,openid,zhuohao,renshu,create_time,update_time)value (#{username},#{phone},
 		#{openid},#{zhuohao},#{renshu},#{create_time},#{update_time})
 	</insert>

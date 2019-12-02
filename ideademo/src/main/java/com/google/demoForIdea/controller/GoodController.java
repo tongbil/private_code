@@ -26,7 +26,7 @@ public class GoodController {
 	@Autowired
 	OrderService orderService;
 
-	@RequestMapping(value = "/{goodId}", produces = "application/json; charset=utf-8", method = { RequestMethod.GET })
+	@RequestMapping(value = "/{goodId}", produces = "application/json; charset=utf-8", method = {RequestMethod.GET})
 	@ResponseBody
 	public Object getGood(@PathVariable(value = "goodId") int goodId) throws IOException {
 		Object oneGood = goodService.getGood(goodId);
@@ -35,7 +35,7 @@ public class GoodController {
 		return ret;
 	}
 
-	@RequestMapping(value = "/get_all", produces = "application/json; charset=utf-8", method = { RequestMethod.GET })
+	@RequestMapping(value = "/get_all", produces = "application/json; charset=utf-8", method = {RequestMethod.GET})
 	@ResponseBody
 	public Object getAll(HttpServletRequest req) throws IOException {
 		String openid = req.getParameter("openid");
@@ -43,18 +43,18 @@ public class GoodController {
 		List<Good> results = goodService.getAll(openid);
 		ObjectMapper mapper = new ObjectMapper();
 		String ret = mapper.writeValueAsString(results);
-		System.out.println("RETURN"+ret);
+		System.out.println("RETURN" + ret);
 		return ret;
 	}
 
 	/**
 	 * 得到所有id为奇数的纪录
-	 * 
+	 *
 	 * @return
 	 * @throws IOException
 	 */
 	@RequestMapping(value = "/get_all_odd", produces = "application/json; charset=utf-8", method = {
-			RequestMethod.GET })
+			RequestMethod.GET})
 	@ResponseBody
 	public Object getAllOdd() throws IOException {
 		List<Good> results = goodService.getAllOdd();
@@ -64,7 +64,7 @@ public class GoodController {
 	}
 
 	@RequestMapping(value = "/get_all_even", produces = "application/json; charset=utf-8", method = {
-			RequestMethod.GET })
+			RequestMethod.GET})
 	@ResponseBody
 	public Object getAllEven() throws IOException {
 		List<Good> results = goodService.getAllEven();
@@ -73,7 +73,7 @@ public class GoodController {
 		return ret;
 	}
 
-	@RequestMapping(value = "/get_title", produces = "application/json; charset=utf-8", method = { RequestMethod.GET })
+	@RequestMapping(value = "/get_title", produces = "application/json; charset=utf-8", method = {RequestMethod.GET})
 	@ResponseBody
 	public Object getTitle() throws IOException {
 		List<Good> results = goodService.getTitle();
@@ -82,8 +82,8 @@ public class GoodController {
 		return ret;
 	}
 
-	@RequestMapping(value = "/order", produces = "text/html; charset=utf-8", method = { RequestMethod.POST,
-			RequestMethod.GET })
+	@RequestMapping(value = "/order", produces = "text/html; charset=utf-8", method = {RequestMethod.POST,
+			RequestMethod.GET})
 	@ResponseBody
 	public String saveOrder(HttpServletRequest request, @RequestBody String json) throws IOException {
 		// System.out.println("请求的编码方式："+request.getCharacterEncoding());
@@ -117,7 +117,7 @@ public class GoodController {
 			 * System.out.println("NUM:" + arr[i].getNum());
 			 */
 			BigDecimal goodPrice = new BigDecimal(arr[i].getGoodPrice());
-			Order order = new Order(arr[i].getGoodName(), goodPrice, arr[i].getGoodMainUrl(), arr[i].getNum(),arr[i].getOpenid(),"0");
+			Order order = new Order(arr[i].getGoodName(), goodPrice, arr[i].getGoodMainUrl(), arr[i].getNum(), arr[i].getOpenid(), "0");
 			orderService.insert(order);
 		}
 		return "I know";
