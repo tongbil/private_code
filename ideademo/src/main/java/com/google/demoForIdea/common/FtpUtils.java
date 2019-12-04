@@ -6,6 +6,7 @@ import java.io.*;
 import java.net.MalformedURLException;
 
 public class FtpUtils {
+	//2223333
   /*// ftp服务器地址
     public String hostname = "xxx";
     // ftp登录账号
