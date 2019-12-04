@@ -21,7 +21,6 @@ import java.util.Map;
 public class CartController {
 	@Autowired
 	CartService cartService;
-
 	@RequestMapping(value = "/get_all", produces = "application/json; charset=utf-8", method = {RequestMethod.GET})
 	@ResponseBody
 	public Object getAll(HttpServletRequest req) throws IOException {
@@ -50,7 +49,6 @@ public class CartController {
 		Integer goodId = Integer.valueOf(req.getParameter("goodId"));
 		Integer num = Integer.valueOf(req.getParameter("num"));
 		String openid = req.getParameter("openid");
-
 		Map.put("goodId", goodId);
 		Map.put("num", num);
 		Map.put("openid", openid);
