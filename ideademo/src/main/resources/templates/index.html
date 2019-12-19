@@ -3,102 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-<style>
+    <!--<link rel="stylesheet" href="../css/index.css">-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.4.9/lib/theme-chalk/index.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/css/swiper.min.css" rel="stylesheet">
 
+<style lang="scss" scoped>
+    .swiper-container {
+        background-color: #000;
+    }
+    .slide-1 {
+        background-image:url('../images/cz/1.jpg');
+    }
+    .slide-2 {
+        background-image:url('../images/cz/2.jpg');
+     }
+    .swiper-slide {
+        background-size: cover;
+        background-position: center;
+    }
+    .gallery-top {
+        height: 80%!important;
+        width: 100%;
+    }
+    .gallery-thumbs {
+        height: 20%!important;
+        box-sizing: border-box;
+        padding: 10px 0;
+    }
+    .gallery-thumbs .swiper-slide {
+        width: 25%;
+        height: 100%;
+        opacity: 0.4;
+    }
+    .gallery-thumbs .swiper-slide-active {
+        opacity: 1;
+    }
 </style>
 </head>
 <body>
-<div id="app">
 
-    <div>
-        <!--flex弹性盒子模型，justify-content：主抽 -->
-        <div style="display: flex;justify-content: center;margin-top: 150px">
-            <el-card style="width: 400px">
-                <div slot="header" class="clearfix">
-                    <span ><el-link type="info">老板，您来了。</el-link></span>
-                </div>
-                <table>
-                    <tr>
-                        <td><el-link type="danger" disabled>账户 </el-link></td>
-                        <td>
-                            <el-input v-model="ulogin.username" placeholder="输入QQ邮箱后回车" clearable maxlength="20"  @keydown.enter.native="sendMail" show-word-limit ></el-input>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><el-link type="warning" disabled>密码</el-link></td>
-                        <td>
-                            <el-input  :disabled="ulogin.is" type="password" v-model="ulogin.password" placeholder="please  "   @keydown.enter.native="doLogin"  clearable  maxlength="20" ></el-input>
-                            <!-- @keydown.enter.native="doLogin"当按下enter键的时候也会执行doLogin方法-->
-                        </td>
-                    </tr>
-                    <tr>
-                        <!-- 占两行-->
-                        <td colspan="2">
-                            <!-- 点击事件的两种不同的写法v-on:click和 @click-->
-                            <!--<el-button style="width: 300px" type="primary" v-on:click="doLogin">登录</el-button>-->
-                       <!--     <el-button style="width: 300px" type="primary" icon="el-icon-loading" >jump</el-button>-->
-                        </td>
-                    </tr>
-                </table>
-            </el-card>
+    <div id="vueapp">
+        <div  style="height: 500px">
+        <swiper :options="swiperOptionTop" class="gallery-top" ref="swiperTop">
+            <swiper-slide class="slide-1"></swiper-slide>
+            <swiper-slide class="slide-2"></swiper-slide>
+
+
+            <div class="swiper-button-next swiper-button-white" slot="button-next"></div>
+            <div class="swiper-button-prev swiper-button-white" slot="button-prev"></div>
+        </swiper>
+        <!-- swiper2 Thumbs -->
+        <swiper :options="swiperOptionThumbs" class="gallery-thumbs" ref="swiperThumbs">
+            <swiper-slide class="slide-1"></swiper-slide>
+            <swiper-slide class="slide-2"></swiper-slide>
+
+
+        </swiper>
         </div>
     </div>
-</div>
+
 </body>
+
 <!-- import Vue before Element -->
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
-<!-- import JavaScript -->
-<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<!-- import JavaScript
+<script src="../js/index.js"></script>-->
+<script  src="https://unpkg.com/element-ui@2.4.9/lib/index.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.0.7/js/swiper.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/vue-awesome-swiper@3.1.2/dist/vue-awesome-swiper.js"></script>
+
 <!--类似ajax-->
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
 <script>
+    Vue.use(VueAwesomeSwiper)
     new Vue({
-        el: '#app',
-
-        data: function() {
-            return {
-                url:"user/",
-                ulogin:{
-                    username:'',
-                    password:'',
-                     is:true,
-                },
-
+        el: '#vueapp',
+        components: {
+            LocalSwiper: VueAwesomeSwiper.swiper,
+            LocalSlide: VueAwesomeSwiper.swiperSlide,
+        },
+        data: {
+            message: 'Hi from Vue',
+            swiperOptionTop: {
+                spaceBetween: 10,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev'
+                }
+            },
+            swiperOptionThumbs: {
+                spaceBetween: 10,
+                centeredSlides: true,
+                slidesPerView: 'auto',
+                touchRatio: 0.2,
+                slideToClickedSlide: true
             }
         },
-        methods:{
-            //登陆
-            doLogin:function () {
-                var _this =this;
-               // window.print();
-                //   return;
-                axios.post(this.url+'resultUserVo', {
-                    params: {
-                        username:_this.ulogin.username,
-                        password:_this.ulogin.password,
-                    }
-                }).then(function (response) {
-                    console.log(response);
-                }).catch(function (error) {
-                    console.log(error);
-                });
+
+        computed: {
+            swiperA() {
+                return this.$refs.awesomeSwiperA.swiper
             },
-            //发送验证码
-            sendMail:function() {
-                var _this =this;
-                _this.ulogin.is=false,
-                axios.post(this.url+'sendMail', {
-                    params: {
-                        username:_this.ulogin.username
-                    }
-                }).then(function (response) {
-                    console.log(response);
-                }).catch(function (error) {
-                    console.log(error);
-                });
-           }
+            swiperB() {
+                return this.$refs.awesomeSwiperB.swiper
+            }
         },
+        methods: {
+            onSetTranslate() {
+                console.log('onSetTranslate')
+            }
+        },
+        mounted() {
+            this.$nextTick(() => {
+                const swiperTop = this.$refs.swiperTop.swiper
+                const swiperThumbs = this.$refs.swiperThumbs.swiper
+                swiperTop.controller.control = swiperThumbs
+                swiperThumbs.controller.control = swiperTop
+            })
+
+        }
     })
 </script>
 </html>
