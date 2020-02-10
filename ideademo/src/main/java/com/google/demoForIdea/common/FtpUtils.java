@@ -24,7 +24,7 @@ public class FtpUtils {
 	// ftp服务器地址
 	public String hostname = "192.168.93.130";
 	// ftp登录账号
-	public String username = "tangcomes";
+	public String username = "tangcomes123";
 	// ftp登录密码
 	public String password = "biao632613";
 
