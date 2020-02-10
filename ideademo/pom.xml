@@ -182,6 +182,12 @@
             <artifactId>commons-net</artifactId>
             <version>3.6</version>
         </dependency>
+        <!--导入RabbitMQ的客户端依赖-->
+        <dependency>
+            <groupId>com.rabbitmq</groupId>
+            <artifactId>amqp-client</artifactId>
+            <version>3.4.1</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
