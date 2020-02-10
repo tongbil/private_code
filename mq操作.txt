@@ -1,0 +1,10 @@
+找到路径:C:\Users\tangcomes\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\RabbitMQ Server
+ 命令行:rabbitmq-plugins enable rabbitmq_management 
+      停止：net stop RabbitMQ
+
+     启动：net start RabbitMQ
+
+打开：http://127.0.0.1:15672/
+
+
+  文档：https://blog.csdn.net/hellozpc/article/details/81436980
