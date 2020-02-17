@@ -5,7 +5,7 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 
 public class Send {
-	private final static String QUEUE_NAME = "test_queue_work30";
+	private final static String QUEUE_NAME = "test_queue_work100";
 
 	public static void main(String[] argv) throws Exception {
 		// 获取到连接以及mq通道
