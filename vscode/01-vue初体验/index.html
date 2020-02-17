@@ -24,6 +24,7 @@
 
 <body>
     <div id="app" v-cloak>
+        <button @click="coloseHtml">关闭</button>
         {{message}}
         <ul>
             <li v-for="(item,index) in movies">{{index}}-{{item}}</li>
@@ -302,6 +303,9 @@
             },
             increment() {
                 return this.num++;
+            },
+            coloseHtml() {
+
             },
             btnClick() {
                 console.log('btnClick')
