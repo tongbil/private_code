@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+		<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.google.demoForIdea.dao.ExeclDao">
 
-    <insert id="inserExecl" parameterType="java.util.Map">
+<insert id="inserExecl" parameterType="java.util.Map">
 		insert into user(username,phone,openid,zhuohao,renshu,create_time,update_time)value (#{username},#{phone},
 		#{openid},#{zhuohao},#{renshu},#{create_time},#{update_time})
 	</insert>
