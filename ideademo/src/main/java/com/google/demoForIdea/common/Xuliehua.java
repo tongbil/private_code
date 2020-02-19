@@ -34,7 +34,9 @@ public class Xuliehua {
 			{
 				f.createNewFile();
 			}
+			//做的操作是将字节流转换成字符流 new FileOutputStream(f)是创建输出流,此时写入的是文件的字节流，
 			OutputStreamWriter write = new OutputStreamWriter(new FileOutputStream(f),"gbk");
+			// 创建一个writer的字符留缓冲区，将字符装载入缓冲区中
 			BufferedWriter writer=new BufferedWriter(write);
 			writer.write(fileContent);
 			writer.close();
