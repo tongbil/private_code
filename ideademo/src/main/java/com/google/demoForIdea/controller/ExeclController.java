@@ -1,21 +1,28 @@
 package com.google.demoForIdea.controller;
 
+import com.google.demoForIdea.common.HttpClient;
 import com.google.demoForIdea.common.ParseExcel;
+import com.google.demoForIdea.common.PropertiesUtil;
 import com.google.demoForIdea.service.ExeclService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 
 @RestController
 @RequestMapping(value = "/execl")
 public class ExeclController {
+	public static final String BASE_PATH = "/file/";
 	@Autowired
 	ExeclService execlService;
 
@@ -65,5 +72,50 @@ public class ExeclController {
 			//关闭流
 			inputStream.close();
 		}
+	}
+
+	@PostMapping("/upload")
+	@ResponseBody
+	public Map upload(@RequestParam(value = "uptext") MultipartFile file) throws IOException, NoSuchAlgorithmException, KeyManagementException {
+		String uuid =  UUID.randomUUID().toString().replaceAll("-", "");
+		System.out.println(UUID.randomUUID().toString().replaceAll("-", ""));
+		//获取文件名字
+		System.out.println(file.getOriginalFilename());
+		//获取文件的大小
+		System.out.println(file.getSize());
+		//获取文件名字 是uptext
+		System.out.println(file.getName());
+
+		//判断是否是目录: file.isDirectory()，
+		// 判断是否是文件:  file.isFile()，
+		// 判断是否是隐藏文件: file.isHidden()，
+		// 判断是否可读:file.canRead()，
+		//判断是否可写file.canWrite()。
+
+		//获取文件后缀名 包括 . 符号
+		if(file.getOriginalFilename().contains(".")){
+			System.out.println( file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
+
+		}
+		//创建新的文件
+		File targetFile = new File("C:\\Users\\tangcomes\\Desktop\\"+BASE_PATH, uuid+""+file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")));
+
+		if (!targetFile.exists()) {
+			targetFile.mkdirs();
+		} else {
+			targetFile.delete();
+		}
+		try {
+			//相当于copy
+				file.transferTo(targetFile);
+				//调接口
+			String fdfsUploadResultss = HttpClient.httpFileUpload(PropertiesUtil.readProperty("fileServer")+"c", targetFile);
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		}
+
+
+
+		return null;
 	}
 }
