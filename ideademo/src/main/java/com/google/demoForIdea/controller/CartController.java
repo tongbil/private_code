@@ -28,6 +28,8 @@ public class CartController {
 		List<Cart> results = cartService.getAll(openid);
 		ObjectMapper mapper = new ObjectMapper();
 		String ret = mapper.writeValueAsString(results);
+
+
 		return ret;
 	}
 

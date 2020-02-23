@@ -85,8 +85,8 @@ public class FtpUtils {
 			ftpClient.setFileTransferMode(FTP.STREAM_TRANSFER_MODE);
 
 			// 观察是否真的上传成功
-			boolean storeFlag = ftpClient.storeFile(fileName, inputStream);
-//            boolean storeFlag = ftpClient.storeFile(new String(fileName.getBytes("UTF-8"), "ISO-8859-1"), inputStream);
+		//	boolean storeFlag = ftpClient.storeFile(fileName, inputStream);
+           boolean storeFlag = ftpClient.storeFile(new String(fileName.getBytes("UTF-8"), "ISO-8859-1"), inputStream);
 			System.err.println("storeFlag==" + storeFlag);
 			inputStream.close();
 			ftpClient.logout();

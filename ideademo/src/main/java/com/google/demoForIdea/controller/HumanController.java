@@ -48,6 +48,10 @@ public class HumanController {
 		humanService.updateHuman(human);
 
 		Map.put("flag", "true");
+
+
+
+
 		return Map;
 	}
 

@@ -1,17 +1,24 @@
 package com.google.demoForIdea.common;
 
-import com.github.pagehelper.util.StringUtil;
-
 import java.util.HashMap;
 import java.util.Map;
 
 public class Nulpd {
 
 	public static void main(String[] args) {
-		Map<String, String> maps = new HashMap<>();
-		  //map的value必须是string类型才为true.不能为object
-		 boolean ff = StringUtil.isEmpty(maps.get("cc"));
-		System.out.println(ff);
+		Map<String, Object> maps = new HashMap<>();
+		maps.put("cc",null);
+		maps.put("rrrr","");
+		maps.put("ooo","null");
+	    if(isEmpty.filterObject(maps,"cc")){
+		    System.out.println("cc");
+	    }
+		if(isEmpty.filterObject(maps,"rrrr")){
+			System.out.println("rrrr");
+		}
+		if(isEmpty.filterObject(maps,"ooo")){
+			System.out.println("ooo");
+		}
 	}
 
 }
