@@ -16,7 +16,7 @@ public class isEmpty {
 	public final static boolean  filterString(Map<String,String> maps, String key) {
 
 		if(maps.get(key)==null || StringUtil.isEmpty(maps.get(key)) ||"null".equals(maps.get(key)) ){
-			return false;
+			return false;//
 		}
 		return true;
 	}
