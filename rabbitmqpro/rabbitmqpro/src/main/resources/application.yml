@@ -1,0 +1,20 @@
+
+spring:
+  rabbitmq:
+    port: 5672
+    host: 106.14.127.161
+    username: admin
+    password: 123456
+    virtual-host: /
+    connection-timeout: 10000
+      ##
+    listener:
+               simple:
+                   ##
+                   concurrency: 5
+                  ##
+                   max-connections: 10
+                    ##
+                   acknowledge-mode: manual
+                   ##
+                   prefetch: 1
