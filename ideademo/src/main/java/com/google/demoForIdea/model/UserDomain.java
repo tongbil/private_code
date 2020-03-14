@@ -1,18 +1,18 @@
 package com.google.demoForIdea.model;
 
 public class UserDomain {
-    private Integer id;
+    private int id;
 
     private String username;
 
     private String password;
 
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -31,4 +31,6 @@ public class UserDomain {
     public void setPassword(String password) {
         this.password = password;
     }
+
+
 }
