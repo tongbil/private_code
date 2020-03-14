@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/common/assets/element-ui/2.4.9/index_new.css">
+    <link rel='stylesheet' href='/common/css/bootstrap.min.css' id="poin_bootstrap">
+	 <link rel="stylesheet" href="/common/css/poin-bootstrap-ext.css" id="poin_bootstrap_ext">
+      <title>
+        列表查询
+    </title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        input.el-upload__input {
+            display: none;
+        }
+        .disabled .el-upload--picture-card{
+            display: none;
+        }
+        .el-collapse-item__arrow {
+            margin-left: 110px;
+        }
+    </style>
+	
+</head>
+
+<body>
+<div id="leave" class="panel-default panel">
+        <div class="panel-body poin-panel">
+    <div id="app" v-cloak>
+        
+			  <legend>
+                            <span class="glyphicon glyphicon-tags poin-icon poin-icon-mg">
+                            </span>
+                           风险金审核管理
+                            <small> 查询&amp;检索
+                                <span @click="dialogHelpVisible = true">
+                                    <a class="el-icon-info"></a>
+                                </span>
+                            </small>
+                        </legend>
+                <el-row>
+                    <el-col :span=24>
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <el-row type="flex" align="middle">
+                                    <el-col :span="22">                                     
+                                    </el-col>
+                                    <el-col :span="2">
+                                        
+                                    </el-col>
+                                </el-row>
+                              
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <!-- 查询 -->
+                                <el-form ref="searchform" :model="searchform" label-width="160px">
+                                    <el-row>
+
+                                        
+		                                <el-col :span="12">
+                                            
+                                                <el-form-item label="开始时间" prop="starttime">
+                                                    <el-input style="width: 50%;" v-model.trim="searchform.starttime" ></el-input>
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                </el-form-item>
+                                                                                        
+                                        </el-col>
+	                                    
+		                                <el-col :span="12">
+                                            
+                                                <el-form-item label="结束时间" prop="endtime">
+                                                    <el-input style="width: 50%;" v-model.trim="searchform.endtime" ></el-input>
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                    
+                                                </el-form-item>
+                                                                                        
+                                        </el-col>
+	                                    
+                                    </el-row>
+
+
+                                    <el-row type="flex" justify="center">
+                                        <el-form-item>
+                                            <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
+                                            <el-button @click="reset('searchform')">重置</el-button>
+                                        </el-form-item>
+                                    </el-row>
+                                </el-form>
+                            </div>
+                        </div>
+                    </el-col>
+                </el-row>
+
+
+                <el-row>
+                    <!-- 风险金审核列表-->
+                    <el-table :data="resultdatas"  stripe   border  v-loading="loading" ref="multipleTable" element-loading-text="拼命加载中..." style="width: 100%"
+                           @sort-change="tableSortChange" @selection-change="handleSelectionChange">
+                        
+                        
+                        <el-table-column  prop="id"  label="主键"   fixed="left"  :show-overflow-tooltip=true align="center" >
+                        </el-table-column>
+                        
+                        <el-table-column  prop="status"  label="活动"     :show-overflow-tooltip=true align="center" >
+                        </el-table-column>
+                        
+                        <el-table-column  prop="starttime"  label="开始时间"     :show-overflow-tooltip=true align="center" >
+                        </el-table-column>
+                        
+                        <el-table-column  prop="endtime"  label="结束时间"     :show-overflow-tooltip=true align="center" >
+                        </el-table-column>
+                        
+                        <el-table-column  prop="userid"  label="工号"     :show-overflow-tooltip=true align="center" >
+                        </el-table-column>
+                        
+                        <el-table-column  prop="username"  label="姓名"     :show-overflow-tooltip=true align="center" >
+                        </el-table-column>
+                        
+                        <el-table-column  prop="keys"  label="秘钥"     :show-overflow-tooltip=true align="center" >
+                        </el-table-column>
+                        
+                        <el-table-column  prop="status"  label="状态"       >
+                        </el-table-column>
+                        
+
+                       
+                        <el-table-column label="操作" width="150" fixed="right">
+                            <template slot-scope="scope">
+                                
+                                <el-button type="primary" size="mini" @click="setCurrent(scope.row)">编辑</el-button>
+                                
+                                
+                            </template>
+                        </el-table-column>
+                    </el-table>
+
+                </el-row>
+                <el-row type="flex" align="middle">
+                    <el-col :span="10">
+                        <!-- 操作 -->
+                        <el-button-group>
+                            
+                            <el-button icon="el-icon-share" @click="exportdata()">导出</el-button>
+                            <el-button icon="el-icon-more" @click="exportdata()">其他功能</el-button>
+                        </el-button-group>
+                    </el-col>
+                    <el-col :span="14">
+                        <!--分页begin-->
+                        <el-pagination class="tc mg" :current-page="filter.page" :page-sizes="[10, 20, 50, 100]" :page-size="filter.per_page" layout="total, sizes, prev, pager, next, jumper"
+                            :total="total_rows" @size-change="pageSizeChange" @current-change="pageCurrentChange">
+                        </el-pagination>
+                        <!--分页end-->
+                    </el-col>
+
+
+                </el-row>
+          
+
+         
+        
+        
+        <!-- 修改风险金审核 begin-->
+        <el-dialog title="修改风险金审核信息" :visible.sync="dialogUpdateVisible" :close-on-click-modal="false" :close-on-press-escape="false" fullscreen>
+            <el-form id="#update" :model="update" :rules="updateRules" ref="update" label-width="200px">
+			<el-row>
+                
+				  </el-row>
+				  <el-row>
+                            <div :span="24" style="text-align:center;">
+                               <el-button @click="dialogUpdateVisible = false">取 消</el-button>
+								<el-button type="primary" :loading="updateLoading" @click="updateData">确 定</el-button>
+                            </div>
+                 </el-row>
+            </el-form>
+        </el-dialog>
+        
+        <!-- 页面帮助信息 begin-->
+        <el-dialog title="帮助信息" :visible.sync="dialogHelpVisible" :close-on-click-modal="false" :close-on-press-escape="true">
+            页面帮助信息
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogHelpVisible = false">关闭</el-button>
+            </div>
+        </el-dialog>
+    </div>
+	</div>
+	</div>
+</body>
+<!-- 先引入 Vue -->
+<script src="/common/assets/vue/2.5.17/vue.js"></script>
+<script src="/common/assets/plugins/currency-validator.js"></script>
+<script src="/vue-easy-tinymce/examples/tinymce/tinymce.min.js"></script> <!-- TinyMCE core -->
+<script src="/vue-easy-tinymce/dist/vue-easy-tinymce.min.js"></script> <!-- VueEasyTinyMCE module-->
+<script src='/common/js/jquery.min.js'></script>
+<script src='/common/js/bootstrap.min.js'></script>
+<script src='/common/js/poin-config.js'></script>
+<script src='/common/js/poin.bootstrap.min.js'></script>
+<script src="/common/assets/vue/es6-promise.auto.min.js"></script>
+<script src="/common/assets/vue/axios.min.js"></script>
+<script src="/common/assets/vue/qs.min.js"></script>
+<!-- 引入 -->
+<script src="/common/assets/element-ui/2.4.9/index.js"></script>
+
+<!-- 引入组件库 -->
+<script src="/common/assets/element-ui/2.4.9/index.js"></script>
+<script src="/index_common.js"></script>
+<script src="riskfilestatus.js"></script>
+
+</html>

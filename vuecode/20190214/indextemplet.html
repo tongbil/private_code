@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="/common/assets/element-ui/2.4.9/index.css">
+    <link rel="stylesheet" href="/common/assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/common/assets/css/global.css">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	
+</head>
+
+<body>
+    <div id="app">
+        <section class="main-content-wrapper wrapper">
+            <section id="main-content">
+                <el-row>
+                    <el-col :span=24>
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <el-row type="flex" align="middle">
+                                    <el-col :span="22">
+                                        <h3>{{page_title}}
+                                            <small>{{page_title_smail}}
+                                                <span @click="dialogHelpVisible = true">
+                                                    <a class="el-icon-info"></a>
+                                                </span>
+                                            </small>
+                                        </h3>
+                                        
+                                    </el-col>
+                                    <el-col :span="2">
+                                        {% if page_addbutton=="是" %}
+                                        <el-button type="primary" icon="el-icon-plus" @click="dialogCreateVisible = true">添加</el-button>
+                                        {% endif %}
+                                    </el-col>
+                                </el-row>
+                                <hr>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+                                <!-- 查询 -->
+                                <el-form ref="searchform" :model="searchform" label-width="160px">
+                                    <el-row>
+
+                                        {% for formitem in searchForm %}
+		                                <el-col :span="{{formitem.span}}">
+                                            {% if (formitem.help) && (formitem.help!="") %}<el-tooltip content="{{formitem.help}}" placement="bottom">{% endif %}
+                                                <el-form-item label="{{formitem.lable}}" prop="{{formitem.name}}">
+                                                    {% if formitem.type=="普通输入框" %}<el-input v-model="searchform.{{formitem.name}}" {% if (formitem.input_type) && (formitem.input_type!="") %} type="{{formitem.input_type}}" {% endif %}></el-input>{% endif %}
+                                                    {% if formitem.type=="下拉列表框" %}<el-select style="width: 100%;" v-model="searchform.{{formitem.name}}"  {% if formitem.select_clearable=="true" %} clearable {% endif %} {% if formitem.select_multiple=="true" %} multiple {% endif %} placeholder="请选择{{formitem.lable}}">
+                                                        <el-option v-for="item in codetable.{{formitem.select_code}}" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
+                                                        </el-option>
+                                                    </el-select>{% endif %}
+                                                    {% if formitem.type=="日期选择框" %}<el-date-picker type="date" placeholder="选择日期"  v-model="searchform.{{formitem.name}}" style="width: 100%;"></el-date-picker>{% endif %}
+                                                    {% if formitem.type=="时间选择框" %}<el-time-picker type="fixed-time" placeholder="选择时间" v-model="searchform.{{formitem.name}}" style="width: 100%;"></el-time-picker>{% endif %}
+                                                    {% if formitem.type=="switch开关" %}<el-switch on-text="" off-text="" v-model="searchform.{{formitem.name}}"></el-switch>{% endif %}
+                                                    {% if formitem.type=="多选框" %}<el-checkbox-group v-model="searchform.{{formitem.name}}">
+                                                            <el-checkbox v-for="item in codetable.{{formitem.select_code}}" :key="item.value" :value="item.value" :label="item.value" :name="item.label" :disabled="item.disabled">
+                                                                [[item.label]]
+                                                            </el-checkbox>
+                                                        </el-checkbox-group>{% endif %}
+                                                    {% if formitem.type=="单选框" %}<el-radio-group v-model="searchform.{{formitem.name}}">
+                                                        <el-radio v-for="item in codetable.{{formitem.radio_code}}" :key="item.value" :value="item.value" :label="item.value" :name="item.label" :disabled="item.disabled">
+                                                            [[item.label]]
+                                                        </el-radio>
+                                                    </el-radio-group>{% endif %}
+                                                </el-form-item>
+                                            {% if (formitem.help) && (formitem.help!="") %}</el-tooltip>{% endif %}                                            
+                                        </el-col>
+	                                    {% endfor %}
+                                    </el-row>
+
+
+                                    <el-row type="flex" justify="center">
+                                        <el-form-item>
+                                            <el-button type="primary" icon="el-icon-search" @click="query">查询</el-button>
+                                            <el-button @click="reset('searchform')">重置</el-button>
+                                        </el-form-item>
+                                    </el-row>
+                                </el-form>
+                            </div>
+                        </div>
+                    </el-col>
+                </el-row>
+
+
+                <el-row>
+                    <!-- {{page_entiyname_cn}}列表-->
+                    <el-table :data="resultdatas" {% if table_stripe=="是" %} stripe {% endif %} {% if table_border=="是" %} border {% endif %} v-loading="loading" ref="multipleTable" element-loading-text="拼命加载中..." style="width: 100%"
+                        {% if table_height %} height="{{table_height}}" {% else %}  height="443" {% endif %} @sort-change="tableSortChange" @selection-change="handleSelectionChange">
+                        {% if page_checkall=="是" %}
+                        <el-table-column type="selection" width="40">
+                        </el-table-column>
+                        {% endif %}
+                        {% for table_col in table %}
+                        <el-table-column {% if (table_col.sortable) && (table_col.sortable!="") %}sortable="{{table_col.sortable}}" {% endif %} prop="{{table_col.name}}"  label="{{table_col.label}}"  {% if (table_col.width) && (table_col.width!="") %}width="{{table_col.width}}"{% endif %} {% if (table_col.fixed) && (table_col.fixed!="") %}fixed="{{table_col.fixed}}"{% endif %} {% if (table_col.resizable) && (table_col.resizable!="") %}:resizable={{table_col.resizable}}{% endif %} {% if (table_col.show_overflow_tooltip) && (table_col.show_overflow_tooltip!="") %}:show-overflow-tooltip={{table_col.show_overflow_tooltip}}{% endif %} {% if (table_col.align) && (table_col.align!="") %}align="{{table_col.align}}"{% endif %} >
+                        </el-table-column>
+                        {% endfor %}
+
+                       
+                        <el-table-column label="操作" width="150" fixed="right">
+                            <template slot-scope="scope">
+                                {% if page_editbutton=="是" %}
+                                <el-button type="primary" size="mini" @click="setCurrent(scope.row)">编辑</el-button>
+                                {% endif %}
+                                {% if page_delbutton=="是" %}
+                                <el-button type="danger" size="mini" @click="removeData(scope.row)">删除</el-button>
+                                {% endif %}
+                            </template>
+                        </el-table-column>
+                    </el-table>
+
+                </el-row>
+                <el-row type="flex" align="middle">
+                    <el-col :span="10">
+                        <!-- 操作 -->
+                        <el-button-group>
+                            {% if page_delbutton=="是" %}
+                            <el-button type="primary" icon="el-icon-delete" :disabled="selected.length==0" @click="removeresultdatas()">删除</el-button>
+                            {% endif %}
+                            <el-button icon="el-icon-share" @click="exportdata()">导出</el-button>
+                            <el-button icon="el-icon-more" @click="exportdata()">其他功能</el-button>
+                        </el-button-group>
+                    </el-col>
+                    <el-col :span="14">
+                        <!--分页begin-->
+                        <el-pagination class="tc mg" :current-page="filter.page" :page-sizes="[10, 20, 50, 100]" :page-size="filter.per_page" layout="total, sizes, prev, pager, next, jumper"
+                            :total="total_rows" @size-change="pageSizeChange" @current-change="pageCurrentChange">
+                        </el-pagination>
+                        <!--分页end-->
+                    </el-col>
+
+
+                </el-row>
+            </section>
+        </section>
+
+        {% if page_addbutton=="是" %}
+        <!-- 创建{{page_entiyname_cn}} begin-->
+        <el-dialog title="创建{{page_entiyname_cn}}" :visible.sync="dialogCreateVisible" :close-on-click-modal="false" :close-on-press-escape="false" fullscreen
+            @close="reset('create')">
+            <el-form id="#create" :model="create" :rules="rules" ref="create" label-width="200px">
+                {% for formitem in createForm %}
+		        <el-col :span="{{formitem.span}}">
+                    {% if (formitem.help) && (formitem.help!="") %}<el-tooltip content="{{formitem.help}}" placement="bottom">{% endif %}
+                        <el-form-item label="{{formitem.lable}}" prop="{{formitem.name}}">
+                            {% if formitem.type=="普通输入框" %}<el-input v-model="create.{{formitem.name}}" {% if (formitem.input_type) && (formitem.input_type!="") %} type="{{formitem.input_type}}" {% endif %}></el-input>{% endif %}
+                            {% if formitem.type=="下拉列表框" %}<el-select style="width: 100%;" v-model="create.{{formitem.name}}"  {% if formitem.select_clearable=="true" %} clearable {% endif %} {% if formitem.select_multiple=="true" %} multiple {% endif %} placeholder="请选择{{formitem.lable}}">
+                                <el-option v-for="item in codetable.{{formitem.select_code}}" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
+                                </el-option>
+                            </el-select>{% endif %}
+                            {% if formitem.type=="日期选择框" %}<el-date-picker type="date" placeholder="选择日期"  v-model="create.{{formitem.name}}" style="width: 100%;"></el-date-picker>{% endif %}
+                            {% if formitem.type=="时间选择框" %}<el-time-picker type="fixed-time" placeholder="选择时间" v-model="create.{{formitem.name}}" style="width: 100%;"></el-time-picker>{% endif %}
+                            {% if formitem.type=="switch开关" %}<el-switch on-text="" off-text="" v-model="create.{{formitem.name}}"></el-switch>{% endif %}
+                            {% if formitem.type=="多选框" %}<el-checkbox-group v-model="create.{{formitem.name}}">
+                                    <el-checkbox v-for="item in codetable.{{formitem.select_code}}" :key="item.value" :value="item.value" :label="item.value" :name="item.label" :disabled="item.disabled">
+                                        [[item.label]]
+                                    </el-checkbox>
+                                </el-checkbox-group>{% endif %}
+                            {% if formitem.type=="单选框" %}<el-radio-group v-model="create.{{formitem.name}}">
+                                <el-radio v-for="item in codetable.{{formitem.radio_code}}" :key="item.value" :value="item.value" :label="item.value" :name="item.label" :disabled="item.disabled">
+                                    [[item.label]]
+                                </el-radio>
+                            </el-radio-group>{% endif %}
+                        </el-form-item>
+                    {% if (formitem.help) && (formitem.help!="") %}</el-tooltip>{% endif %}                                            
+                </el-col>
+	             {% endfor %}
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogCreateVisible = false">取 消</el-button>
+                <el-button type="primary" :loading="createLoading" @click="createData">确 定</el-button>
+            </div>
+        </el-dialog>
+        {% endif %} 
+        
+        {% if page_editbutton=="是" %}
+        <!-- 修改{{page_entiyname_cn}} begin-->
+        <el-dialog title="修改{{page_entiyname_cn}}信息" :visible.sync="dialogUpdateVisible" :close-on-click-modal="false" :close-on-press-escape="false" fullscreen>
+            <el-form id="#update" :model="update" :rules="updateRules" ref="update" label-width="200px">
+                {% for formitem in updateForm %}
+		        <el-col :span="{{formitem.span}}">
+                    {% if (formitem.help) && (formitem.help!="") %}<el-tooltip content="{{formitem.help}}" placement="bottom">{% endif %}
+                        <el-form-item label="{{formitem.lable}}" prop="{{formitem.name}}">
+                            {% if formitem.type=="普通输入框" %}<el-input v-model="update.{{formitem.name}}" {% if (formitem.input_type) && (formitem.input_type!="") %} type="{{formitem.input_type}}" {% endif %} ></el-input>{% endif %}
+                            {% if formitem.type=="下拉列表框" %}<el-select style="width: 100%;" v-model="update.{{formitem.name}}"  {% if formitem.select_clearable=="true" %} clearable {% endif %} {% if formitem.select_multiple=="true" %} multiple {% endif %} placeholder="请选择{{formitem.lable}}">
+                                <el-option v-for="item in codetable.{{formitem.select_code}}" :key="item.value" :label="item.label" :value="item.value" :disabled="item.disabled">
+                                </el-option>
+                            </el-select>{% endif %}
+                            {% if formitem.type=="日期选择框" %}<el-date-picker type="date" placeholder="选择日期"  v-model="update.{{formitem.name}}" style="width: 100%;"></el-date-picker>{% endif %}
+                            {% if formitem.type=="时间选择框" %}<el-time-picker type="fixed-time" placeholder="选择时间" v-model="update.{{formitem.name}}" style="width: 100%;"></el-time-picker>{% endif %}
+                            {% if formitem.type=="switch开关" %}<el-switch on-text="" off-text="" v-model="update.{{formitem.name}}"></el-switch>{% endif %}
+                            {% if formitem.type=="多选框" %}<el-checkbox-group v-model="update.{{formitem.name}}">
+                                    <el-checkbox v-for="item in codetable.{{formitem.select_code}}" :key="item.value" :value="item.value" :label="item.value" :name="item.label" :disabled="item.disabled">
+                                        [[item.label]]
+                                    </el-checkbox>
+                                </el-checkbox-group>{% endif %}
+                            {% if formitem.type=="单选框" %}<el-radio-group v-model="update.{{formitem.name}}">
+                                <el-radio v-for="item in codetable.{{formitem.radio_code}}" :key="item.value" :value="item.value" :label="item.value" :name="item.label" :disabled="item.disabled">
+                                    [[item.label]]
+                                </el-radio>
+                            </el-radio-group>{% endif %}
+                        </el-form-item>
+                    {% if (formitem.help) && (formitem.help!="") %}</el-tooltip>{% endif %}                                            
+                 </el-col>
+	             {% endfor %}
+            </el-form>
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogUpdateVisible = false">取 消</el-button>
+                <el-button type="primary" :loading="updateLoading" @click="updateData">确 定</el-button>
+            </div>
+        </el-dialog>
+        {% endif %}
+
+        <!-- 页面帮助信息 begin-->
+        <el-dialog title="帮助信息" :visible.sync="dialogHelpVisible" :close-on-click-modal="false" :close-on-press-escape="true">
+            {{page_help}}
+            <div slot="footer" class="dialog-footer">
+                <el-button @click="dialogHelpVisible = false">关闭</el-button>
+            </div>
+        </el-dialog>
+    </div>
+</body>
+<!-- 先引入 Vue -->
+<script>
+        if (!window.Promise) {
+                document.write('<script src="/common/assets/vue/polyfill.min.js"><\/script><script>ES6Promise.polyfill()<\/script>')
+        }
+</script>
+<script src="/common/assets/vue/2.5.17/vue.js"></script>
+<script src="/common/assets/vue/vue-resource.min.js"></script>
+<script src="/common/assets/plugins/currency-validator.js"></script>
+
+<!-- 引入组件库 -->
+<script src="/common/assets/element-ui/2.4.9/index.js"></script>
+<script src="{{ofjs}}"></script>
+
+</html>
