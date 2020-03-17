@@ -1,5 +1,4 @@
 package com.google.demoForIdea.redis;
-
 import org.redisson.api.*;
 import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +6,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * redisson操作类
@@ -26,23 +26,45 @@ public class RedissonService {
     /**`
      * 获取字符串对象
      *
-     * @param objectName
+     * @param key
      * @return
      */
-    public <T> RBucket<T> getRBucket(String objectName) {
-        RBucket<T> bucket = redissonClient.getBucket(objectName);
+    public <T> RBucket<T> getRBucket(String key) {
+        RBucket<T> bucket = redissonClient.getBucket(key);
         return bucket;
+    }
+
+    public <T> RBucket<T> setRBucket(String key,T value) {
+        RBucket<T> bucket = redissonClient.getBucket(key);
+        bucket.set(value);
+        return bucket;
+    }
+
+    public <T> T deleteRBucket(String key) {
+        RBucket<T> bucket = redissonClient.getBucket(key);
+        return bucket.getAndDelete();
     }
 
     /**
      * 获取Map对象
      *
-     * @param objectName
+     * @param key
      * @return
      */
-    public <K, V> RMap<K, V> getRMap(String objectName) {
-        RMap<K, V> map = redissonClient.getMap(objectName);
-        return map;
+    public <K, V> RMap<K, V> getRMap(String key) {
+        RMap<K, V> rMap = redissonClient.getMap(key);
+        return rMap;
+    }
+
+    public <K, V> RMap<K, V> setRMap(String key, Map<K, V> map) {
+        RMap<K, V> rMap = redissonClient.getMap(key);
+        rMap.putAll(map);
+        return rMap;
+    }
+
+    public <K, V> boolean deleteRMap(String key) {
+        RMap<K, V> rMap = redissonClient.getMap(key);
+        return rMap.delete();
     }
 
     /**

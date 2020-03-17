@@ -1,6 +1,8 @@
 package com.google.demoForIdea.model;
 
-public class UserDomain {
+import java.io.Serializable;
+
+public class UserDomain implements Serializable {
     private int id;
 
     private String username;
