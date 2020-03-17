@@ -88,12 +88,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-            <exclusions>
+           <!-- <exclusions>
                 <exclusion>
                     <groupId>org.junit.vintage</groupId>
                     <artifactId>junit-vintage-engine</artifactId>
                 </exclusion>
-            </exclusions>
+            </exclusions>-->
         </dependency>
         <!--二维码-->
         <dependency>
@@ -112,8 +112,7 @@
             <artifactId>spring-boot-starter-mail</artifactId>
         </dependency>
 
-
-
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
         <dependency>
             <groupId>commons-beanutils</groupId>
             <artifactId>commons-beanutils</artifactId>
@@ -236,6 +235,20 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.9.4</version>
         </dependency>
+        <!--reids-->
+        <!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <version>2.2.5.RELEASE</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.redisson/redisson-spring-boot-starter -->
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.12.3</version>
+        </dependency>
+
 
     </dependencies>
     <build>

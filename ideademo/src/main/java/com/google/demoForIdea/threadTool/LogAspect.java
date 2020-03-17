@@ -1,23 +1,13 @@
 package com.google.demoForIdea.threadTool;
 
 
-import com.google.demoForIdea.common.ThreadPool;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.*;
-import org.aspectj.lang.reflect.MethodSignature;
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
+/*
 @Aspect
 @Component
-@Order(-1)//保证该切面在@Transactional前执行
+@Order(-1)//保证该切面在@Transactional前执行*/
 public class LogAspect {
-
-	@Resource
+/*
+	//@Resource
 //	private KjServerLogService kjServerLogService;
 
 	//切入类上注解或方法上注解
@@ -55,7 +45,7 @@ public class LogAspect {
 				@Override
 				public void run() {
 					float t = (float)(endTime-startTime)/1000;
-				/*	KjServerLog log = new KjServerLog();
+				*//*	KjServerLog log = new KjServerLog();
 					log.setSuempNo(logName);//工号
 					log.setLoginIp(ip);//ip
 					log.setCreateTime(new Date());//创建时间
@@ -67,7 +57,7 @@ public class LogAspect {
 					log.setResult(object.toString());//返回结果
 					log.setType(null);//日志类型
 					log.setExecuteTime(t+"");//方法执行时间
-					kjServerLogService.insert(log);*/
+					kjServerLogService.insert(log);*//*
 				}
 			});
 		}
@@ -75,5 +65,5 @@ public class LogAspect {
 	}
 
 	@After(value = "point()")
-	public void after(){}
+	public void after(){}*/
 }
