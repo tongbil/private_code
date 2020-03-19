@@ -1,4 +1,4 @@
-package com.google.demoForIdea.util;
+package com.google.demoForIdea.utils;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
