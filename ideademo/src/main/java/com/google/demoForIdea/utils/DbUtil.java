@@ -11,5 +11,11 @@ public class DbUtil {
 		ObjectMapper mapper=new ObjectMapper();
 		JsonNode node=mapper.readTree(json);
 		System.out.println(node.get("skills"));
+		System.out.println(node.get("skills").size());
+		System.out.println(node.get("skills").get(1));
+		for(int i = 1;i<=4;i++){
+			System.out.println(  Character.toUpperCase( (char)(96+i))  );//大写
+		}
+
 	}
 }
