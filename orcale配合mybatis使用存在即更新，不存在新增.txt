@@ -15,3 +15,10 @@ merge into t_sys_city t1
 
 
 链接：https://blog.csdn.net/yangqinfeng1121/article/details/90672458
+
+
+//建唯一索引
+ALTER TABLE njweb_cpxm_template ADD constraint uq_cpxm_template unique(ywmc)
+
+
+ALTER TABLE njweb_cpxm_template ADD constraint cpxm_template_pk primary key(id)
