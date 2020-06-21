@@ -1,0 +1,85 @@
+goJuNeeDS0.r
+
+//启动
+cd /tong/jar
+nohup java -jar ideademo-0.0.1-SNAPSHOT.jar > nohup.out 2>&1 &
+tailf nohup.out
+
+//杀死进程
+kill -9 `lsof -ti:8181`  
+
+//重启mysql
+service mysql restart   
+
+
+//登陆mysql
+mysql -u root -p  
+
+//写配置
+vi /etc/my.cnf  
+
+//删文件
+rm -f ideademo-0.0.1-SNAPSHOT.jar
+
+
+//重启
+ shutdown -r now
+
+//开启端口
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+
+
+简书报错
+
+ MySQL.2020-04-22T12:07:56.930063Z mysqld_safe error: log-error set to '/var/log/mariadb/mariadb.log', however file don't exists. Create writable for user 'mysql'.
+ ERROR! The server quit without updating PID file (/usr/local/mysql/data/VM_0_4_centos.pid).
+解决：
+mkdir /var/log/mariadb 
+touch /var/log/mariadb/mariadb.log 
+
+
+chown -R mysql:mysql  /var/log/mariadb/
+
+
+命令： cd /usr/local/nginx/sbin
+
+启动，关闭，重启，命令：
+
+./nginx 启动
+
+./nginx -s stop 关闭
+
+./nginx -s reload 重启'
+2、配置nginx开机自启动
+
+vim /etc/rc.d/rc.local
+
+
+
+
+
+
+
+cp? 文件名? 路径 ? ?cp??hello.csv? ./python/ml：把当前目录的hello.csv拷贝到当前目的python文件夹里的ml文件夹里
+
+cp 源文件名? 新文件名? 
+cp? hello.txt? ?world.txt：复制并改名,并存放在当前目录下??
+
+cp -rp 复制文件  
+
+source  加路径 让配置迅速生效
+
+chmod -R 777 文件   修改权限 如果是R 则是递归。  R4W2X1
+
+//自己制作命令
+vim ~/.bashrc
+文件中如下写（举个栗子）
+alias gitll=’git pull’
+最后执行文件使其及时生效
+source ~/.bashrc
+
+//查看运行得端口
+netstat -ntlp
+
+
+
