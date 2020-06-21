@@ -3,6 +3,7 @@ package com.google.demoForIdea.common;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class Nulpd {
 
 	public static void main(String[] args) {
@@ -20,5 +21,4 @@ public class Nulpd {
 			System.out.println("ooo");
 		}
 	}
-
 }

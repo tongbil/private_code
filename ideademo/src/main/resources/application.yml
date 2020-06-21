@@ -1,11 +1,14 @@
 
 server:
-  port: 8080
+  port: 6326
+  #use-forward-headers: true
+  #tomcat:
+   # remote-ip-header: x-forwarded-for
+    #protocol-header: x-forwarded-proto
+    #port-header: X-Forwarded-Port
 spring:
-  redis:
-    host: 127.0.0.1
-    password: 123456
-    port: 6379
+  thymeleaf:
+    cache: false
   datasource:
     name: mysql_test
     type: com.alibaba.druid.pool.DruidDataSource
@@ -13,15 +16,17 @@ spring:
     druid:
       #监控统计拦截的filters
       filters: stat
-      driver-class-name: com.mysql.jdbc.Driver
-      # driver-class-name: oracle.jdbc.OracleDriver
-   #   url: jdbc:oracle:thin:@localhost:1521:orcl
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      #driver-class-name: oracle.jdbc.OracleDriver
+      #url: jdbc:oracle:thin:@localhost:1521:orcl
       #基本属性
-      url: jdbc:mysql://localhost:3306/osgitest?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-       #    username: c##scott
-       #  password: 123
+      url: jdbc:log4jdbc:mysql://129.211.190.128:3306/mysql?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true
+      #url: jdbc:log4jdbc:mysql://127.0.0.1:3306/mysql?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true
+      #username: c##scott
+      #password: 123
       username: root
-      password: 123456
+      password: root
+      #password: 123456
     #配置初始化大小/最小/最大
       initial-size: 1
       min-idle: 1
@@ -33,7 +38,7 @@ spring:
       #一个连接在池中最小生存的时间
       min-evictable-idle-time-millis: 300000
       #mysql validation-query: SELECT 'x'
-      validation-query: SELECT * from dual
+      #validation-query: SELECT * from dual
       test-while-idle: true
       test-on-borrow: false
       test-on-return: false

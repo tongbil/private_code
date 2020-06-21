@@ -5,11 +5,13 @@ import com.google.demoForIdea.model.Cart;
 import com.google.demoForIdea.service.CartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
 
 @Service(value = "cartService")
+@Transactional
 public class CartServiceImpl implements CartService {
 
     @Autowired

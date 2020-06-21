@@ -17,6 +17,7 @@ public class ConnectionUtil {
 		factory.setVirtualHost("testhost");
 		factory.setUsername("admin");
 		factory.setPassword("admin");
+		
 		// 通过工程获取连接
 		Connection connection = factory.newConnection();
 		return connection;

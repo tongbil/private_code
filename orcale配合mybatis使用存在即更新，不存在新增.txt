@@ -22,3 +22,69 @@ ALTER TABLE njweb_cpxm_template ADD constraint uq_cpxm_template unique(ywmc)
 
 
 ALTER TABLE njweb_cpxm_template ADD constraint cpxm_template_pk primary key(id)
+
+
+
+
+declare //必须要换行？
+day date :=to_date(‘2014-03-01‘,‘yyyy-mm-dd‘);//每一句话结束都要以分号结尾
+dayw number(10,1) :=0.1;//变量赋值方式  变量名 := 值
+iii int :=30;//定义一个int类型的指标
+ 
+begin
+for i in 1..iii loop //for  循环  条件 i<=30 loop 开始循环
+day :=day+1;
+dayw := dayw+0.1;
+insert into wr_day_w_r(MP_CD,DT,day_w) values(‘9988776655‘,day,dayw);//插入必须写明要入的列
+end loop;//结束循环
+end;
+
+
+//级联删除删除test 就直接删除test2
+
+alter table test1 add constraint pk_id primary key (id);
+alter table test2 add constraint fk_id foreign key (id) references test1(id) on delete cascade;
+
+delete from test1 where id='1';
+
+
+=====
+declare 
+id number(18) :=1;--变量赋值方式  变量名 := 值
+iii int :=10;--定义一个int类型的指标
+username varchar2(20) :='汤彪';
+begin
+for i in 1..iii loop --for  循环  条件 i<=30 loop 开始循环
+id :=id+1;
+insert into tuser(id,username,classid) values(id,username,'0000');--插入必须写明要入的列
+end loop;--结束循环
+end;
+
+
+//必须同时满足 才判断唯一
+alter table tuser add constraint u_idname unique (id,username);
+
+
+insert  into tclass(id,class)
+select u.id ,fs.fs from tuser u left join tfs fs on u.id = fs.id
+
+虚拟列 就from dual left join tfs 
+
+
+//A表与B表对应的 赋值到A表
+merge into test1 using test2
+
+on (test1.id = test2.id)
+
+when matched then update
+
+set test1.name = nvl2(test1.name,test2.name,test1.name);
+
+
+//下一个和当前主键
+select seq1.nextval  from dual;
+select seq1.currval from dual;
+
+
+//恢复删除数据
+select * from tableName as of timestamp to_timestamp('2011-05-21 11:40:00','YYYY-MM-DD HH24:MI:SS');

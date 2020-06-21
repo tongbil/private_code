@@ -4,7 +4,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class TrainTickets implements Runnable{
-	int  ticketnum = 20;
+  volatile 	int  ticketnum = 20;
 	Lock lock = new ReentrantLock();
 	public void run(){
 		boolean a = true;

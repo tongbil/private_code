@@ -1,8 +1,5 @@
 package com.google.demoForIdea.common;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
-import org.apache.poi.hssf.usermodel.HSSFDataFormat;
-import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -13,9 +10,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class ParseExcel {
@@ -58,7 +53,7 @@ public class ParseExcel {
 		int lastRowNum = sheet.getLastRowNum();
 
 		// 最后一行的行号大于startRow
-		if (lastRowNum <= startRow) {
+		if (lastRowNum <startRow) {
 			return null;
 		}
 
@@ -92,7 +87,7 @@ public class ParseExcel {
 		return result;
 	}
 
-	/**
+	/*
 	 * 解析单元格
 	 *
 	 * @return String 单元格数据
@@ -102,30 +97,17 @@ public class ParseExcel {
 
 		// 判断单元格的类型
 		switch (cell.getCellType()) {
-			case HSSFCell.CELL_TYPE_STRING:
+			//poi3.11版本
+			case STRING:
 				// 字符串类型单元格
 				cellStr = cell.getRichStringCellValue().toString();
 				break;
-			case HSSFCell.CELL_TYPE_BLANK:
+			case BLANK:
 				// 空数据, 标准数据
 				cellStr = "";
 				break;
-			case HSSFCell.CELL_TYPE_NUMERIC:
-				// 数学类型. 数学类型包含日期,时间,数字
-				// 判断日期[年月日2016-11-17 | 时分10:00]类型
-				if (HSSFDateUtil.isCellDateFormatted(cell)) {
-					// 判断具体类型, 是日期还是时间
-					SimpleDateFormat sdf = null;
-					if (cell.getCellType() == HSSFDataFormat.getBuiltinFormat("h:mm")) {
-						// 时间
-						sdf = new SimpleDateFormat("HH:mm");
-					} else {
-						// 日期
-						sdf = new SimpleDateFormat("yyyy-MM-dd");
-					}
-					Date temp = cell.getDateCellValue();
-					cellStr = sdf.format(temp);
-				} else {
+			case NUMERIC:
+
 					// 数字
 					double temp = cell.getNumericCellValue();
 					// 数学格式化工具
@@ -137,7 +119,7 @@ public class ParseExcel {
 						format.applyPattern("#");
 					}
 					cellStr = format.format(temp);
-				}
+
 				break;
 			default:
 				cellStr = "";

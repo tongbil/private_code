@@ -5,7 +5,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class Abcd {
+
 	public static void main(String[] args) {
+
 		String text = "A,CK,JHFKDGDKFGXAAAAA";
 		String repStr="";
 		if(text.contains(",")){
