@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<link rel="shortcut icon" href="#" />
 
 <head>
     <meta charset="UTF-8">
@@ -109,7 +110,7 @@
     window.addEventListener('popstate', function () {
         history.pushState(null, null, document.URL);
     });
-    /* if (window.addEventListener) {
+    if (window.addEventListener) {
         window.addEventListener("DOMCharacterDataModified", function () { window.location.reload(); }, true);
         window.addEventListener("DOMAttributeNameChanged", function () { window.location.reload(); }, true);
         window.addEventListener("DOMCharacterDataModified", function () { window.location.reload(); }, true);
@@ -119,7 +120,7 @@
         window.addEventListener("DOMNodeRemoved", function () { window.location.reload(); }, true);
         window.addEventListener("DOMNodeRemovedFromDocument", function () { window.location.reload(); }, true);
         window.addEventListener("DOMSubtreeModified", function () { window.location.reload(); }, true);
-    }  */
+    }  
 </script>
 
 
