@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.google.demoForIdea.dao.PersonDao">
-<!--新增留言221-->
+<!--新增留言-->
     <insert id="insert_edit_message" parameterType="java.util.Map">
       insert into person_edit_message(email,content_message) values(#{email},#{content_message})
     </insert>
