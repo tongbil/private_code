@@ -54,6 +54,10 @@ chown -R mysql:mysql  /var/log/mariadb/
 
 vim /etc/rc.d/rc.local
 
+查看ngnix配置
+vi /usr/local/nginx/conf/nginx.conf
+
+
 
 
 
@@ -81,5 +85,13 @@ source ~/.bashrc
 //查看运行得端口
 netstat -ntlp
 
+查看ip
+hostname -I
+
+//压缩
+zip -r  压缩的名字.zip  hy 文件夹 
+
+//删除指定格式
+find . -name "*.jpg" | xargs rm -rf
 
 

@@ -25,7 +25,7 @@ public class GenerateUtil {
 	public static final String bankHtml = "C:\\Users\\tangcomes\\Desktop\\testFile\\";
 	public static final String bankxml = "C:\\Users\\tangcomes\\Desktop\\testFile\\orcl\\";
 
-	public static void main(String[] args)throws Exception{
+	public static void main(String[] args) throws Exception {
 
 		Comment comment = new Comment();
 		comment.setAuthor("tangbiao");
@@ -33,19 +33,17 @@ public class GenerateUtil {
 		comment.setDesc("");
 
 		//生成前端
-		File fileHtml = new File(bankHtml+"src-nj-"+firstLowerCase(name));
+		File fileHtml = new File(bankHtml + "src-nj-" + firstLowerCase(name));
 		if (!fileHtml.exists() && !fileHtml.isDirectory()) {
-			System.out.println(bankHtml+"src-nj-"+firstLowerCase(name));
+			System.out.println(bankHtml + "src-nj-" + firstLowerCase(name));
 			System.out.println("需要创建的前端文件夹名字不存在，做新增");
 			fileHtml.mkdir();
-		}else{
+		} else {
 			System.out.println("需要创建的前端文件夹名字已存在，不做新增");
 		}
 
 
-
-		File file = new File(baseSrcPath+firstLowerCase(name));
-
+		File file = new File(baseSrcPath + firstLowerCase(name));
 
 
 		if (!file.exists() && !file.isDirectory()) {
@@ -53,49 +51,49 @@ public class GenerateUtil {
 
 			file.mkdir();
 
-			Map<String,Class> map = new HashMap<>();
+			Map<String, Class> map = new HashMap<>();
        /* map.put("kj_server_config",KjServerConfig.class);
         map.put("kj_server_log",KjServerLog.class);
         map.put("kj_system_patch",KjSystemPatch.class);
         map.put("kj_version_config",KjVersionConfig.class);
         map.put("kj_version_type",KjVersionType.class);
         map.put("kj_patch_config",KjPatchConfig.class);*/
-			map.put(name,GenerateUtil.class);
+			map.put(name, GenerateUtil.class);
 
-			for (Map.Entry<String,Class> entry : map.entrySet()){
+			for (Map.Entry<String, Class> entry : map.entrySet()) {
 				Class clazz = entry.getValue();
 				//生成Resource
-				generateController(clazz,comment);
+				generateController(clazz, comment);
 				//生成Service
-				String servicePath = generateService(clazz,comment);
+				String servicePath = generateService(clazz, comment);
 				//  generateVo(clazz,comment);
 
 				//  String mapperPath = generateMapper(clazz,comment);
 				//生成ServiceImpl
-				  generateServiceImpl(clazz,servicePath,mapperPath,comment);
+				generateServiceImpl(clazz, servicePath, mapperPath, comment);
 				//生成mabatis
-				 generateMapperXml(clazz,bankxml,entry.getKey());
+				generateMapperXml(clazz, bankxml, entry.getKey());
 				//generateSql();
 				//   generateHtml(clazz);
 				//  generateJs(clazz);
 			}
-		} else{
-			System.out.println("后端整个文件夹已存在："+baseSrcPath+name);
+		} else {
+			System.out.println("后端整个文件夹已存在：" + baseSrcPath + name);
 		}
 	}
 
 	private static void generateJs(Class c) {
 		String entityName = GenerateUtil.getClassName(c);
 		String lowerEntityName = GenerateUtil.firstLowerCase(entityName);
-		String jsName = lowerEntityName+".js";
+		String jsName = lowerEntityName + ".js";
 		List<ClassField> fieldList = GenerateUtil.getFieldList(c);
 		GenerateBuffer gb = GenerateBuffer.getInstance();
 		gb.appendSRN("$(function () {");
-		gb.appendT(1).appendSRN("var queryUrl  = '/webapi/"+lowerEntityName+"/list';");
-		gb.appendT(1).appendSRN("var insertUrl = '/webapi/"+lowerEntityName+"/insert';");
-		gb.appendT(1).appendSRN("var updateUrl = '/webapi/"+lowerEntityName+"/update';");
-		gb.appendT(1).appendSRN("var detailUrl = '/webapi/"+lowerEntityName+"/detail';");
-		gb.appendT(1).appendSRN("var deleteUrl = '/webapi/"+lowerEntityName+"/deleteFakeIds';").appendRN();
+		gb.appendT(1).appendSRN("var queryUrl  = '/webapi/" + lowerEntityName + "/list';");
+		gb.appendT(1).appendSRN("var insertUrl = '/webapi/" + lowerEntityName + "/insert';");
+		gb.appendT(1).appendSRN("var updateUrl = '/webapi/" + lowerEntityName + "/update';");
+		gb.appendT(1).appendSRN("var detailUrl = '/webapi/" + lowerEntityName + "/detail';");
+		gb.appendT(1).appendSRN("var deleteUrl = '/webapi/" + lowerEntityName + "/deleteFakeIds';").appendRN();
 		gb.appendT(1).appendSRN("var $table = $('#dataTable');");
 		gb.appendT(1).appendSRN("var $searchFormBtn = $('#search-form-btn');").appendRN();
 		gb.appendT(1).appendSRN("var $selectForm = $('#selectForm');").appendRN();
@@ -129,12 +127,12 @@ public class GenerateUtil {
 		gb.appendT(2).appendSRN("clickToSelect : true,");
 		gb.appendT(2).appendSRN("queryParams : function(params){");
 		gb.appendT(3).appendSRN("var param = {};");
-		for(ClassField field : fieldList){
-			if(field.getFieldComment()!=null){
+		for (ClassField field : fieldList) {
+			if (field.getFieldComment() != null) {
 				String name = field.getFieldName();
-				gb.appendT(3).appendSRN("var "+name+" = $('#"+name+"').val();");
-				gb.appendT(3).appendSRN("if("+name+"){"+name+" = "+name+".trim();}");
-				gb.appendT(3).appendSRN("param."+name+" = "+name+";");
+				gb.appendT(3).appendSRN("var " + name + " = $('#" + name + "').val();");
+				gb.appendT(3).appendSRN("if(" + name + "){" + name + " = " + name + ".trim();}");
+				gb.appendT(3).appendSRN("param." + name + " = " + name + ";");
 			}
 		}
 		gb.appendT(3).appendSRN("return h5_encryp(JSON.stringify(param));");
@@ -144,9 +142,9 @@ public class GenerateUtil {
 		gb.appendT(2).appendSRN("},");
 		gb.appendT(2).appendSRN("columns:[");
 		gb.appendT(3).appendSRN("{checkbox:true},");
-		for(ClassField field : fieldList){
-			if(field.getFieldComment()!=null){
-				gb.appendT(3).appendSRN("{field:'"+field.getFieldName()+"',title:'"+field.getFieldComment()+"', align: 'center',sortable:true},");
+		for (ClassField field : fieldList) {
+			if (field.getFieldComment() != null) {
+				gb.appendT(3).appendSRN("{field:'" + field.getFieldName() + "',title:'" + field.getFieldComment() + "', align: 'center',sortable:true},");
 			}
 		}
 		gb.appendT(3).appendSRN("{field:'operate',title:'操作',align: 'center',width: 60,formatter: btnGroup,");
@@ -192,9 +190,9 @@ public class GenerateUtil {
 		gb.appendT(2).appendSRN("message: '输入值不合法',");
 		gb.appendT(2).appendSRN("feedbackIcons: {valid:'glyphicon glyphicon-ok', invalid:'glyphicon glyphicon-remove', validating:'glyphicon glyphicon-refresh'},");
 		gb.appendT(2).appendSRN("fields: {");
-		for(ClassField field : fieldList){
-			if(field.getFieldComment()!=null){
-				gb.appendT(3).appendSRN(field.getFieldName()+": {trigger:'change',validators: {notEmpty: {message: '请输入"+field.getFieldComment()+"'}}},");
+		for (ClassField field : fieldList) {
+			if (field.getFieldComment() != null) {
+				gb.appendT(3).appendSRN(field.getFieldName() + ": {trigger:'change',validators: {notEmpty: {message: '请输入" + field.getFieldComment() + "'}}},");
 			}
 		}
 		gb.appendT(2).appendSRN("},");
@@ -334,9 +332,9 @@ public class GenerateUtil {
 		gb.appendT(1).appendSRN("//设置表单的值");
 		gb.appendT(1).appendSRN("function setFormData($form,data){");
 		gb.appendT(2).appendSRN("$form.find(\"input[name='id']\").val(data.id);");
-		for(ClassField field : fieldList){
-			if(field.getFieldComment()!=null) {
-				gb.appendT(2).appendSRN("$form.find(\"input[name='"+field.getFieldName()+"']\").val(data."+field.getFieldName()+");");
+		for (ClassField field : fieldList) {
+			if (field.getFieldComment() != null) {
+				gb.appendT(2).appendSRN("$form.find(\"input[name='" + field.getFieldName() + "']\").val(data." + field.getFieldName() + ");");
 			}
 		}
 		gb.appendT(1).appendSRN("}").appendRN();
@@ -345,9 +343,9 @@ public class GenerateUtil {
 		gb.appendT(1).appendSRN("function getFormData($form){");
 		gb.appendT(2).appendSRN("var data = {};");
 		gb.appendT(2).appendSRN("data.id = $form.find(\"input[name='id']\").val();");
-		for(ClassField field : fieldList){
-			if(field.getFieldComment()!=null) {
-				gb.appendT(2).appendSRN("data."+field.getFieldName()+" = $form.find(\"input[name='"+field.getFieldName()+"']\").val();");
+		for (ClassField field : fieldList) {
+			if (field.getFieldComment() != null) {
+				gb.appendT(2).appendSRN("data." + field.getFieldName() + " = $form.find(\"input[name='" + field.getFieldName() + "']\").val();");
 			}
 		}
 		gb.appendT(2).appendSRN("return data;");
@@ -402,15 +400,15 @@ public class GenerateUtil {
 		gb.appendT(1).appendSRN("});").appendRN();
 
 		gb.appendSRN("});");
-		String path = baseJsPath+jsName;
-		generateFile(path,gb.toString());
+		String path = baseJsPath + jsName;
+		generateFile(path, gb.toString());
 	}
 
 	public static String generateHtml(Class c) {
 		String entityName = GenerateUtil.getClassName(c);
 		String lowerEntityName = GenerateUtil.firstLowerCase(entityName);
-		String htmlName = lowerEntityName+".html";
-		String jsName = lowerEntityName+".js";
+		String htmlName = lowerEntityName + ".html";
+		String jsName = lowerEntityName + ".js";
 
 		List<ClassField> fieldList = GenerateUtil.getFieldList(c);
 		GenerateBuffer gb = GenerateBuffer.getInstance();
@@ -450,12 +448,12 @@ public class GenerateUtil {
 		gb.appendT(3).appendSRN("<form id=\"form\" class=\"form-horizontal\">");
 		gb.appendT(4).appendSRN("<div class=\"continer\">");
 		gb.appendT(5).appendSRN("<div class=\"row poin-row\">");
-		for (ClassField field : fieldList){
-			if(field.getFieldComment()!=null){
+		for (ClassField field : fieldList) {
+			if (field.getFieldComment() != null) {
 				String name = field.getFieldName();
-				gb.appendT(6).appendSRN("<label class=\"control-label col-lg-1 col-md-1 col-sm-1 col-xs-1\" name=\""+name+"Label\" for=\""+name+"\" id=\""+name+"Label\">"+field.getFieldComment()+":</label>");
+				gb.appendT(6).appendSRN("<label class=\"control-label col-lg-1 col-md-1 col-sm-1 col-xs-1\" name=\"" + name + "Label\" for=\"" + name + "\" id=\"" + name + "Label\">" + field.getFieldComment() + ":</label>");
 				gb.appendT(6).appendSRN("<div class=\"form-group col-lg-3 col-md-3 col-sm-3 col-xs-3\">");
-				gb.appendT(7).appendSRN("<input placeholder=\"请输入...\" autocomplete=\"off\" autofocus=\"off\" type=\"text\" class=\"form-control\" id=\""+name+"\" name=\""+name+"\">");
+				gb.appendT(7).appendSRN("<input placeholder=\"请输入...\" autocomplete=\"off\" autofocus=\"off\" type=\"text\" class=\"form-control\" id=\"" + name + "\" name=\"" + name + "\">");
 				gb.appendT(6).appendSRN("</div>");
 			}
 		}
@@ -495,12 +493,12 @@ public class GenerateUtil {
 		gb.appendT(5).appendSRN("<form id=\"insertForm\" method=\"post\" enctype =\"multipart/form-data\">");
 		gb.appendT(6).appendSRN("<input class=\"form-control\" type=\"hidden\" name=\"id\" readonly/>");
 		gb.appendT(6).appendSRN("<div class=\"row\">");
-		for (ClassField field : fieldList){
-			if(field.getFieldComment()!=null){
+		for (ClassField field : fieldList) {
+			if (field.getFieldComment() != null) {
 				String name = field.getFieldName();
-				gb.appendT(7).appendSRN("<label class=\"control-label label-text col-lg-2 col-md-2 col-sm-2 col-xs-2\"><span class=\"k12_star\">* </span>"+field.getFieldComment()+":</label>");
+				gb.appendT(7).appendSRN("<label class=\"control-label label-text col-lg-2 col-md-2 col-sm-2 col-xs-2\"><span class=\"k12_star\">* </span>" + field.getFieldComment() + ":</label>");
 				gb.appendT(7).appendSRN("<div class=\"form-group col-lg-4 col-md-4 col-sm-4 col-xs-4\">");
-				gb.appendT(8).appendSRN("<input placeholder=\"请输入...\" autocomplete=\"off\" autofocus=\"off\" type=\"text\" class=\"form-control\" name=\""+name+"\">");
+				gb.appendT(8).appendSRN("<input placeholder=\"请输入...\" autocomplete=\"off\" autofocus=\"off\" type=\"text\" class=\"form-control\" name=\"" + name + "\">");
 				gb.appendT(7).appendSRN("</div>");
 			}
 		}
@@ -528,12 +526,12 @@ public class GenerateUtil {
 		gb.appendT(5).appendSRN("<form id=\"selectForm\" method=\"post\" enctype =\"multipart/form-data\">");
 		gb.appendT(6).appendSRN("<input class=\"form-control\" type=\"hidden\" name=\"id\" readonly/>");
 		gb.appendT(6).appendSRN("<div class=\"row\">");
-		for (ClassField field : fieldList){
-			if(field.getFieldComment()!=null){
+		for (ClassField field : fieldList) {
+			if (field.getFieldComment() != null) {
 				String name = field.getFieldName();
-				gb.appendT(7).appendSRN("<label class=\"control-label label-text col-lg-2 col-md-2 col-sm-2 col-xs-2\"><span class=\"k12_star\">* </span>"+field.getFieldComment()+":</label>");
+				gb.appendT(7).appendSRN("<label class=\"control-label label-text col-lg-2 col-md-2 col-sm-2 col-xs-2\"><span class=\"k12_star\">* </span>" + field.getFieldComment() + ":</label>");
 				gb.appendT(7).appendSRN("<div class=\"form-group col-lg-4 col-md-4 col-sm-4 col-xs-4\">");
-				gb.appendT(8).appendSRN("<input placeholder=\"请输入...\" autocomplete=\"off\" autofocus=\"off\" type=\"text\" class=\"form-control\" name=\""+name+"\" disabled readonly>");
+				gb.appendT(8).appendSRN("<input placeholder=\"请输入...\" autocomplete=\"off\" autofocus=\"off\" type=\"text\" class=\"form-control\" name=\"" + name + "\" disabled readonly>");
 				gb.appendT(7).appendSRN("</div>");
 			}
 		}
@@ -556,12 +554,12 @@ public class GenerateUtil {
 		gb.appendT(5).appendSRN("<form id=\"updateForm\" method=\"post\" enctype =\"multipart/form-data\">");
 		gb.appendT(6).appendSRN("<input class=\"form-control\" type=\"hidden\" name=\"id\" readonly/>");
 		gb.appendT(6).appendSRN("<div class=\"row\">");
-		for (ClassField field : fieldList){
-			if(field.getFieldComment()!=null){
+		for (ClassField field : fieldList) {
+			if (field.getFieldComment() != null) {
 				String name = field.getFieldName();
-				gb.appendT(7).appendSRN("<label class=\"control-label label-text col-lg-2 col-md-2 col-sm-2 col-xs-2\"><span class=\"k12_star\">* </span>"+field.getFieldComment()+":</label>");
+				gb.appendT(7).appendSRN("<label class=\"control-label label-text col-lg-2 col-md-2 col-sm-2 col-xs-2\"><span class=\"k12_star\">* </span>" + field.getFieldComment() + ":</label>");
 				gb.appendT(7).appendSRN("<div class=\"form-group col-lg-4 col-md-4 col-sm-4 col-xs-4\">");
-				gb.appendT(8).appendSRN("<input placeholder=\"请输入...\" autocomplete=\"off\" autofocus=\"off\" type=\"text\" class=\"form-control\" name=\""+name+"\">");
+				gb.appendT(8).appendSRN("<input placeholder=\"请输入...\" autocomplete=\"off\" autofocus=\"off\" type=\"text\" class=\"form-control\" name=\"" + name + "\">");
 				gb.appendT(7).appendSRN("</div>");
 			}
 		}
@@ -595,39 +593,39 @@ public class GenerateUtil {
 		gb.appendT(2).appendSRN("</div>");
 		gb.appendT(1).appendSRN("</div>");
 
-		gb.appendT(1).appendSRN("<script src=\"js/"+jsName+"\"></script>");
+		gb.appendT(1).appendSRN("<script src=\"js/" + jsName + "\"></script>");
 		gb.appendSRN("</body>");
 		gb.appendSRN("</html>");
 
-		String path = baseHtmlPath+htmlName;
-		generateFile(path,gb.toString());
+		String path = baseHtmlPath + htmlName;
+		generateFile(path, gb.toString());
 		return null;
 	}
 
-	public static String generateVo(Class c,Comment comment) {
+	public static String generateVo(Class c, Comment comment) {
 		String entityName = GenerateUtil.getClassName(c);
 		String lowerEntityName = GenerateUtil.firstLowerCase(entityName);
-		String voName = entityName+"Vo";
+		String voName = entityName + "Vo";
 		GenerateBuffer gb = GenerateBuffer.getInstance();
-		gb.appendPackage(basePackage+"."+voPath).appendRN();
+		gb.appendPackage(basePackage + "." + voPath).appendRN();
 		gb.appendImport(c);
 		gb.appendRN();
-		gb.appendSRN("public class "+voName+" extends "+entityName+" {").appendRN().appendSRN("}");
+		gb.appendSRN("public class " + voName + " extends " + entityName + " {").appendRN().appendSRN("}");
 
-		String path = baseSrcPath+voPath+"\\"+voName+".java";
-		generateFile(path,gb.toString());
-		return basePackage+"."+voPath+"."+voName;
+		String path = baseSrcPath + voPath + "\\" + voName + ".java";
+		generateFile(path, gb.toString());
+		return basePackage + "." + voPath + "." + voName;
 	}
 
-	public static String generateController(Class c,Comment comment){
-	//	String entityName = GenerateUtil.getClassName(c);
+	public static String generateController(Class c, Comment comment) {
+		//	String entityName = GenerateUtil.getClassName(c);
 		String entityName = name;
 		String lowerEntityName = GenerateUtil.firstLowerCase(entityName);
-		String controllerName = entityName+"Resource";
-		String serviceName = entityName+"Service";
+		String controllerName = entityName + "Resource";
+		String serviceName = entityName + "Service";
 		String lowerServiceName = GenerateUtil.firstLowerCase(serviceName);
 		GenerateBuffer gb = GenerateBuffer.getInstance();
-		gb.appendPackage(basePackage+"."+firstLowerCase(name)+"."+controllerPath).appendRN();
+		gb.appendPackage(basePackage + "." + firstLowerCase(name) + "." + controllerPath).appendRN();
 		//gb.appendImport("org.apache.log4j.Logger");
 		gb.appendImport("java.util.Arrays");
 		gb.appendImport("java.util.Date");
@@ -655,28 +653,28 @@ public class GenerateUtil {
 		gb.appendImport("com.cebbank.poin.util.StringUtil");
 		gb.appendImport("org.springframework.web.bind.annotation.RequestBody;");
 
-		gb.appendImport("com.njcebbank."+firstLowerCase(name)+".service.I"+name+"Service");
+		gb.appendImport("com.njcebbank." + firstLowerCase(name) + ".service.I" + name + "Service");
 
 		gb.appendRN();
-		gb.appendDesc(comment,DescType.CLASS,0);
+		gb.appendDesc(comment, DescType.CLASS, 0);
 		gb.appendSRN("@Component");
-		gb.appendSRN("@Path(\""+lowerEntityName+"\")");
-		gb.appendSRN("public class "+controllerName+" {").appendRN();
-	//	gb.appendT(1).appendSRN("private static final Logger LOGGER = Logger.getLogger("+controllerName+".class);").appendRN();
+		gb.appendSRN("@Path(\"" + lowerEntityName + "\")");
+		gb.appendSRN("public class " + controllerName + " {").appendRN();
+		//	gb.appendT(1).appendSRN("private static final Logger LOGGER = Logger.getLogger("+controllerName+".class);").appendRN();
 		gb.appendT(1).appendSRN("@Context");
 		gb.appendT(1).appendSRN("private HttpServletRequest request;").appendRN();
 		gb.appendT(1).appendSRN("@Context");
 		gb.appendT(1).appendSRN("private ServletContext servletContext;").appendRN();
 		gb.appendT(1).appendSRN("@Autowired");
-		gb.appendT(1).appendSRN("private" +" I"+name+"Service  "+ firstLowerCase(name) +"Service;").appendRN();
+		gb.appendT(1).appendSRN("private" + " I" + name + "Service  " + firstLowerCase(name) + "Service;").appendRN();
 		//列表
 		//gb.appendT(1).appendSRN("@Log");
 		gb.appendT(1).appendSRN("@GET");
 		gb.appendT(1).appendSRN("@Path(\"/page\")");
 		gb.appendT(1).appendSRN("@Produces({ \"application/json\" })");
-		gb.appendT(1).appendSRN("public PagingData page("+entityName+" "+lowerEntityName+",@QueryParam(\"offset\") String offset, @QueryParam(\"limit\") String limit){");
+		gb.appendT(1).appendSRN("public PagingData page(" + entityName + " " + lowerEntityName + ",@QueryParam(\"offset\") String offset, @QueryParam(\"limit\") String limit){");
 		gb.appendT(2).appendSRN("Map<String, Object> map = new HashMap<String, Object>();");
-		gb.appendT(3).appendSRN("return " +firstLowerCase(name)+"Service.get"+name+"List(map, (offset == null || \"\".equals(offset)) ? 0 :  Integer.parseInt(offset),\n" +
+		gb.appendT(3).appendSRN("return " + firstLowerCase(name) + "Service.get" + name + "List(map, (offset == null || \"\".equals(offset)) ? 0 :  Integer.parseInt(offset),\n" +
 				"\t\t\t\t(null == limit || \"\".equals(limit)) ? 10 :  Integer.parseInt(limit));");
 
 		gb.appendT(1).appendSRN("}").appendRN();
@@ -704,7 +702,7 @@ public class GenerateUtil {
 		gb.appendT(1).appendSRN("@Produces({ \"application/json\" })");
 		gb.appendT(1).appendSRN("public Map insert(@RequestBody Map<String, Object> map) {");
 		gb.appendT(2).appendSRN("try {");
-		gb.appendT(3).appendSRN("int i = "+lowerServiceName+".insert"+name+"(map);");
+		gb.appendT(3).appendSRN("int i = " + lowerServiceName + ".insert" + name + "(map);");
 		gb.appendT(3).appendSRN("if(i>0){");
 		gb.appendT(4).appendSRN("map.put(\"result\",\"true\")");
 		gb.appendT(3).appendSRN("return map; ");
@@ -720,7 +718,7 @@ public class GenerateUtil {
 		gb.appendT(1).appendSRN("@Produces({ \"application/json\" })");
 		gb.appendT(1).appendSRN("public Map update(@RequestBody Map<String, Object> map) {");
 		gb.appendT(2).appendSRN("try {");
-		gb.appendT(3).appendSRN("int i = "+lowerServiceName+".update"+name+"(map);");
+		gb.appendT(3).appendSRN("int i = " + lowerServiceName + ".update" + name + "(map);");
 		gb.appendT(3).appendSRN("if(i>0){");
 		gb.appendT(4).appendSRN("map.put(\"result\",\"true\")");
 		gb.appendT(3).appendSRN("return map; ");
@@ -730,13 +728,13 @@ public class GenerateUtil {
 		gb.appendT(2).appendSRN("}");
 		gb.appendT(1).appendSRN("}").appendRN();
 		//删除
-	//	gb.appendT(1).appendSRN("@Log");
+		//	gb.appendT(1).appendSRN("@Log");
 		gb.appendT(1).appendSRN("@POST");
 		gb.appendT(1).appendSRN("@Path(\"/delete\")");
 		gb.appendT(1).appendSRN("@Produces({ \"application/json\" })");
 		gb.appendT(1).appendSRN("public Map delete(@RequestBody Map<String, Object> map) {");
 		gb.appendT(2).appendSRN("try {");
-		gb.appendT(3).appendSRN("int i = "+lowerServiceName+".delete"+name+"(map);");
+		gb.appendT(3).appendSRN("int i = " + lowerServiceName + ".delete" + name + "(map);");
 		gb.appendT(3).appendSRN("if(i>0){");
 		gb.appendT(4).appendSRN("map.put(\"result\",\"true\")");
 		gb.appendT(3).appendSRN("return map; ");
@@ -807,80 +805,78 @@ public class GenerateUtil {
 		gb.appendT(1).appendSRN("}").appendRN();
 
 		gb.appendSRN("}");*/
-		File file = new File( baseSrcPath+name+"\\"+controllerPath);
+		File file = new File(baseSrcPath + name + "\\" + controllerPath);
 
 
 		if (!file.exists() && !file.isDirectory()) {
 			System.out.println("Resource文件夹不存在，开始新增");
 
 			file.mkdir();
-			String path = baseSrcPath+name+"\\"+controllerPath+"\\"+controllerName+".java";
-			generateFile(path,gb.toString());
-			return basePackage+"."+controllerPath+"."+controllerName;
-		}else{
+			String path = baseSrcPath + name + "\\" + controllerPath + "\\" + controllerName + ".java";
+			generateFile(path, gb.toString());
+			return basePackage + "." + controllerPath + "." + controllerName;
+		} else {
 
-			return    basePackage+"."+controllerPath+"."+controllerName+"Resource文件夹已存在";
+			return basePackage + "." + controllerPath + "." + controllerName + "Resource文件夹已存在";
 		}
-
 
 	}
 
-	public static String generateService(Class c,Comment comment){
+	public static String generateService(Class c, Comment comment) {
 		//String entityName = GenerateUtil.getClassName(c);
 		String entityName = name;
 		String lowerEntityName = GenerateUtil.firstLowerCase(entityName);
-		String serviceName = entityName+"Service";
+		String serviceName = entityName + "Service";
 		GenerateBuffer gb = GenerateBuffer.getInstance();
-		gb.appendPackage(basePackage+"."+firstLowerCase(name)+"."+servicePath).appendRN();
+		gb.appendPackage(basePackage + "." + firstLowerCase(name) + "." + servicePath).appendRN();
 		//gb.appendImport(c,List.class);
 		gb.appendImport(List.class, Map.class);
 		gb.appendImport("com.cebbank.poin.core.page.PagingData");
-		gb.appendDesc(comment,DescType.CLASS,0);
+		gb.appendDesc(comment, DescType.CLASS, 0);
 
-		gb.appendSRN("public interface I"+serviceName+"{");
-		gb.appendDesc(comment,DescType.SELECT,1);
-		gb.appendT(1).appendSRN("PagingData get"+name+"List(Map<String, Object> map,int offset,int limit);").appendRN();
-	//	gb.appendT(1).appendSRN(""+entityName+" selectOne("+entityName+" "+lowerEntityName+");").appendRN();
-		gb.appendDesc(comment,DescType.INSERT,1);
-		gb.appendT(1).appendSRN("int insert"+name+"(Map<String, Object> map);").appendRN();
-	//	gb.appendDesc(comment,DescType.INSERT_BATCH,1);
-	//	gb.appendT(1).appendSRN("int insertBatch(List<"+entityName+"> list);").appendRN();
-		gb.appendDesc(comment,DescType.UPDATE,1);
-		gb.appendT(1).appendSRN("int update"+name+"(Map<String, Object> map);").appendRN();
-	//	gb.appendDesc(comment,DescType.DELETE_FAKE,1);
-	//	gb.appendT(1).appendSRN("int deleteFake(Long id);").appendRN();
-		gb.appendDesc(comment,DescType.DELETE,1);
-		gb.appendT(1).appendSRN("int delete"+name+"(Map<String, Object> map);").appendRN();
+		gb.appendSRN("public interface I" + serviceName + "{");
+		gb.appendDesc(comment, DescType.SELECT, 1);
+		gb.appendT(1).appendSRN("PagingData get" + name + "List(Map<String, Object> map,int offset,int limit);").appendRN();
+		//	gb.appendT(1).appendSRN(""+entityName+" selectOne("+entityName+" "+lowerEntityName+");").appendRN();
+		gb.appendDesc(comment, DescType.INSERT, 1);
+		gb.appendT(1).appendSRN("int insert" + name + "(Map<String, Object> map);").appendRN();
+		//	gb.appendDesc(comment,DescType.INSERT_BATCH,1);
+		//	gb.appendT(1).appendSRN("int insertBatch(List<"+entityName+"> list);").appendRN();
+		gb.appendDesc(comment, DescType.UPDATE, 1);
+		gb.appendT(1).appendSRN("int update" + name + "(Map<String, Object> map);").appendRN();
+		//	gb.appendDesc(comment,DescType.DELETE_FAKE,1);
+		//	gb.appendT(1).appendSRN("int deleteFake(Long id);").appendRN();
+		gb.appendDesc(comment, DescType.DELETE, 1);
+		gb.appendT(1).appendSRN("int delete" + name + "(Map<String, Object> map);").appendRN();
 		gb.appendSRN("}");
 
-		File file = new File( baseSrcPath+name+"\\"+servicePath);
+		File file = new File(baseSrcPath + name + "\\" + servicePath);
 
 		if (!file.exists() && !file.isDirectory()) {
 			System.out.println("Service文件夹不存在，开始新增");
 
 			file.mkdir();
-			String path = baseSrcPath+name+"\\"+servicePath+"\\"+"I"+serviceName+".java";
-			generateFile(path,gb.toString());
-			return basePackage+"."+servicePath+"."+serviceName;
-		}else{
+			String path = baseSrcPath + name + "\\" + servicePath + "\\" + "I" + serviceName + ".java";
+			generateFile(path, gb.toString());
+			return basePackage + "." + servicePath + "." + serviceName;
+		} else {
 
-			return basePackage+"."+servicePath+"."+serviceName+"Service文件夹已存在";
+			return basePackage + "." + servicePath + "." + serviceName + "Service文件夹已存在";
 		}
-
 
 	}
 
-	public static String generateServiceImpl(Class c,String serviceUrl,String mapperUrl,Comment comment){
-	//	String entityName = GenerateUtil.getClassName(c);
+	public static String generateServiceImpl(Class c, String serviceUrl, String mapperUrl, Comment comment) {
+		//	String entityName = GenerateUtil.getClassName(c);
 		String entityName = name;
 		String lowerEntityName = GenerateUtil.firstLowerCase(entityName);
-		String serviceImplName = entityName+"ServiceImpl";
-		String serviceName = entityName+"Service";
-		String mapperName = entityName+"Mapper";
+		String serviceImplName = entityName + "ServiceImpl";
+		String serviceName = entityName + "Service";
+		String mapperName = entityName + "Mapper";
 		String lowerMapperName = GenerateUtil.firstLowerCase(mapperName);
 		GenerateBuffer gb = GenerateBuffer.getInstance();
-		gb.appendPackage(basePackage+"."+firstLowerCase(name)+"."+servicePath+"."+serviceImplPath).appendRN();
-	//	gb.appendImport(c,List.class);
+		gb.appendPackage(basePackage + "." + firstLowerCase(name) + "." + servicePath + "." + serviceImplPath).appendRN();
+		//	gb.appendImport(c,List.class);
 		gb.appendImport("org.springframework.stereotype.Service");
 		gb.appendImport("java.util.HashMap");
 		gb.appendImport("java.util.List");
@@ -894,13 +890,13 @@ public class GenerateUtil {
 		gb.appendImport("com.cebbank.poin.core.log.CSPSLogFactory");
 		gb.appendImport("com.cebbank.poin.core.log.CSPSLogger");
 		gb.appendImport("com.cebbank.poin.core.page.PagingData");
-		gb.appendImport("com.njcebbank."+firstLowerCase(name)+".service.I"+name+"Service");
+		gb.appendImport("com.njcebbank." + firstLowerCase(name) + ".service.I" + name + "Service");
 
 
 		//gb.appendDesc(comment,DescType.CLASS,0);
 
 		gb.appendSRN("@Service");
-		gb.appendSRN("public class "+serviceImplName+" implements I"+serviceName+"{").appendRN();
+		gb.appendSRN("public class " + serviceImplName + " implements I" + serviceName + "{").appendRN();
 		gb.appendT(1).appendSRN("CSPSLogger logger = CSPSLogFactory.getBussLog();");
 
 		gb.appendT(1).appendSRN("@Autowired");
@@ -908,100 +904,98 @@ public class GenerateUtil {
 		gb.appendT(1).appendSRN("@Autowired");
 		gb.appendT(1).appendSRN("private ICommonDAO commonDAOExt;");
 
-		gb.appendDesc(comment,DescType.SELECT,1);
+		gb.appendDesc(comment, DescType.SELECT, 1);
 		gb.appendT(1).appendSRN("@Override");
-		gb.appendT(1).appendSRN("PagingData get"+name+"List(Map<String, Object> map,int offset,int limit){");
-		gb.appendT(2).appendSRN("String statmeName =\""+firstLowerCase(name)+".get"+name+"List"+"\"");
+		gb.appendT(1).appendSRN("PagingData get" + name + "List(Map<String, Object> map,int offset,int limit){");
+		gb.appendT(2).appendSRN("String statmeName =\"" + firstLowerCase(name) + ".get" + name + "List" + "\"");
 		gb.appendT(2).appendSRN("return commonDAOExt.page4rest(statmeName, map,offset, limit);");
 		gb.appendT(1).appendSRN("}");
-	//	gb.appendT(1).appendSRN ("public "+entityName+" selectOne("+entityName+" "+lowerEntityName+"){");
+		//	gb.appendT(1).appendSRN ("public "+entityName+" selectOne("+entityName+" "+lowerEntityName+"){");
 //		gb.appendT(2).appendSRN("return "+lowerMapperName+".selectOne("+lowerEntityName+");");
 //		gb.appendT(1).appendSRN("}");
-		gb.appendDesc(comment,DescType.INSERT,1);
-		gb.appendT(1).appendSRN("public int insert"+name+"(Map<String, Object> map){");
-			gb.appendT(2).appendSRN("String statmeName =\""+firstLowerCase(name)+".insert"+name+"\"");
+		gb.appendDesc(comment, DescType.INSERT, 1);
+		gb.appendT(1).appendSRN("public int insert" + name + "(Map<String, Object> map){");
+		gb.appendT(2).appendSRN("String statmeName =\"" + firstLowerCase(name) + ".insert" + name + "\"");
 		gb.appendT(2).appendSRN("return int insert = sqlSessionTemplate.insert(statmeName, map);");
 		gb.appendT(1).appendSRN("}");
 //		gb.appendDesc(comment,DescType.INSERT_BATCH,1);
 		//gb.appendT(1).appendSRN("public int insertBatch(List<"+entityName+"> list){");
 		//gb.appendT(2).appendSRN("return "+lowerMapperName+".insertBatch(list);");
 		//gb.appendT(1).appendSRN("}");
-		gb.appendDesc(comment,DescType.UPDATE,1);
-		gb.appendT(1).appendSRN("public int update"+name+"(Map<String, Object> map){");
-		gb.appendT(2).appendSRN("String statmeName =\""+firstLowerCase(name)+".update"+name+"\"");
+		gb.appendDesc(comment, DescType.UPDATE, 1);
+		gb.appendT(1).appendSRN("public int update" + name + "(Map<String, Object> map){");
+		gb.appendT(2).appendSRN("String statmeName =\"" + firstLowerCase(name) + ".update" + name + "\"");
 		gb.appendT(2).appendSRN("return int update = sqlSessionTemplate.update(statmeName, map);");
 		gb.appendT(1).appendSRN("}");
-	//	gb.appendDesc(comment,DescType.DELETE_FAKE,1);
-	//	gb.appendT(1).appendSRN("public int deleteFake(Long id){");
+		//	gb.appendDesc(comment,DescType.DELETE_FAKE,1);
+		//	gb.appendT(1).appendSRN("public int deleteFake(Long id){");
 //		gb.appendT(2).appendSRN("return "+lowerMapperName+".deleteFake(id);");
 //		gb.appendT(1).appendSRN("}");
-		gb.appendDesc(comment,DescType.DELETE,1);
-		gb.appendT(1).appendSRN("public int delete"+name+"(Map<String, Object> map){");
-		gb.appendT(2).appendSRN("String statmeName  =\""+firstLowerCase(name)+".delete"+name+"\"");
+		gb.appendDesc(comment, DescType.DELETE, 1);
+		gb.appendT(1).appendSRN("public int delete" + name + "(Map<String, Object> map){");
+		gb.appendT(2).appendSRN("String statmeName  =\"" + firstLowerCase(name) + ".delete" + name + "\"");
 		gb.appendT(2).appendSRN("return int delete = sqlSessionTemplate.delete(statmeName, map);");
 		gb.appendT(1).appendSRN("}");
 		gb.appendSRN("}");
 
-		File file = new File(  baseSrcPath+name+"\\"+servicePath+"\\"+serviceImplPath);
+		File file = new File(baseSrcPath + name + "\\" + servicePath + "\\" + serviceImplPath);
 
 		if (!file.exists() && !file.isDirectory()) {
 			System.out.println("Impl文件夹不存在，开始新增");
 
 			file.mkdir();
-			String path = baseSrcPath+name+"\\"+servicePath+"\\"+serviceImplPath+"\\"+serviceImplName+".java";
-			generateFile(path,gb.toString());
-			return basePackage+"."+servicePath+"."+serviceImplPath+"."+serviceImplName;
+			String path = baseSrcPath + name + "\\" + servicePath + "\\" + serviceImplPath + "\\" + serviceImplName + ".java";
+			generateFile(path, gb.toString());
+			return basePackage + "." + servicePath + "." + serviceImplPath + "." + serviceImplName;
 
-		}else{
-			return basePackage+"."+servicePath+"."+serviceImplPath+"."+serviceImplName;
+		} else {
+			return basePackage + "." + servicePath + "." + serviceImplPath + "." + serviceImplName;
 		}
 
-
-
 	}
 
-	public static String generateMapper(Class c,Comment comment){
+	public static String generateMapper(Class c, Comment comment) {
 		String entityName = GenerateUtil.getClassName(c);
 		String lowerEntityName = GenerateUtil.firstLowerCase(entityName);
-		String mapperName = entityName+"Mapper";
+		String mapperName = entityName + "Mapper";
 		GenerateBuffer gb = GenerateBuffer.getInstance();
-		gb.appendPackage(basePackage+"."+mapperPath).appendRN();
-		gb.appendImport(c,List.class);
+		gb.appendPackage(basePackage + "." + mapperPath).appendRN();
+		gb.appendImport(c, List.class);
 		//gb.appendImport("org.apache.ibatis.annotations.Mapper");
-		gb.appendDesc(comment,DescType.CLASS,0);
+		gb.appendDesc(comment, DescType.CLASS, 0);
 
 		//gb.appendSRN("@Mapper");
-		gb.appendSRN("public interface "+mapperName+"{");
-		gb.appendDesc(comment,DescType.SELECT,1);
-		gb.appendT(1).appendSRN("List<"+entityName+"> selectList("+entityName+" "+lowerEntityName+");").appendRN();
-		gb.appendT(1).appendSRN(""+entityName+" selectOne("+entityName+" "+lowerEntityName+");").appendRN();
-		gb.appendDesc(comment,DescType.INSERT,1);
-		gb.appendT(1).appendSRN("int insert("+entityName+" "+lowerEntityName+");").appendRN();
-	//	gb.appendDesc(comment,DescType.INSERT_BATCH,1);
+		gb.appendSRN("public interface " + mapperName + "{");
+		gb.appendDesc(comment, DescType.SELECT, 1);
+		gb.appendT(1).appendSRN("List<" + entityName + "> selectList(" + entityName + " " + lowerEntityName + ");").appendRN();
+		gb.appendT(1).appendSRN("" + entityName + " selectOne(" + entityName + " " + lowerEntityName + ");").appendRN();
+		gb.appendDesc(comment, DescType.INSERT, 1);
+		gb.appendT(1).appendSRN("int insert(" + entityName + " " + lowerEntityName + ");").appendRN();
+		//	gb.appendDesc(comment,DescType.INSERT_BATCH,1);
 //		gb.appendT(1).appendSRN("int insertBatch(List<"+entityName+"> list);").appendRN();
-		gb.appendDesc(comment,DescType.UPDATE,1);
-		gb.appendT(1).appendSRN("int updateById("+entityName+" "+lowerEntityName+");").appendRN();
-	//	gb.appendDesc(comment,DescType.DELETE_FAKE,1);
+		gb.appendDesc(comment, DescType.UPDATE, 1);
+		gb.appendT(1).appendSRN("int updateById(" + entityName + " " + lowerEntityName + ");").appendRN();
+		//	gb.appendDesc(comment,DescType.DELETE_FAKE,1);
 //		gb.appendT(1).appendSRN("int deleteFake(Long id);").appendRN();
-		gb.appendDesc(comment,DescType.DELETE,1);
+		gb.appendDesc(comment, DescType.DELETE, 1);
 		gb.appendT(1).appendSRN("int delete(Long id);").appendRN();
 		gb.appendSRN("}");
-		String path = baseSrcPath+mapperPath+"\\"+mapperName+".java";
-		generateFile(path,gb.toString());
-		return basePackage+"."+mapperPath+"."+mapperName;
+		String path = baseSrcPath + mapperPath + "\\" + mapperName + ".java";
+		generateFile(path, gb.toString());
+		return basePackage + "." + mapperPath + "." + mapperName;
 	}
 
-	public static void generateMapperXml(Class c,String mapperName,String tableName){
-	//	String entityName = GenerateUtil.getClassName(c);
+	public static void generateMapperXml(Class c, String mapperName, String tableName) {
+		//	String entityName = GenerateUtil.getClassName(c);
 		String entityName = name;
-		String mapperXmlName = entityName+".mapper.xml";
+		String mapperXmlName = entityName + ".mapper.xml";
 		List<ClassField> fieldList = GenerateUtil.getFieldList(c);
 		List<String> columnList = new ArrayList<>();
 
 		GenerateBuffer gb = GenerateBuffer.getInstance();
 		gb.appendSRN("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
 		gb.appendSRN("<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >");
-		gb.appendSRN("<mapper namespace=\""+firstLowerCase(name)+"\" >");
+		gb.appendSRN("<mapper namespace=\"" + firstLowerCase(name) + "\" >");
 		//resultmap
 	/*	gb.appendT(1).appendSRN("<resultMap type=\""+c.getName()+"\" id=\"baseResultMap\">");
 		for (ClassField field : fieldList) {
@@ -1033,7 +1027,7 @@ public class GenerateUtil {
 		gb.appendT(2).appendSRN("</where>");
 		gb.appendT(1).appendSRN("</sql>").appendRN();*/
 		//selectList
-		gb.appendT(1).appendSRN("<select id=\"get"+name+"List\" parameterType=\"java.util.Map\" resultType=\"java.util.HashMap\">");
+		gb.appendT(1).appendSRN("<select id=\"get" + name + "List\" parameterType=\"java.util.Map\" resultType=\"java.util.HashMap\">");
 
 		gb.appendT(1).appendSRN("</select>").appendRN();
 		//insert
@@ -1051,7 +1045,7 @@ public class GenerateUtil {
 		gb.appendT(2).appendSRN("</trim>");
 		gb.appendT(1).appendSRN("</insert>").appendRN();*/
 		//insertbatch
-		gb.appendT(1).appendSRN("<insert id=\"insert"+name+"\" parameterType=\"java.util.Map\">");
+		gb.appendT(1).appendSRN("<insert id=\"insert" + name + "\" parameterType=\"java.util.Map\">");
 		/*gb.appendT(2).appendSRN("insert into "+tableName+"(");
 		for (int i = 0; i < fieldList.size(); i++) {
 			gb.appendT(3).append(fieldList.get(i).getSqlColumn());
@@ -1074,7 +1068,7 @@ public class GenerateUtil {
 		gb.appendT(1).appendSRN("</insert>").appendRN();
 
 		//update
-		gb.appendT(1).appendSRN("<update id=\"update"+name+"\" parameterType=\"java.util.Map\">");
+		gb.appendT(1).appendSRN("<update id=\"update" + name + "\" parameterType=\"java.util.Map\">");
 	/*	gb.appendT(2).appendSRN("update "+tableName);
 		gb.appendT(2).appendSRN("<set>");
 		for (ClassField field : fieldList) {
@@ -1093,35 +1087,34 @@ public class GenerateUtil {
 		gb.appendT(2).appendSRN("where id = #{id}");
 		gb.appendT(1).appendSRN("</update>").appendRN();*/
 		//delete
-		gb.appendT(1).appendSRN("<delete id=\"delete"+name+"\" parameterType=\"java.util.Map\">");
+		gb.appendT(1).appendSRN("<delete id=\"delete" + name + "\" parameterType=\"java.util.Map\">");
 	/*	gb.appendT(2).appendSRN("delete from "+tableName);
 		gb.appendT(2).appendSRN("where id = #{id}");*/
 		gb.appendT(1).appendSRN("</delete>").appendRN();
 
 		gb.appendSRN("</mapper>");
-		File file = new File(bankxml+firstLowerCase(name));
-		if(!file.exists()&&!file.isDirectory()){
+		File file = new File(bankxml + firstLowerCase(name));
+		if (!file.exists() && !file.isDirectory()) {
 			System.out.println("xml名称不存在，开始新增");
 			file.mkdir();
-			generateFile(bankxml+firstLowerCase(name) +"\\"+ mapperXmlName,gb.toString());
+			generateFile(bankxml + firstLowerCase(name) + "\\" + mapperXmlName, gb.toString());
 
-		}else{
+		} else {
 			System.out.println("xml名称存在，不新增");
 		}
 
-
 	}
 
-	public static void generateFile(String path,String content){
+	public static void generateFile(String path, String content) {
 		//System.out.println("生成文件路径："+path);
 		//System.out.println("生成文件内容：\r\n"+content);
 		File file = new File(path);
 		boolean flag = FileUtils.createFile(file);
-		if(flag){
-			System.out.println("生成文件  ："+path);
-			FileUtils.writeFile(file,content);
-		}else{
-			System.out.println("文件已存在："+path);
+		if (flag) {
+			System.out.println("生成文件  ：" + path);
+			FileUtils.writeFile(file, content);
+		} else {
+			System.out.println("文件已存在：" + path);
 		}
 	}
 
@@ -1130,9 +1123,9 @@ public class GenerateUtil {
 		List<ClassField> list = new ArrayList<>();
 		Field[] fields = c.getDeclaredFields();
 		ClassField classField = null;
-		for (Field field:fields) {
+		for (Field field : fields) {
 			String fieldName = field.getName();
-			if("serialVersionUID".equalsIgnoreCase(fieldName)){
+			if ("serialVersionUID".equalsIgnoreCase(fieldName)) {
 				continue;
 			}
 			classField = new ClassField();
@@ -1141,7 +1134,7 @@ public class GenerateUtil {
 			classField.setSqlColumn(GenerateUtil.humpToLine(fieldName));
 			classField.setFieldType(typeName);
 			classField.setSqlType(null);
-			if(field.isAnnotationPresent(com.google.demoForIdea.threadTool.Comment.class)){
+			if (field.isAnnotationPresent(com.google.demoForIdea.threadTool.Comment.class)) {
 				com.google.demoForIdea.threadTool.Comment comment = field.getAnnotation(com.google.demoForIdea.threadTool.Comment.class);
 				classField.setFieldComment(comment.value());
 			}
@@ -1151,78 +1144,85 @@ public class GenerateUtil {
 	}
 
 	private static Pattern humpToLinePattern = Pattern.compile("[A-Z]");
-	private static String humpToLine(String str){
+
+	private static String humpToLine(String str) {
 		Matcher matcher = humpToLinePattern.matcher(str);
 		StringBuffer sb = new StringBuffer();
-		while (matcher.find()){
-			matcher.appendReplacement(sb,"_"+matcher.group(0).toLowerCase());
+		while (matcher.find()) {
+			matcher.appendReplacement(sb, "_" + matcher.group(0).toLowerCase());
 		}
 		matcher.appendTail(sb);
 		return sb.toString();
 	}
 
 	//获取类名
-	public static String getClassName(Class c){
+	public static String getClassName(Class c) {
 		String[] names = c.getName().split("\\.");
-		return names[names.length-1];
+		return names[names.length - 1];
 	}
+
 	//首字母小写
 	private static String firstLowerCase(String str) {
 		char[] chars = str.toCharArray();
-		chars[0]+=32;
+		chars[0] += 32;
 		return String.valueOf(chars);
 	}
 }
 
-class FileUtils{
+class FileUtils {
 
 	//创建文件
-	public static boolean createFile(File file){
+	public static boolean createFile(File file) {
 		boolean flag = false;
 		try {
-			if(!file.exists()){
+			if (!file.exists()) {
 				file.createNewFile();
 				flag = true;
 			}
-		}catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return flag;
 	}
+
 	//写文件
-	public static void writeFile(File file,String content){
-		try (FileWriter writer = new FileWriter(file); BufferedWriter out = new BufferedWriter(writer)){
+	public static void writeFile(File file, String content) {
+		try (FileWriter writer = new FileWriter(file); BufferedWriter out = new BufferedWriter(writer)) {
 			out.write(content);
 			out.flush();
-		}catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
+
 	//读文件
-	public static void readFile(File file,String content){
-		try (FileReader reader = new FileReader(file); BufferedReader br = new BufferedReader(reader)){
+	public static void readFile(File file, String content) {
+		try (FileReader reader = new FileReader(file); BufferedReader br = new BufferedReader(reader)) {
 			String line;
-			while ((line = br.readLine())!=null){
+			while ((line = br.readLine()) != null) {
 				System.out.println(line);
 			}
-		}catch (Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 }
 
-class GenerateBuffer{
+class GenerateBuffer {
 	private volatile static GenerateBuffer generateBuffer = null;
 	private static StringBuffer sb = null;
 	public static final String rn = "\r\n";
 	public static final String t1 = "\t";
 	public static final String blank = " ";
 	public static final String fh = ";";
-	private GenerateBuffer(){}
-	public static GenerateBuffer getInstance(){
-		if(generateBuffer==null){
-			synchronized (GenerateBuffer.class){
-				if(generateBuffer==null){
+
+	private GenerateBuffer() {
+	}
+
+	public static GenerateBuffer getInstance() {
+		if (generateBuffer == null) {
+			synchronized (GenerateBuffer.class) {
+				if (generateBuffer == null) {
 					generateBuffer = new GenerateBuffer();
 				}
 			}
@@ -1231,65 +1231,75 @@ class GenerateBuffer{
 		return generateBuffer;
 	}
 
-	public GenerateBuffer append(String str){
+	public GenerateBuffer append(String str) {
 		sb.append(str);
 		return this;
 	}
-	public GenerateBuffer appendBlank(String str){
+
+	public GenerateBuffer appendBlank(String str) {
 		sb.append(blank).append(str).append(blank);
 		return this;
 	}
-	public GenerateBuffer appendT(int i){
+
+	public GenerateBuffer appendT(int i) {
 		for (int j = 0; j < i; j++) {
 			sb.append(t1);
 		}
 		return this;
 	}
-	public GenerateBuffer appendRN(){
+
+	public GenerateBuffer appendRN() {
 		sb.append(rn);
 		return this;
 	}
-	public GenerateBuffer appendSRN(String str){
+
+	public GenerateBuffer appendSRN(String str) {
 		sb.append(str).append(rn);
 		return this;
 	}
-	public GenerateBuffer appendImport(Class... cla){
-		for (Class c : cla){
-			append("import ").appendSRN(c.getName()+fh);
+
+	public GenerateBuffer appendImport(Class... cla) {
+		for (Class c : cla) {
+			append("import ").appendSRN(c.getName() + fh);
 		}
 		return this;
 	}
+
 	public GenerateBuffer appendPackage(String str) {
-		append("package ").appendSRN(str+fh);
+		append("package ").appendSRN(str + fh);
 		return this;
 	}
-	public GenerateBuffer appendImport(String name){
-		append("import ").appendSRN(name+fh);
+
+	public GenerateBuffer appendImport(String name) {
+		append("import ").appendSRN(name + fh);
 		return this;
 	}
-	public GenerateBuffer appendDesc(Comment comment,DescType type,int i){
+
+	public GenerateBuffer appendDesc(Comment comment, DescType type, int i) {
 		appendT(i).appendSRN("/**");
 		appendT(i).append(" * ");
-		if(DescType.CLASS.equals(type)){
-			appendSRN(comment.getDesc()==null?"":comment.getDesc());
-			appendT(i).appendSRN(" * @author     : "+comment.getAuthor());
-			appendT(i).appendSRN(" * @createTime : "+comment.getCreateTime());
-		}else{
+		if (DescType.CLASS.equals(type)) {
+			appendSRN(comment.getDesc() == null ? "" : comment.getDesc());
+			appendT(i).appendSRN(" * @author     : " + comment.getAuthor());
+			appendT(i).appendSRN(" * @createTime : " + comment.getCreateTime());
+		} else {
 			appendSRN(type.getName());
 		}
 		appendT(i).appendSRN(" */");
 		return this;
 	}
+
 	@Override
 	public String toString() {
 		return sb.toString();
 	}
 
-	public void appendTry(int i ,String... strs) {
+	public void appendTry(int i, String... strs) {
 		appendT(i).appendSRN("");
 	}
 }
-enum DescType{
+
+enum DescType {
 	CLASS(""),
 	SELECT("分页查询"),
 	INSERT("新增"),
@@ -1298,19 +1308,26 @@ enum DescType{
 	DELETE("删除");
 	//DELETE_FAKE("根据ID伪删除");
 	private String name;
-	DescType(String name){this.name = name;}
+
+	DescType(String name) {
+		this.name = name;
+	}
+
 	public String getName() {
 		return name;
 	}
 }
-class ClassField{
+
+class ClassField {
 	private String fieldName;
 	private String fieldValue;
 	private String fieldType;
 	private String sqlColumn;
 	private String sqlType;
 	private String fieldComment;
-	public ClassField() {}
+
+	public ClassField() {
+	}
 
 	public String getFieldName() {
 		return fieldName;
@@ -1361,7 +1378,7 @@ class ClassField{
 	}
 }
 
-class Comment{
+class Comment {
 	private String author;
 	private String desc;
 	private String createTime;

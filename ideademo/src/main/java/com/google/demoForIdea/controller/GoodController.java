@@ -3,11 +3,11 @@ package com.google.demoForIdea.controller;
 import com.fasterxml.jackson.core.JsonParser.Feature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.demoForIdea.dao.GoodDao;
+import com.google.demoForIdea.dao.OrderDao;
 import com.google.demoForIdea.model.Good;
 import com.google.demoForIdea.model.Order;
 import com.google.demoForIdea.model.OrderInfo;
-import com.google.demoForIdea.service.GoodService;
-import com.google.demoForIdea.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -22,9 +22,9 @@ import java.util.List;
 
 public class GoodController {
 	@Autowired
-	GoodService goodService;
+	GoodDao goodService;
 	@Autowired
-	OrderService orderService;
+	OrderDao orderService;
 
 	@RequestMapping(value = "/{goodId}", produces = "application/json; charset=utf-8", method = {RequestMethod.GET})
 	@ResponseBody

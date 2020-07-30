@@ -85,9 +85,32 @@ public class Cart {
 		this.goodDetailUrls = goodDetailUrls;
 	}
 
+	public Cart() {
+		super();
+	}
 
-	public Cart(Integer cartId, Integer goodId, String goodName, BigDecimal goodPrice, String goodMainUrl,String goodDetailUrls,
-			Integer selected, Integer num,String openid) {
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	}
+
+	@Override
+	protected void finalize() throws Throwable {
+		super.finalize();
+	}
+
+	public Cart(Integer cartId, Integer goodId, String goodName, BigDecimal goodPrice, String goodMainUrl, String goodDetailUrls,
+	            Integer selected, Integer num, String openid) {
 		super();
 		this.cartId = cartId;
 		this.goodId = goodId;

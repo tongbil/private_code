@@ -3,7 +3,7 @@ package com.google.demoForIdea.controller;
 import com.google.demoForIdea.common.HttpClient;
 import com.google.demoForIdea.common.ParseExcel;
 import com.google.demoForIdea.common.PropertiesUtil;
-import com.google.demoForIdea.service.ExeclService;
+import com.google.demoForIdea.dao.ExeclDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +24,7 @@ import java.util.UUID;
 public class ExeclController {
 	public static final String BASE_PATH = "/file/";
 	@Autowired
-	ExeclService execlService;
+	ExeclDao execlService;
 
 	@PostMapping("/importAlumnis")
 	@ResponseBody

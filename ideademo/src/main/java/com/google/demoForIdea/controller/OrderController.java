@@ -1,8 +1,8 @@
 package com.google.demoForIdea.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.demoForIdea.dao.OrderDao;
 import com.google.demoForIdea.model.Order;
-import com.google.demoForIdea.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +19,7 @@ import java.util.Map;
 @RequestMapping("/order")
 public class OrderController {
 	@Autowired
-	OrderService orderService;
+	OrderDao orderService;
 
 	@RequestMapping(value = "/get_all", produces = "application/json; charset=utf-8", method = {RequestMethod.GET})
 	@ResponseBody

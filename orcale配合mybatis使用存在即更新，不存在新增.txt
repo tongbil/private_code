@@ -88,3 +88,25 @@ select seq1.currval from dual;
 
 //恢复删除数据
 select * from tableName as of timestamp to_timestamp('2011-05-21 11:40:00','YYYY-MM-DD HH24:MI:SS');
+
+
+//序列
+create sequence seq_test_222   --创建序列名称
+increment by 1  --增长幅度
+start with 1  --初始值
+maxvalue 9999999999999999; 
+//查询生日
+//当日
+select t.*,t.rowid from njweb_cpxm_personin t
+
+where  to_char( to_date(t.operationby,'YYYY-MM-DD'),'MMDD') = to_char( sysdate , 'MMDD' );
+//当月
+select t.*,t.rowid from njweb_cpxm_personin t
+
+where  to_char( to_date(t.operationby,'YYYY-MM-DD'),'MM') = to_char( sysdate , 'MM' );
+
+
+
+
+
+

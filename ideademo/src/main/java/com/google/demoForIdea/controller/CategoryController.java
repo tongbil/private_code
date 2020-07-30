@@ -1,11 +1,11 @@
 package com.google.demoForIdea.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.demoForIdea.dao.CategoryDao;
+import com.google.demoForIdea.dao.GoodDao;
 import com.google.demoForIdea.model.Category;
 import com.google.demoForIdea.model.FullCategory;
 import com.google.demoForIdea.model.Good;
-import com.google.demoForIdea.service.CategoryService;
-import com.google.demoForIdea.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,9 +20,9 @@ import java.util.List;
 @RequestMapping("/category")
 public class CategoryController {
 	@Autowired
-	CategoryService categoryService;
+	CategoryDao categoryService;
 	@Autowired
-	GoodService goodService;
+	GoodDao goodService;
 
 	@RequestMapping(value = "/get_all", produces = "application/json; charset=utf-8", method = {RequestMethod.GET})
 	@ResponseBody

@@ -1,10 +1,10 @@
 package com.google.demoForIdea.controller;
 
 import com.github.kevinsawicki.http.HttpRequest;
+import com.google.demoForIdea.dao.HumanDao;
 import com.google.demoForIdea.model.Human;
 import com.google.demoForIdea.model.WxAuthPhone;
 import com.google.demoForIdea.model.WxPKCS7Encoder;
-import com.google.demoForIdea.service.HumanService;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,7 +27,7 @@ import java.util.Map;
 public class HumanController {
 
 	@Autowired
-	HumanService humanService;
+	HumanDao humanService;
 
 	@RequestMapping(value = "/addUser", produces = "application/json; charset=utf-8", method = {RequestMethod.GET})
 	@ResponseBody

@@ -29,12 +29,14 @@ public class 线程主动停止 {
 		t1.start();
 		//获取线程状态
 		Thread.State state1 = t1.getState();
-		System.out.println(t1.getState()+"获取?");
-
+		System.out.println(state1+"获取?");
+		System.out.println(t1.isInterrupted());
 		try {
 			Thread.sleep(100);
+
 			//主动停止
 			t1.interrupt();
+			System.out.println(t1.isInterrupted());
 			System.out.println(t1.getState()+"获取！");
 		} catch (InterruptedException e) {
 			e.printStackTrace();

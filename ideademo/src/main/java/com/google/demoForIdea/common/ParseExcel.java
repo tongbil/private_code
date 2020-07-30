@@ -80,7 +80,10 @@ public class ParseExcel {
 						rowArray[cellNum] = parseCell(cell);
 					}
 				}
-				result.add(rowArray);
+				if(null != rowArray[0] && !"".equals(rowArray[0])){
+					result.add(rowArray);
+				}
+
 			}
 		}
 

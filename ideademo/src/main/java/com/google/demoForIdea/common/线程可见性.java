@@ -12,7 +12,7 @@ private  static  volatile boolean flag =false;
 				num++;
 			}
 			System.out.println(num);
-		}).start();
+		}).start();  
 		Thread.sleep(1000);
 
 		 new Thread(()->{

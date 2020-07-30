@@ -1,6 +1,25 @@
 
 server:
+  servlet:
+    context-path: /test
   port: 6326
+hikari:
+  test1:
+    jdbc-url: jdbc:mysql://129.211.190.128:3306/mysql?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+    maximum-pool-size: 10
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    pool-name: principalHikariCP
+    sql-script-encoding: UTF-8
+  osgitest:
+    jdbc-url: jdbc:mysql://127.0.0.1:3306/osgitest?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: 123456
+    maximum-pool-size: 10
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    pool-name: principalHikariCP
+    sql-script-encoding: UTF-8
   #use-forward-headers: true
   #tomcat:
    # remote-ip-header: x-forwarded-for
@@ -9,42 +28,43 @@ server:
 spring:
   thymeleaf:
     cache: false
-  datasource:
-    name: mysql_test
-    type: com.alibaba.druid.pool.DruidDataSource
+  #datasource:
+
+    #name: mysql_test
+    #type: com.alibaba.druid.pool.DruidDataSource
     #druid相关配置
-    druid:
+    # druid:
       #监控统计拦截的filters
-      filters: stat
-      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    # filters: stat
+    # driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
       #driver-class-name: oracle.jdbc.OracleDriver
       #url: jdbc:oracle:thin:@localhost:1521:orcl
       #基本属性
-      url: jdbc:log4jdbc:mysql://129.211.190.128:3306/mysql?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true
+    # url: jdbc:log4jdbc:mysql://129.211.190.128:3306/mysql?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true
       #url: jdbc:log4jdbc:mysql://127.0.0.1:3306/mysql?serverTimezone=UTC&useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true
       #username: c##scott
       #password: 123
-      username: root
-      password: root
+    #  username: root
+    #  password: root
       #password: 123456
     #配置初始化大小/最小/最大
-      initial-size: 1
-      min-idle: 1
-      max-active: 20
+    #  initial-size: 1
+    #   min-idle: 1
+    #  max-active: 20
       #获取连接等待超时时间
-      max-wait: 60000
+    # max-wait: 60000
       #间隔多久进行一次检测，检测需要关闭的空闲连接
-      time-between-eviction-runs-millis: 60000
+    #   time-between-eviction-runs-millis: 60000
       #一个连接在池中最小生存的时间
-      min-evictable-idle-time-millis: 300000
+    #   min-evictable-idle-time-millis: 300000
       #mysql validation-query: SELECT 'x'
       #validation-query: SELECT * from dual
-      test-while-idle: true
-      test-on-borrow: false
-      test-on-return: false
+    #  test-while-idle: true
+    #   test-on-borrow: false
+    #  test-on-return: false
       #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
-      pool-prepared-statements: false
-      max-pool-prepared-statement-per-connection-size: 20
+    #  pool-prepared-statements: false
+  #  max-pool-prepared-statement-per-connection-size: 20
 logging:
   level:
     com.google.demoForIdea.dao : debug
