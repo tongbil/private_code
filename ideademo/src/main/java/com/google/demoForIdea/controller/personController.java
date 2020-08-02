@@ -32,17 +32,18 @@ public class personController {
 	HttpServletRequest req;
 	@Autowired
 	HttpServletResponse resp;
-
+	boolean flag=false;
 	//@CrossOrigin 类上加跨域
 	@Autowired
 	private PersonDao personService;
-
 	@ResponseBody
 	//用try 必须自定义throw     NullPointerException("不存在!");
 	@Transactional(rollbackFor = Exception.class)
 	@GetMapping("/edit_message")
 	public String edit_message() {
-		Map<String, String> map = new HashMap<>();
+		flag=!flag;
+		System.out.println(flag);
+	/*	Map<String, String> map = new HashMap<>();
 		map.put("email","我是email");
 		map.put("content_message","我是message");
 
@@ -55,7 +56,7 @@ public class personController {
 
 			throw  new  NullPointerException("不存在!");
 		}
-
+*/
 
 
 		return "";

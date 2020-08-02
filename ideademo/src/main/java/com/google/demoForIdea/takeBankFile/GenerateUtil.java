@@ -16,14 +16,14 @@ public class GenerateUtil {
 	public static final String mapperPath = "hexindao";
 	public static final String voPath = "vo";
 	//银行项目
-	public static final String name = "Ttzhyx";
+	public static final String name = "Ttzhyx1";
 	public static final String serviceImplPath = "impl";
 	public static final String servicePath = "service";
 	public static final String controllerPath = "resource";
 	public static final String basePackage = "com.njcebbank";
 	public static final String baseSrcPath = "C:\\Users\\tangcomes\\Desktop\\testFile\\";
 	public static final String bankHtml = "C:\\Users\\tangcomes\\Desktop\\testFile\\";
-	public static final String bankxml = "C:\\Users\\tangcomes\\Desktop\\testFile\\orcl\\";
+	public static final String bankxml = "C:\\Users\\tangcomes\\Desktop\\testFile\\";
 
 	public static void main(String[] args) throws Exception {
 
@@ -44,7 +44,6 @@ public class GenerateUtil {
 
 
 		File file = new File(baseSrcPath + firstLowerCase(name));
-
 
 		if (!file.exists() && !file.isDirectory()) {
 			System.out.println("后端整个文件夹不存在，开始新增");
@@ -1093,15 +1092,7 @@ public class GenerateUtil {
 		gb.appendT(1).appendSRN("</delete>").appendRN();
 
 		gb.appendSRN("</mapper>");
-		File file = new File(bankxml + firstLowerCase(name));
-		if (!file.exists() && !file.isDirectory()) {
-			System.out.println("xml名称不存在，开始新增");
-			file.mkdir();
-			generateFile(bankxml + firstLowerCase(name) + "\\" + mapperXmlName, gb.toString());
-
-		} else {
-			System.out.println("xml名称存在，不新增");
-		}
+		generateFile(bankxml + firstLowerCase(name) + "\\" + mapperXmlName, gb.toString());
 
 	}
 

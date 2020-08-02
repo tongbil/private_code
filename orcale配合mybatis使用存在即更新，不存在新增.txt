@@ -95,7 +95,7 @@ create sequence seq_test_222   --创建序列名称
 increment by 1  --增长幅度
 start with 1  --初始值
 maxvalue 9999999999999999; 
-//查询生日
+//查询生日的语句
 //当日
 select t.*,t.rowid from njweb_cpxm_personin t
 

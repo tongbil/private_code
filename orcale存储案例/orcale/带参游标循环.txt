@@ -1,0 +1,28 @@
+-- Created on 2019/10/26 by TOBILL 
+declare 
+  -- 声明游标 带参数的话加括号
+  cursor c_city(c_name  T_SYS_CITY.Cname%type)  is 
+  select cname,cityid from T_SYS_CITY  where cname =c_name;
+  --声明变量接受游标中的数据
+  v_names  T_SYS_CITY.CNAME%type;
+  
+  v_id   T_SYS_CITY.CITYID%type;
+  
+   v_num number :=1;
+begin
+  --游标赋值
+open c_city(1); 
+loop
+    --获取游标中的值 有的话一直赋值给变量
+  fetch c_city into   v_names,v_id; 
+--当没有值了 就退出循环
+exit when  c_city%notfound;
+
+ dbms_output.put_line(v_names||','||v_id);
+end loop;
+close c_city;
+
+update testci set  v_name =v_id where  ids =v_names;
+commit;
+
+end;

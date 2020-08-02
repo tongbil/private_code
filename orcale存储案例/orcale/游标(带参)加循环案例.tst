@@ -1,0 +1,33 @@
+PL/SQL Developer Test script 3.0
+29
+-- Created on 2019/10/20 by TOBILL 
+declare
+ --声明游标
+ cursor c_city(c_pro T_SYS_CITY.PROVINCEID%type) is select cname,cityid from T_SYS_CITY where PROVINCEID =c_pro;
+ 
+        c_name T_SYS_CITY.Cname%type;
+        v_cityid T_SYS_CITY.CITYID%type;
+begin
+  --打开游标
+  open c_city(232);
+  
+  --遍历游标
+  
+ loop
+ --获取游标中的数据
+ 
+ fetch c_city into c_name,v_cityid;
+   
+ --退出循坏条件
+ exit when c_city%notfound;
+ 
+ dbms_output.put_line(c_name || '-' || v_cityid);
+ 
+ end loop;
+  
+  --关闭游标
+  close c_city;
+ 
+end;
+0
+0
