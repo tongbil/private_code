@@ -1,23 +1,23 @@
-
+ï»¿
 merge into t_sys_city t1
         USING (select '1' as a
                from dual) t2
         on (t1.cityid = t2.a)
         when matched then
             update
-            set t1.cname = 'ÌÀ±ë'
+            set t1.cname = 'æ±¤å½ª'
         when not matched then
             insert (cityid,cname,provinceid,cityno)
             VALUES ('1', '1','1', '1')
 
- t1 Ö¸µÄÊÇÒª²åÈëµÄ±íµÄ±ğÃû¡£ ÔÚUsingÖĞ²é³öÄãÏëÒªÎ¨Ò»±êÊ¶µÄÖ÷¼ü»òÁªºÏÖ÷¼ü¡£
- ÎÒÕâÀïÍ¨¹ıuserIdºÍappIdÎ¨Ò»×÷ÎªÊı¾İµÄÎ¨Ò»ĞÔĞ£Ñé¡£µ±´æÔÚµÄÊ±ºòÖ´ĞĞupdate ·½·¨£¬ĞŞ¸Ä±íÖĞµÄopenId, Èç¹û²»´æÔÚÔòÖ´ĞĞinsert²Ù×÷.
+ t1 æŒ‡çš„æ˜¯è¦æ’å…¥çš„è¡¨çš„åˆ«åã€‚ åœ¨Usingä¸­æŸ¥å‡ºä½ æƒ³è¦å”¯ä¸€æ ‡è¯†çš„ä¸»é”®æˆ–è”åˆä¸»é”®ã€‚
+ æˆ‘è¿™é‡Œé€šè¿‡userIdå’ŒappIdå”¯ä¸€ä½œä¸ºæ•°æ®çš„å”¯ä¸€æ€§æ ¡éªŒã€‚å½“å­˜åœ¨çš„æ—¶å€™æ‰§è¡Œupdate æ–¹æ³•ï¼Œä¿®æ”¹è¡¨ä¸­çš„openId, å¦‚æœä¸å­˜åœ¨åˆ™æ‰§è¡Œinsertæ“ä½œ.
 
 
-Á´½Ó£ºhttps://blog.csdn.net/yangqinfeng1121/article/details/90672458
+é“¾æ¥ï¼šhttps://blog.csdn.net/yangqinfeng1121/article/details/90672458
 
 
-//½¨Î¨Ò»Ë÷Òı
+//å»ºå”¯ä¸€ç´¢å¼•
 ALTER TABLE njweb_cpxm_template ADD constraint uq_cpxm_template unique(ywmc)
 
 
@@ -26,21 +26,21 @@ ALTER TABLE njweb_cpxm_template ADD constraint cpxm_template_pk primary key(id)
 
 
 
-declare //±ØĞëÒª»»ĞĞ£¿
-day date :=to_date(¡®2014-03-01¡®,¡®yyyy-mm-dd¡®);//Ã¿Ò»¾ä»°½áÊø¶¼ÒªÒÔ·ÖºÅ½áÎ²
-dayw number(10,1) :=0.1;//±äÁ¿¸³Öµ·½Ê½  ±äÁ¿Ãû := Öµ
-iii int :=30;//¶¨ÒåÒ»¸öintÀàĞÍµÄÖ¸±ê
+declare //å¿…é¡»è¦æ¢è¡Œï¼Ÿ
+day date :=to_date(â€˜2014-03-01â€˜,â€˜yyyy-mm-ddâ€˜);//æ¯ä¸€å¥è¯ç»“æŸéƒ½è¦ä»¥åˆ†å·ç»“å°¾
+dayw number(10,1) :=0.1;//å˜é‡èµ‹å€¼æ–¹å¼  å˜é‡å := å€¼
+iii int :=30;//å®šä¹‰ä¸€ä¸ªintç±»å‹çš„æŒ‡æ ‡
  
 begin
-for i in 1..iii loop //for  Ñ­»·  Ìõ¼ş i<=30 loop ¿ªÊ¼Ñ­»·
+for i in 1..iii loop //for  å¾ªç¯  æ¡ä»¶ i<=30 loop å¼€å§‹å¾ªç¯
 day :=day+1;
 dayw := dayw+0.1;
-insert into wr_day_w_r(MP_CD,DT,day_w) values(¡®9988776655¡®,day,dayw);//²åÈë±ØĞëĞ´Ã÷ÒªÈëµÄÁĞ
-end loop;//½áÊøÑ­»·
+insert into wr_day_w_r(MP_CD,DT,day_w) values(â€˜9988776655â€˜,day,dayw);//æ’å…¥å¿…é¡»å†™æ˜è¦å…¥çš„åˆ—
+end loop;//ç»“æŸå¾ªç¯
 end;
 
 
-//¼¶ÁªÉ¾³ıÉ¾³ıtest ¾ÍÖ±½ÓÉ¾³ıtest2
+//çº§è”åˆ é™¤åˆ é™¤test å°±ç›´æ¥åˆ é™¤test2
 
 alter table test1 add constraint pk_id primary key (id);
 alter table test2 add constraint fk_id foreign key (id) references test1(id) on delete cascade;
@@ -50,28 +50,28 @@ delete from test1 where id='1';
 
 =====
 declare 
-id number(18) :=1;--±äÁ¿¸³Öµ·½Ê½  ±äÁ¿Ãû := Öµ
-iii int :=10;--¶¨ÒåÒ»¸öintÀàĞÍµÄÖ¸±ê
-username varchar2(20) :='ÌÀ±ë';
+id number(18) :=1;--å˜é‡èµ‹å€¼æ–¹å¼  å˜é‡å := å€¼
+iii int :=10;--å®šä¹‰ä¸€ä¸ªintç±»å‹çš„æŒ‡æ ‡
+username varchar2(20) :='æ±¤å½ª';
 begin
-for i in 1..iii loop --for  Ñ­»·  Ìõ¼ş i<=30 loop ¿ªÊ¼Ñ­»·
+for i in 1..iii loop --for  å¾ªç¯  æ¡ä»¶ i<=30 loop å¼€å§‹å¾ªç¯
 id :=id+1;
-insert into tuser(id,username,classid) values(id,username,'0000');--²åÈë±ØĞëĞ´Ã÷ÒªÈëµÄÁĞ
-end loop;--½áÊøÑ­»·
+insert into tuser(id,username,classid) values(id,username,'0000');--æ’å…¥å¿…é¡»å†™æ˜è¦å…¥çš„åˆ—
+end loop;--ç»“æŸå¾ªç¯
 end;
 
 
-//±ØĞëÍ¬Ê±Âú×ã ²ÅÅĞ¶ÏÎ¨Ò»
+//å¿…é¡»åŒæ—¶æ»¡è¶³ æ‰åˆ¤æ–­å”¯ä¸€
 alter table tuser add constraint u_idname unique (id,username);
 
 
 insert  into tclass(id,class)
 select u.id ,fs.fs from tuser u left join tfs fs on u.id = fs.id
 
-ĞéÄâÁĞ ¾Ífrom dual left join tfs 
+è™šæ‹Ÿåˆ— å°±from dual left join tfs 
 
 
-//A±íÓëB±í¶ÔÓ¦µÄ ¸³Öµµ½A±í
+//Aè¡¨ä¸Bè¡¨å¯¹åº”çš„ èµ‹å€¼åˆ°Aè¡¨
 merge into test1 using test2
 
 on (test1.id = test2.id)
@@ -81,26 +81,26 @@ when matched then update
 set test1.name = nvl2(test1.name,test2.name,test1.name);
 
 
-//ÏÂÒ»¸öºÍµ±Ç°Ö÷¼ü
+//ä¸‹ä¸€ä¸ªå’Œå½“å‰ä¸»é”®
 select seq1.nextval  from dual;
 select seq1.currval from dual;
 
 
-//»Ö¸´É¾³ıÊı¾İ
+//æ¢å¤åˆ é™¤æ•°æ®
 select * from tableName as of timestamp to_timestamp('2011-05-21 11:40:00','YYYY-MM-DD HH24:MI:SS');
 
 
-//ĞòÁĞ
-create sequence seq_test_222   --´´½¨ĞòÁĞÃû³Æ
-increment by 1  --Ôö³¤·ù¶È.
-start with 1  --³õÊ¼Öµ
+//åºåˆ—
+create sequence seq_test_222   --åˆ›å»ºåºåˆ—åç§°
+increment by 1  --å¢é•¿å¹…åº¦.
+start with 1  --åˆå§‹å€¼1
 maxvalue 9999999999999999; 
-//²éÑ¯ÉúÈÕµÄÓï¾ä
-//µ±ÈÕ
+//æŸ¥è¯¢ç”Ÿæ—¥çš„è¯­å¥
+//å½“æ—¥
 select t.*,t.rowid from njweb_cpxm_personin t
 
 where  to_char( to_date(t.operationby,'YYYY-MM-DD'),'MMDD') = to_char( sysdate , 'MMDD' );
-//µ±ÔÂ
+//å½“æœˆ
 select t.*,t.rowid from njweb_cpxm_personin t
 
 where  to_char( to_date(t.operationby,'YYYY-MM-DD'),'MM') = to_char( sysdate , 'MM' );
