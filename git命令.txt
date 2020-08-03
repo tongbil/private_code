@@ -61,3 +61,10 @@ git add -u  提交被修改(modified)和被删除(deleted)文件，不包括新�
 git add .  提交新文件(new)和被修改(modified)文件，不包括被删除(deleted)文件 -
 =======
 >>>>>>> origin/tongbil
+
+使用命令 git remote -v 查看你当前的 remote url
+如果是以上的结果那么说明此项目是使用https协议进行访问的（如果地址是git开头则表示是git协议）
+你可以登陆你的github，就像本文开头的图例，你在上面可以看到你的ssh协议相应的url，类似：
+//配置密钥
+git remote set-url origin git@github.com:someaccount/private_code.git（private_code.git改成自己的）
+然后你可以再用命令 git remote -v 查看一下，url是否已经变成了ssh地址。
