@@ -10,7 +10,7 @@ merge into t_sys_city t1
             insert (cityid,cname,provinceid,cityno)
             VALUES ('1', '1','1', '1')
 
- t1 指的是要插入的表的别名。 在Using中查出你想要唯一标识的主键或联合主键。
+ t1 指的是要插入的表的别名。 在Using中查出你想要唯一标识的主键或联合主键。。。。。。
  我这里通过userId和appId唯一作为数据的唯一性校验。当存在的时候执行update 方法，修改表中的openId, 如果不存在则执行insert操作.
 
 

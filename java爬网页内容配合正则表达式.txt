@@ -1,4 +1,4 @@
-public  static String getHtml(){
+﻿public  static String getHtml(){
     StringBuffer sb = new StringBuffer();
     try {
         String u = "http://www.cebbank.com/eportal/ui?pageId=477257";
@@ -20,7 +20,7 @@ public  static String getHtml(){
 }
 
 public static void main(String[] args) {
-    String query = "��Ԫ(USD)";
+    String query = "美元(USD)";
     String html = getHtml();
 
     String pattern = "<tr([\\s\\S]*?)</tr>";
