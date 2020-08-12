@@ -6,10 +6,7 @@ import java.util.concurrent.FutureTask;
 
 public class ThreadDemo {
 	public static void main(String[] args) {
-		//继承runnable
-		Thread thread = new Thread(()->{
 
-		});
 		//带返回值的
 		FutureTask<String> ft = new FutureTask<>(new MyCallable());
 		Thread thread1 = new Thread(ft);

@@ -31,6 +31,7 @@ public class EasyCacheUtil {
 		}
 		Object obj = cacheMap.get(key);
 		return obj == null ? null : (T)obj;
+
 	}
 
 	/**
