@@ -32,16 +32,17 @@ public class personController {
 	HttpServletRequest req;
 	@Autowired
 	HttpServletResponse resp;
-	boolean flag=false;
+	boolean flag = false;
 	//@CrossOrigin 类上加跨域
 	@Autowired
 	private PersonDao personService;
+
 	@ResponseBody
 	//用try 必须自定义throw     NullPointerException("不存在!");
 	@Transactional(rollbackFor = Exception.class)
 	@GetMapping("/edit_message")
-	public String edit_message() {
-		flag=!flag;
+	public String editMessage() {
+		flag = !flag;
 		System.out.println(flag);
 	/*	Map<String, String> map = new HashMap<>();
 		map.put("email","我是email");
@@ -62,6 +63,15 @@ public class personController {
 		return "";
 	}
 
+	@ResponseBody
+	@GetMapping("/edit_messageLXd")
+	public String edit_messageJrebel() {
+		System.out.println("我是jrebe1111111l出来的");
+		int i = personService.insert_edit_messageJre();
+		System.out.println(i);
+		return "我是jrebe1111111l出来的";
+	}
+
 
 	@ResponseBody
 	@PostMapping("/cookie_bak")
@@ -75,7 +85,7 @@ public class personController {
 		}*/
 		Cookie[] cookies = req.getCookies();
 		System.out.println(cookies);
-		if(null!=cookies){
+		if (null != cookies) {
 			for (int i = 0, n = cookies.length; i < n; i++) {
 				if (cookies[i].getName().equalsIgnoreCase(DISTRIBUTED_SESSION_ID)) {
 					System.out.println(cookies[i]);
@@ -84,7 +94,7 @@ public class personController {
 			}
 		}
 
-		map.put("result","我是window系统");
+		map.put("result", "我是window系统");
 		HttpSession session = req.getSession();
 		System.out.println(session.getId());
 		Cookie cookie = new Cookie(DISTRIBUTED_SESSION_ID, session.getId());
@@ -98,20 +108,20 @@ public class personController {
 		Map<Object, Object> map = new HashMap<>();
 
 
-		map.put("add","222222");
-		map.put("arr",new NumbericRenderData(new ArrayList<TextRenderData>(){{
+		map.put("add", "222222");
+		map.put("arr", new NumbericRenderData(new ArrayList<TextRenderData>() {{
 			add(new TextRenderData("000000", "2013年 以《剧场女神》公演正式出道"));
 			add(new TextRenderData("000000", "2014年 拍摄个人首支MV《足球派对》"));
 		}}));
 
 		Map<Object, Object> map2 = new HashMap<>();
 		Map<Object, Object> map3 = new HashMap<>();
-		map2.put("name","Memories");
-		map3.put("name","Last Dance(伍佰)");
-		List<Map> arrlist= new ArrayList<>();
+		map2.put("name", "Memories");
+		map3.put("name", "Last Dance(伍佰)");
+		List<Map> arrlist = new ArrayList<>();
 		arrlist.add(map2);
 		arrlist.add(map3);
-		map.put("songs",arrlist);
+		map.put("songs", arrlist);
 
 		//一行代码 poi4.0.0版本
 		XWPFTemplate template =
@@ -131,10 +141,11 @@ public class personController {
 				}
 			}
 		});*/
-		OutputStream out =resp.getOutputStream();
+		OutputStream out = resp.getOutputStream();
 		template.write(out);
 		out.flush();
 	}
+
 	//zip
 	@GetMapping("/zip_bak")
 	public void zip_bak(HttpServletResponse resp) throws IOException {
@@ -144,37 +155,38 @@ public class personController {
 		resp.setCharacterEncoding("utf-8");
 		resp.setContentType("application/zip");
 		resp.setHeader("Content-Disposition", "attachment; filename=excel.zip");
-		OutputStream out =resp.getOutputStream();
+		OutputStream out = resp.getOutputStream();
 
-		ZipUtils.compress(targetFolderPath , targetFolderPath,out);
+		ZipUtils.compress(targetFolderPath, targetFolderPath, out);
 
 	}
+
 	@GetMapping("/execl_bak")
 	public void execl_bak(HttpServletResponse resp) throws IOException {
-		Map<String,Object> model = new HashMap<>();
-		Map<String,Object> map = new HashMap<>();
-		map.put("id","我是id");
-		model.put("title","我是标题");
-		model.put("titles","我是标题s");
-		Map<String,Object> map2 = new HashMap<>();
-		map2.put("test","tang");
-		map2.put("test1","biao");
-		Map<String,Object> map3 = new HashMap<>();
-		map3.put("test","tang");
-		map3.put("test1","biao");
-		List<Map> maps= new ArrayList<>();
+		Map<String, Object> model = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();
+		map.put("id", "我是id");
+		model.put("title", "我是标题");
+		model.put("titles", "我是标题s");
+		Map<String, Object> map2 = new HashMap<>();
+		map2.put("test", "tang");
+		map2.put("test1", "biao");
+		Map<String, Object> map3 = new HashMap<>();
+		map3.put("test", "tang");
+		map3.put("test1", "biao");
+		List<Map> maps = new ArrayList<>();
 		maps.add(map2);
 		maps.add(map3);
-		model.put("dataList",maps);
+		model.put("dataList", maps);
 		//model.put("dataMap",new ArrayList<Map<String,Object>>());
-		model.put("map",map);
+		model.put("map", map);
 		try {
 			InputStream is = JxlsUtil.class.getResourceAsStream("/excel/tangbiao.xlsx");
 			OutputStream os = new FileOutputStream("C:\\Users\\tangcomes\\Desktop\\tangbiao.xlsx");
 			//OutputStream os=resp.getOutputStream();
 
-			JxlsUtil.export2Excel(is,os,model);
-		}catch (Exception e){
+			JxlsUtil.export2Excel(is, os, model);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

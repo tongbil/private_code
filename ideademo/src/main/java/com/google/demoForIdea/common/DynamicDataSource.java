@@ -9,7 +9,6 @@ public class DynamicDataSource extends AbstractRoutingDataSource {
 	protected Object determineCurrentLookupKey() {
 		//从共享线程中获取数据源名称
 		String dataSource = DynamicDataSourceHolder.getDataSource();
-		System.out.println(dataSource+"=============>>>");
 		return DynamicDataSourceHolder.getDataSource();
 	}
 }

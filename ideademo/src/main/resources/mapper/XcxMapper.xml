@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.google.demoForIdea.dao.XcxDao">
-
-    <select id="selectbo" parameterType="java.util.Map" resultType="java.util.HashMap">
-        select height923,height,image,image923,title,width923,width from xcx_lunbo
-    </select>
-
-</mapper>

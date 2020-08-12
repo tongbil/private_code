@@ -3,7 +3,7 @@ package com.google.demoForIdea;
 import com.google.demoForIdea.dao.Duoshujuyuan2Dao;
 import com.google.demoForIdea.dao.DuoshujuyuanDao;
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Test;
+
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +20,7 @@ public class AppTest {
 
 	boolean flag =false;
 
-	@Test
+	@org.junit.Test
 	public void testDynamicDatasource() {
 
 		System.out.println(!flag);

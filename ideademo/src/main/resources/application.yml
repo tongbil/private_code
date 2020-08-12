@@ -28,6 +28,8 @@ hikari:
 spring:
   thymeleaf:
     cache: false
+    check-template: false
+    check-template-location: false
   #datasource:
 
     #name: mysql_test
@@ -70,7 +72,7 @@ logging:
     com.google.demoForIdea.dao : debug
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.google.model
+  type-aliases-package: com.google.demoForIdea.model
 #pagehelper
 pagehelper:
   helperDialect: mysql

@@ -8,7 +8,7 @@ import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
-@MapperScan("com.google.demoForIdea.dao")
+@MapperScan(basePackages = "com.google.demoForIdea.dao")
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 public class IdeademoApplication {
 

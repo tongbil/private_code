@@ -120,6 +120,7 @@ public class GSON_RESULT {
 				"    ]\n" +
 				"}";
 		GSON_RESULT result = gson.fromJson(jsonData, GSON_RESULT.class);
+		//map转json JSON.TOJSONString(map);
 		System.out.println(result.getType());
 	}
 
