@@ -110,15 +110,17 @@ public class MergeCommand extends AbstractCommand {
 	private static void setRegionStyle(CellStyle cs, CellRangeAddress region, Sheet sheet) {
 		for (int i = region.getFirstRow(); i <= region.getLastRow(); i++) {
 			Row row = sheet.getRow(i);
-			if (row == null)
+			if (row == null){
 				row = sheet.createRow(i);
-			for (int j = region.getFirstColumn(); j <= region.getLastColumn(); j++) {
-				Cell cell = row.getCell(j);
-				if (cell == null) {
-					cell = row.createCell(j);
+				for (int j = region.getFirstColumn(); j <= region.getLastColumn(); j++) {
+					Cell cell = row.getCell(j);
+					if (cell == null) {
+						cell = row.createCell(j);
+					}
+					cell.setCellStyle(cs);
 				}
-				cell.setCellStyle(cs);
 			}
+
 		}
 	}
 

@@ -38,9 +38,9 @@ git log --oneline
 //简介版(回退索引)
 git reflog
 //回退上一个版本
-git reset --hard {索引的值}
+git reset --hard 索引的值
 //前进版本
-git reset --hard {索引的值}
+git reset --hard 索引的值
 //暂存的文件删除找回
 git add {文件}
 git reset --hard HEAD

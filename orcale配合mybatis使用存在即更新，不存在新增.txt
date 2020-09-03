@@ -105,6 +105,9 @@ select t.*,t.rowid from njweb_cpxm_personin t
 
 where  to_char( to_date(t.operationby,'YYYY-MM-DD'),'MM') = to_char( sysdate , 'MM' );
 
+//查看版本号
+select * from v$version;
+
 
 
 

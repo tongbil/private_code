@@ -7,6 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+/**
+ * @author tobill
+ */
 @EnableScheduling
 @MapperScan(basePackages = "com.google.demoForIdea.dao")
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)

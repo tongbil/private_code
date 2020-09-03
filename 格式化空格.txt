@@ -1,0 +1,4 @@
+
+mq：rabbitmq-plugins enable rabbitmq_management
+
+格式化 空格  ^\s*\n

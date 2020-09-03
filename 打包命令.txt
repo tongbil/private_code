@@ -1,0 +1,11 @@
+cnpm install firebase@4.6.2 --save
+cnpm install node-sass --registry=https://registry.npm.taobao.org
+
+
+
+
+
+
+
+//创建vueCLI项目
+vue init webpack 项目名字
