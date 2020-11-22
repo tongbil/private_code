@@ -6,9 +6,9 @@ public class Abcd {
 
 	public static void main(String[] args) {
 		String text = "A,CK,JHFKDGDKFGXAAAAA";
-		String repStr="";
-		if(text.contains(",")){
-			 repStr = text.replaceAll(",","");
+		String repStr = "";
+		if (text.contains(",")) {
+			repStr = text.replaceAll(",", "");
 		}
 		System.out.println(repStr);
 		Map<Character, Integer> map = new HashMap<>();
@@ -25,7 +25,6 @@ public class Abcd {
 		for (Map.Entry<Character, Integer> entry : entries) {
 			System.out.println(entry.getKey() + ":" + entry.getValue());
 		}
-
 
 	}
 

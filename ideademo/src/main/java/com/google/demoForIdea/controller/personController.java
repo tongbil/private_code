@@ -156,7 +156,7 @@ public class personController {
 		resp.setContentType("application/zip");
 		resp.setHeader("Content-Disposition", "attachment; filename=excel.zip");
 		OutputStream out = resp.getOutputStream();
-
+/**/
 		ZipUtils.compress(targetFolderPath, targetFolderPath, out);
 
 	}

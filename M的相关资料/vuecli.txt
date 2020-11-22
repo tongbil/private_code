@@ -1,0 +1,6 @@
+第一步  vue init webpack 》项目名
+一直回车
+在rout 选Y
+其他都是N
+
+

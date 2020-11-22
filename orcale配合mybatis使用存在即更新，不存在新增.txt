@@ -86,8 +86,8 @@ select seq1.nextval  from dual;
 select seq1.currval from dual;
 
 
-//恢复删除数据
-select * from tableName as of timestamp to_timestamp('2011-05-21 11:40:00','YYYY-MM-DD HH24:MI:SS');
+//恢复删除数据 这个时间点的
+ select * from tableName as of timestamp to_timestamp('2011-05-21 11:40:00','YYYY-MM-DD HH24:MI:SS');
 
 
 //序列
@@ -109,6 +109,28 @@ where  to_char( to_date(t.operationby,'YYYY-MM-DD'),'MM') = to_char( sysdate , '
 select * from v$version;
 
 
+//查表得字段注释
+
+
+SELECT c.*
+  FROM  all_tab_cols c
+ WHERE table_name = 'NJWEB_CPXM_TEMPLATE' ;
+ 
+select  * from  user_col_comments m where m.Table_Name='NJWEB_CPXM_TEMPLATE';
+ 
+
+
+select c.COLUMN_NAME, m.comments,c.DATA_TYPE,c.DATA_LENGTH,c.NULLABLE
+from all_tab_cols c
+inner join  
+  user_col_comments m
+
+on c.COLUMN_NAME=m.column_name 
+and c.TABLE_NAME=m.table_name
+
+where m.Table_Name='NJWEB_CPXM_TEMPLATE'
+
+select* from all_indexes where table_name='NJWEB_CPXM_TEMPLATE';
 
 
 

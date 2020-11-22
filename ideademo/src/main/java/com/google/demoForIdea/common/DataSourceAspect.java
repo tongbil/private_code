@@ -10,6 +10,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+
 @Component
 @Aspect
 @Slf4j
@@ -31,7 +32,7 @@ public class DataSourceAspect {
 			if (m != null && m.isAnnotationPresent(TargetDataSource.class)) {
 				TargetDataSource data = m.getAnnotation(TargetDataSource.class);
 				String dataSourceName = data.value();
-				System.out.println(dataSourceName+"名称======");
+				System.out.println(dataSourceName + "名称======");
 				DynamicDataSourceHolder.putDataSource(dataSourceName);
 				log.debug("current thread " + Thread.currentThread().getName() + " add " + dataSourceName + " to ThreadLocal");
 			} else {
@@ -44,7 +45,7 @@ public class DataSourceAspect {
 
 	//执行完切面后，将线程共享中的数据源名称清空
 	@After("dataSourcePointCut()")
-	public void after(JoinPoint joinPoint){
+	public void after(JoinPoint joinPoint) {
 		DynamicDataSourceHolder.removeDataSource();
 	}
 }
