@@ -119,7 +119,7 @@ SELECT c.*
 select  * from  user_col_comments m where m.Table_Name='NJWEB_CPXM_TEMPLATE';
  
 
-
+//查表的信息
 select c.COLUMN_NAME, m.comments,c.DATA_TYPE,c.DATA_LENGTH,c.NULLABLE
 from all_tab_cols c
 inner join  
@@ -132,6 +132,12 @@ where m.Table_Name='NJWEB_CPXM_TEMPLATE'
 
 select* from all_indexes where table_name='NJWEB_CPXM_TEMPLATE';
 
+//合并字段
 
+select listagg(t.details_id, ',') within group( order by t.details_id)   from njweb_cpxm_personin t;
+select * from njweb_cpxm_personin;
 
-
+//批量插入
+insert all  into  njweb_cpxm_personin values('4','4','4','4','4','4')
+into njweb_cpxm_personin  values('5','5','5','5','5','5')
+ select 1 from dual;

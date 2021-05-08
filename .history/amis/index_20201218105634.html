@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>amis demo</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <link rel="stylesheet" href="sdk/sdk.css" />
+    <style>
+        html,
+        body,
+        .app-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root" class="app-wrapper"></div>
+    <script src="sdk/sdk.js"></script>
+    <script type="text/javascript">
+        (function () {
+            let amis = amisRequire('amis/embed');
+            // 通过替换下面这个配置来生成不同页面
+            let amisScoped = amis.embed('#root', {
+                type: 'page',
+                name: "page1",
+                title: '表单页面1',
+                body: {
+                    type: 'form',
+                    name: "form1",
+                    mode: 'inline',
+                    api: '/people_context/edit_message',
+                    controls: [
+                        {
+                            label: 'Name',
+                            type: 'text',
+                            name: 'name',
+                            value: "1111"
+                        },
+                        {
+                            label: 'Email',
+                            type: 'email',
+                            name: 'email',
+                            value: "812568779@qq.com"
+                        }
+                    ]
+                }
+            }, {
+
+            }, {
+                fetcher: (config) => {
+
+                    console.log(config.url);
+                    console.log(location.href);
+                    $.ajax({
+                        type: "GET",
+                        url: "127.0.0.1:6326/test" + config.url,
+                        contentType: 'application/json;charset=utf-8', //设置请求头信息
+                        data: "", //必须是字符串
+                        dataType: "json",
+                        success: function (res) {
+                            if (res.rtnCode == 0) {
+                                successToast(res.msg);
+                            }
+                        },
+                        error: function (result) {
+                            errorToast(result.msg);
+                        }
+                    });
+                    //  location.href = config.url
+                },
+                responseAdpater(api, response, query, request) {
+                    console.log("有进来吗??????");
+                    debugger;
+                    console.log(api);
+                    console.log(response);
+                    console.log(query);
+                    console.log(request);
+                    return response;
+                }
+            });
+            //console.log(amisScoped.getComponentByName('page1.form1').getValues());
+            //  amisScoped.getComponentByName('page1.form1').setValues({ 'email': '812568779@qq.com' })
+
+
+        })();
+    </script>
+</body>
+
+</html>
