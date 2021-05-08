@@ -1,13 +1,13 @@
 
 server:
   servlet:
-    context-path: /test
+    context-path: /amis
   port: 6326
 hikari:
   test1:
-    jdbc-url: jdbc:mysql://129.211.190.128:3306/mysql?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
+    jdbc-url: jdbc:mysql://127.0.0.1:3306/osgitest?useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    password: 123456
     maximum-pool-size: 10
     driver-class-name: com.mysql.cj.jdbc.Driver
     pool-name: principalHikariCP

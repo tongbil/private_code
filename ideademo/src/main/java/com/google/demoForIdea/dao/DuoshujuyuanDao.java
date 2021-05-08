@@ -9,5 +9,6 @@ import java.util.Map;
 public interface DuoshujuyuanDao {
 
 	List<Map> selectByOddUserId(Map<String, Object> map);
+	List<Map> dusql(Map<String, Object> map);
 
 }

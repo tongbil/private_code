@@ -41,7 +41,7 @@ public class personController {
 	//用try 必须自定义throw     NullPointerException("不存在!");
 	@Transactional(rollbackFor = Exception.class)
 	@GetMapping("/edit_message")
-	public String editMessage() {
+	public Map editMessage() {
 		flag = !flag;
 		System.out.println(flag);
 	/*	Map<String, String> map = new HashMap<>();
@@ -58,9 +58,11 @@ public class personController {
 			throw  new  NullPointerException("不存在!");
 		}
 */
+		Map<String, String> map = new HashMap<>();
+		map.put("result","回来了");
 
 
-		return "";
+		return map;
 	}
 
 	@ResponseBody

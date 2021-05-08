@@ -6,4 +6,12 @@
         select  * from person_edit_message
     </select>
 
+    <select id="dusql" parameterType="hashmap" resultType="java.util.HashMap">
+       select * from dusql
+    </select>
+
+    <select id="do_sql" parameterType="java.lang.String" resultType="java.util.HashMap">
+       ${read_sql}
+    </select>
+
 </mapper>

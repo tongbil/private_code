@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -20,6 +21,17 @@ public class DuoshujuyuanConroller {
 	@Autowired
 	Duoshujuyuan2Dao duoshujuyuan2Service;
 
+
+	@GetMapping("/dusql")
+	public void dusql()  {
+String sql = "select * from sys_user where 1=1 <if test=\"usertype != null\">usertype = #{usertype}</if>";
+		Map<String, Object> map = new HashMap<>();
+		List<Map> dusql_map = duoshujuyuanService.dusql(map);
+
+		String  read_sql = dusql_map.get(0).get("out_sql").toString();
+		System.out.println(read_sql);
+
+	}
 
 
 	@GetMapping("/duoshujuyuan")
